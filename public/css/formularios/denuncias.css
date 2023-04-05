@@ -1,0 +1,110 @@
+@font-face {
+  font-family: 'museo_sans_300regular';
+  src: url('museo-sans-300-webfont.woff2') format('woff2'),
+       url('museo-sans-300-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+
+html,
+body,
+header{
+  height: 100vh;
+}
+body{
+  background: rgb(15,142,190);
+  background: linear-gradient(315deg, rgba(15,142,190,1) 34%, rgba(28,185,244,1) 62%, rgba(0,174,239,1) 100%); 
+}
+textarea{
+  resize: none;
+}
+nav ul li{
+    font-family: 'museo_sans_300regular';}
+
+.slideAlc{
+
+  padding-top:100px;
+  height: 560px;
+}
+.title-section{
+  font-family: 'Lato', sans-serif;  
+  font-weight: 600;
+padding-bottom: 5px;
+border-bottom: double;
+  border-color: #00AEEF;
+
+}
+
+.cyan-color
+{
+color:  #00AEEF;
+}
+.gray-color{
+  color: #3C4557;
+}
+.bg-cyan-ni{
+  background-color: #00AEEF;
+  color: white;
+}
+
+.bg-gray-ni{
+  background-color: #3C4557;
+  color: white;
+}
+
+.title-section-cyan{
+  font-family: 'Lato', sans-serif;  
+  font-weight: 600;
+  /* color: white; */
+  padding-bottom: 5px;
+  border-bottom: double;
+  border-color: #2E3951;
+
+}
+.cyan-bg{
+  background-color: #2E3951;
+}
+
+
+
+
+
+.card div{
+  width: 100%;
+  height: 100%;
+}
+.logoSvg{
+  width: 80px;
+  animation: loader 1.5s;
+  transition: transform 2s;
+}
+.logoSvg:hover{
+  transform: rotate(360deg);
+}
+.logo-footer{
+  background-color: white;
+  border-radius: 50%;
+
+
+}
+
+
+
+
+@keyframes loader {
+  0% {
+    rotate: 0deg;
+    
+  }
+  50%{
+    width: 90px;
+  }
+  100% {
+    border-radius: 50%;
+    rotate: 180deg;
+  }
+}
+
+
