@@ -18,6 +18,8 @@ use App\Http\Controllers\FormsController;
 //RUTAS PARA EL FORMCONTROLLER SERAN PARA TODO EVENTO QUE SE NECESITE FORMULARIO
 Route::get('/contacto', [FormsController::class,'denuncia'])->name('denuncia');
 Route::post('/denuncia',[FormsController::class,'regDenuncia'])->name('regDenuncia');
+Route::post('/tramites/envio-solicitud',[FormsController::class,'regTramite'])->name('regSolicitud');
+
 Route::get('/tramites/{idarea?}/{idsol?}',[FormsController::class,'tramites'])->middleware(['auth'])->name('tramites');
 
 

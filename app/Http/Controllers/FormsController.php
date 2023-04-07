@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TDenuncia;
 use App\Models\CatTipoSolicitude;
 use App\Models\TSolicitude;
-
+use DateTime;
 class FormsController extends Controller
 {
     function denuncia(){
@@ -45,6 +45,26 @@ class FormsController extends Controller
     }
 
     function regTramite(Request $req){
+
+        $fechaDoc = date('d-m-Y', strtotime( $req->fechaDoc));
+        $dt = new DateTime($fechaDoc);
+        $aut = $req->autentica;
         $solicitud = new TSolicitude();
+        $solicitud->dui_solicitante = $req->dui;
+        $solicitud->tipo_solicitud = $req->tipoTramite;
+        $solicitud->cantidad = $req->cantidad;
+        $solicitud->autentica = $req->autentica;
+        $solicitud->nombre_documento = $req->nombreDocumento;
+        $solicitud->fecha_documento = $dt->format('Y-m-d');
+        if ($aut == null) {
+            $solicitud->autentica = 0;
+        } else {
+            $solicitud->autentica = $aut ;
+        }
+        $solicitud->desc_solicitud = $req->comentario;
+        $solicitud->estado_solicitud = 1;
+        $solicitud->save();
+        $title = $req->title;
+        return view('formularios.registro-completo', compact('title'));
     }
 }
