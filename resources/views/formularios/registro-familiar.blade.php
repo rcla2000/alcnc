@@ -2,7 +2,13 @@
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('css/formularios/solicitudes.css')}}">
-
+<style>
+    textarea
+    {resize: none !important;}
+    #paso2{
+        display: none;
+    }
+</style>
 @endsection
 @section('title','Registro Familiar')
     
@@ -23,76 +29,80 @@
                     <p>Nombre del solicitante: <strong>{{ auth()->user()->name }}</strong></p>
                     <p>DUI: <strong>{{ auth()->user()->dui }}</strong></p>
                     <!-- Form -->
-                    <form class="text-center"  action="{{ route('regSolicitud') }}" method="POST">
-
+                    <form class="text-center"  action="{{ route('regSolicitud') }}" method="POST" id="registroForm">
                         @csrf
-                        <input type="hidden" name="dui" value="{{ auth()->user()->dui }}">
-                        <input type="hidden" name="title" value="Solicitud de Partidas y Documentos">
-                        <div class="row">
-                            <div class="col-md-12 text-left">
-                                <span class="text-danger">(*) Campos obligatorios</span>
-                            </div>
-                            <div class="col-md-8">
-                                 <!-- Subject -->
-                                <select class="mdb-select md-form"  id="tipoTramite" name="tipoTramite" searchable="Buscar aquí.." required>
-                                    <option value="" selected disabled >Elija una opción</option>
-                                    @foreach ($tiposoli as $item)
-                                    <option value="{{ $item->id_t_solicitud }}" >{{ $item->desc_solicitud }}</option>
+                        <section id="paso1">
+                            <input type="hidden" name="dui" value="{{ auth()->user()->dui }}">
+                            <input type="hidden" name="area" value="{{ $idarea}}">
+                            <input type="hidden" name="title" value="Solicitud de Partidas y Documentos">
+                            <div class="row">
+                                <div class="col-md-12 text-left">
+                                    <span class="text-danger">(*) Campos obligatorios</span>
+                                </div>
+                                <div class="col-md-8">
+                                     <!-- Subject -->
+                                    <select class="mdb-select md-form"  id="tipoTramite" name="tipoTramite" searchable="Buscar aquí.." required>
+                                        <option value="" selected disabled >Elija una opción</option>
+                                        @foreach ($tiposoli as $item)
+                                        <option value="{{ $item->id_t_solicitud }}" >{{ $item->desc_solicitud }}</option>
+    
+                                        @endforeach
+                                    </select>
+                                    <label class="mdb-main-label">* Tipo de Partida o Documento</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="md-form">
+                                        <input type="number" class="form-control" name="cantidad" id="cantidad" min="1" max="10" required>
+                                        <label for="form1">* Cantidad</label>
+    
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <a class="btn btn-warning btn-rounded btn-block z-depth-0 my-4 waves-effect" onclick="siguienteAtras('#paso2','#paso1')" id="siguiente">Siguiente paso <i class="fas fa-arrow-right"></i></a>
 
-                                    @endforeach
-                                </select>
-                                <label class="mdb-main-label">* Tipo de Partida o Documento</label>
+                                </div>
+    
                             </div>
-                            <div class="col-md-4">
-                                <div class="md-form">
-                                    <input type="number" class="form-control" name="cantidad" id="cantidad" min="1" max="10" required>
-                                    <label for="form1">* Cantidad</label>
-
+                        </section>
+                        <section id="paso2">
+                            <div class="camposPartida">
+                                <div class="row" >
+                                
+                                    <div class="col-md-7">
+                                        <div class="md-form">
+                                            <input type="text" required id="nombreDocumento" name="nombreDocumento" class="form-control" >
+                                            <label for="nombreDocumento">* Nombre en la partida o documento</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="md-form">
+                                            <div id="date-picker-example"  class="md-form input-with-post-icon datepicker">
+                                                <input placeholder="" required type="text" id="fechaDoc" name="fechaDoc" class="form-control">
+                                                
+                                                <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                    
+                                    <div class="col-md-6 " style="align-self: center">
+                                        <!-- Default checked -->
+                                        <div class="custom-control custom-checkbox custom-control-inline">
+                                            <input type="checkbox" class="custom-control-input" id="autentica" name="autentica" value="1">
+                                            <label class="custom-control-label" for="autentica">Agregar Autentica($2.00)</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-
-                        </div>
-                        
-                       
-                        <div class="camposPartida">
-                        <div class="row" >
-                        
-                            <div class="col-md-7">
-                                <div class="md-form">
-                                    <input type="text" id="nombreDocumento" name="nombreDocumento" class="form-control" >
-                                    <label for="nombreDocumento">* Nombre en la partida o documento</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="md-form">
-                                    <div id="date-picker-example"  class="md-form input-with-post-icon datepicker">
-                                        <input placeholder="" type="text" id="fechaDoc" name="fechaDoc" class="form-control">
-                                         
-                                        <i class="fas fa-calendar input-prefix" tabindex=0></i>
-                                      </div>
-                                </div>
-                            </div>
-                         
-                            
-                            <div class="col-md-6 " style="align-self: center">
-                                <!-- Default checked -->
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" id="autentica" name="autentica" value="1">
-                                    <label class="custom-control-label" for="autentica">Agregar Autentica($2.00)</label>
-                                </div>
-                            </div>
-                        </div>
-                       
-
-                        
-                    </div>
-                        <!--Material textarea-->
-                        <div class="md-form">
-                            <textarea id="comentario" name="comentario" class="md-textarea form-control" rows="3"></textarea>
-                            <label for="comentario">Comentario adicional</label>
-                        </div>                        <!-- Send button -->
-                        <button class="btn btn-success btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Enviar Solicitud</button>
+                             <!--Material textarea-->
+                            <div class="md-form">
+                                <textarea id="comentario" name="comentario" class="md-textarea form-control" rows="3"></textarea>
+                                <label for="comentario">Comentario adicional</label>
+                            </div>       
+                            <a class="btn btn-warning btn-rounded z-depth-0 my-4 waves-effect" onclick="siguienteAtras('#paso1','#paso2')" id="siguiente"><i class="fas fa-arrow-left"></i> Paso anterior </a>                 <!-- Send button -->
+                            <button class="btn btn-success btn-rounded  z-depth-0 my-4 waves-effect" type="submit">Enviar Solicitud</button>
+                        </section>
 
                     </form>
                     <!-- Form -->
@@ -111,25 +121,41 @@
     <script>
     // Material Select Initialization
     $(document).ready(function() {
+        var fecha = new Date();
         $('.mdb-select').materialSelect();
         $('.datepicker').datepicker(
             {
                 format: 'dd/mm/yyyy',
                 formatSubmit:'dd/mm/yyyy',
                 hiddenPrefix: 'prefix__',
-                hiddenSuffix: '__suffix'
+                hiddenSuffix: '__suffix',
+                min: new Date(1926,1,1),
+                max: new Date( fecha.getTime() - (24 * 60 * 60 * 1000))
             }
         );
     });
 
-    //filtro de campos para mostra u ocultarlos cuando se elija el tipo de tramite
-    $('#tipoTramite').change(function() {
-         var tipoTramite = $('#tipoTramite');
-        if(tipoTramite.val() <= 3)
+    function siguienteAtras(siguiente,atras) {
+        if(siguiente == '#paso2')
         {
-            valor =  tipoTramite.val(); 
-            console.log(valor);
-            $('.camposPartida').show();
+            var tramite = $('#tipoTramite');
+            var cantidad  = $('#cantidad');
+            if(tramite.val() === null ||  cantidad.val() === "" )
+            {
+                $.alert({
+                title: 'Alerta',
+                content: 'Ingrese el tipo de tramite y la cantidad correcta',
+                buttons:{
+                    Aceptar: {
+                        btnClass: 'btn-danger'
+                    }
+                }
+            });
+            }
+            else
+            {
+
+            valor =  $('#tipoTramite').val(); 
             switch (valor) {
                 case '1':
                     $('#fechaDoc').attr('placeholder', '* Fecha de nacimiento');
@@ -141,21 +167,20 @@
                 case '3':
                     $('#fechaDoc').attr('placeholder', '* Fecha de defunción');
                     break;
-            }    
+                case '4':
+                    $('#fechaDoc').attr('placeholder', '* Boleta de nacimiento');
+                    break;
             
-            $('#nombreDocumento').attr('required',true);
-
-            $('#fechaDoc').attr('required',true);
-        
+            
+                }
         }
-        else
-        {
-            $('.camposPartida').hide();
-            $('#nombreDocumento').attr('required',false);
-            $('#fechaDoc').attr('required',false);
 
-        }
-    })
+    }
+
+    $(siguiente).show(400)
+        $(atras).hide(400)
+}
+
 </script>
 
 @endsection

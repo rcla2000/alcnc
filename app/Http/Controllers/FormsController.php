@@ -24,13 +24,13 @@ class FormsController extends Controller
         return view('formularios.denuncias.denuncia-completa');
     }
 
-    function tramites(Request $req){
+    function tramites(Request $req,$idarea = null){
         
         if(isset($req->idarea) && isset($req->idsol) ){
             $idServicio = $req->idsol;
             $idArea =$req->idarea;
             $tiposoli = CatTipoSolicitude::where('id_area',$idArea)->get();
-            return view('formularios.registro-familiar',compact('tiposoli'));
+            return view('formularios.registro-familiar',compact('tiposoli','idarea'));
         }
         elseif(isset($req->idarea) && !isset($req->idarea)){
             return view('servicios');
@@ -49,7 +49,10 @@ class FormsController extends Controller
         $fechaDoc = date('d-m-Y', strtotime( $req->fechaDoc));
         $dt = new DateTime($fechaDoc);
         $aut = $req->autentica;
+        
         $solicitud = new TSolicitude();
+        
+        $solicitud->area_alcaldia = $req->area;
         $solicitud->dui_solicitante = $req->dui;
         $solicitud->tipo_solicitud = $req->tipoTramite;
         $solicitud->cantidad = $req->cantidad;
@@ -64,6 +67,7 @@ class FormsController extends Controller
         $solicitud->desc_solicitud = $req->comentario;
         $solicitud->estado_solicitud = 1;
         $solicitud->save();
+
         $title = $req->title;
         return view('formularios.registro-completo', compact('title'));
     }
