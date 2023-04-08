@@ -94,16 +94,16 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                              <!--Material textarea-->
                             <div class="md-form">
                                 <textarea id="comentario" name="comentario" class="md-textarea form-control" rows="3"></textarea>
                                 <label for="comentario">Comentario adicional</label>
                             </div>       
+                            <span class="text-danger">Si la partida o documento contiene <strong class="text-info"> Rubricas o marginaciones </strong>, se agregara un cobro de $1.00 por cada rubrica o marginación al momento del pago.</span>
                             <a class="btn btn-warning btn-rounded z-depth-0 my-4 waves-effect" onclick="siguienteAtras('#paso1','#paso2')" id="siguiente"><i class="fas fa-arrow-left"></i> Paso anterior </a>                 <!-- Send button -->
                             <button class="btn btn-success btn-rounded  z-depth-0 my-4 waves-effect" type="submit">Enviar Solicitud</button>
                         </section>
-
                     </form>
                     <!-- Form -->
 
@@ -150,7 +150,7 @@
                         btnClass: 'btn-danger'
                     }
                 }
-            });
+                 });
             }
             else
             {
@@ -173,12 +173,19 @@
             
             
                 }
+                $(siguiente).show(400)
+                 $(atras).hide(400)
+               
         }
-
+     
     }
+    else{
+        $(siguiente).show(400)
+                 $(atras).hide(400)
+    }
+    
 
-    $(siguiente).show(400)
-        $(atras).hide(400)
+
 }
 
 </script>

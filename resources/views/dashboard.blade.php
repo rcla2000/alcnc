@@ -1,17 +1,61 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.layouts-dash.master-layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+@section('styles')
+    
+@endsection
+
+@section('content')
+    
+        <div class="row">
+            <div class="col-md-3" >
+                <div class="card text-white bg-primary mb-2"  >
+                    <div class="card-body text-center p-0 pt-1"> 
+                        <h2>100</h2>
+                      <span>Total de solicitudes</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-3" >
+                <div class="card text-white bg-warning mb-2"  >
+                    <div class="card-body text-center p-0 pt-1"> 
+                        <h2>30</h2>
+                      <span >Solicitudes pendientes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" >
+                <div class="card text-white bg-success mb-2"  >
+                    <div class="card-body text-center p-0 pt-1"> 
+                        <h2>$1,500</h2>
+                      <span>Pagos recolectados</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" >
+                <div class="card text-white bg-danger mb-2"  >
+                    <div class="card-body text-center p-0 pt-1"> 
+                        <h2>$1,500</h2>
+                      <span>Pagos pendientes</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</x-app-layout>
+        <div class="row">
+            <div class="col-md-12 "><hr></div>
+            <div class="col-md-6 mb-3"><canvas id="horizontalBar"></canvas></div>
+            <div class="col-md-6 mb-3"><canvas id="labelChart"></canvas></div>
+            <div class="col-md-12 "><hr></div>
+
+            <div class="col-md-6 mb-3"><canvas id="doughnutChart"></canvas></div>
+            <div class="col-md-6 mb-3"><canvas id="barChart"></canvas></div>
+           
+        </div>
+@endsection
+@section('scripts')
+    <script src="{{ asset('js/graficos/barrahorizontal.js') }}"></script>
+    <script src="{{ asset('js/graficos/barra.js') }}"></script>
+    <script src="{{ asset('js/graficos/pastel.js') }}"></script>
+    <script src="{{ asset('js/graficos/dona.js') }}"></script>
+
+
+@endsection

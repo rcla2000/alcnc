@@ -1,0 +1,35 @@
+body{
+    background-color:gainsboro;
+    height: 100vh;
+    margin: 0;
+}
+.navbar {
+    z-index: 1040;
+}
+.side-nav {
+margin-top: 57px !important;
+}
+.button-collapse{display: none !important;}
+
+
+
+@media (min-width: 1000px){
+
+    .fixed-sn main {
+       margin-left: 10% !important;
+       margin-right: 5% !important;
+    }
+    }
+
+
+@media (min-width: 1200px){
+
+.fixed-sn main {
+   margin-left: 20% !important;
+   margin-right: 5% !important;
+}
+}
+@media(max-width: 1000px)
+{
+   .button-collapse{display: block !important;}
+}

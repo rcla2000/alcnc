@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TDenuncia;
 use App\Models\CatTipoSolicitude;
 use App\Models\TSolicitude;
+use App\Models\VwSolicitude;
 use DateTime;
 class FormsController extends Controller
 {
@@ -29,7 +30,7 @@ class FormsController extends Controller
         if(isset($req->idarea) && isset($req->idsol) ){
             $idServicio = $req->idsol;
             $idArea =$req->idarea;
-            $tiposoli = CatTipoSolicitude::where('id_area',$idArea)->get();
+            $tiposoli = VwSolicitude::where('id_area',$idArea)->get();
             return view('formularios.registro-familiar',compact('tiposoli','idarea'));
         }
         elseif(isset($req->idarea) && !isset($req->idarea)){
