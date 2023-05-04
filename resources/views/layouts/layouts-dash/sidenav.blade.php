@@ -5,16 +5,16 @@
     <!--Double navigation-->
     <header >
       <!-- Sidebar navigation -->
-      <div id="slide-out" class="side-nav sn-bg-4 fixed" >
+      <div id="slide-out" class="side-nav sn-bg-3 fixed" >
         <ul class="custom-scrollbar" >
    
           <li>
             <ul class="collapsible collapsible-accordion" >
               <li>
-                <a class="waves-effect" href="{{ route('dashboard') }}" ><i class="fas fa-chart-pie" ></i>Resumen General</a>
+                <a class="waves-effect {{ (request()->is('dashboard')) ? 'active' : '' }}" href="{{ route('dashboard') }}" ><i class="fas fa-chart-pie" ></i>Resumen General</a>
               </li>
               <li>
-                <a class=" waves-effect"><i class="fas fa-cubes"></i>Administrar Gestiones</a>
+                <a class=" waves-effect {{ (request()->is('gestiones')) ? 'active' : '' }}" href="{{ route('gestiones') }}"><i class="fas fa-cubes"></i>Administrar Gestiones</a>
               </li>
               <li>
                 <a class=" waves-effect"><i class="fas fa-tasks"></i>Generar Solicitudes</a>
@@ -63,6 +63,9 @@
           <p>Sistema de Administración de Gestiones Nuevo Cuscatlán</p>
         </div>
         <ul class="nav navbar-nav nav-flex-icons ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('home') }}"><i class="fas fa-home"></i> <span class="clearfix d-none d-sm-inline-block">Inicio</span></a>
+          </li>
           <li class="nav-item">
             <a class="nav-link"><i class="fas fa-bell"></i> <span class="clearfix d-none d-sm-inline-block">Notificaciones</span></a>
           </li>

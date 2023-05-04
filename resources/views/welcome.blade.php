@@ -3,7 +3,7 @@
 @section('container')
     <section class="container section1">
         {{-- SERVICIOS EN LINEA --}}
-            <div class="row mt-5 wow fadeInUp justify-content-start">
+            <div class="row  wow fadeInUp justify-content-start" style="margin-top:130px">
                 <div class="col-md-6 text-center mb-4">
                     <h2 class="title-section">Servicios Municipales en línea</h2>   
                 </div>
@@ -39,8 +39,10 @@
             </div>
     </section>
     {{--PROXIMOS EVENTOS --}}
-    <section class="container-fluid cyan-bg">
-        <div class="row mt-5 wow fadeInUp justify-content-end">
+    <section class="container-fluid cyan-bg mb-5 mt-5">
+        <br>
+        <br>
+        {{-- <div class="row mt-5 wow fadeInUp justify-content-end">
             <div class="col-md-6 text-center mb-4 mt-3">
                 <h2 class="title-section-dark">Eventos Municipales próximos</h2>   
             </div>
@@ -65,7 +67,7 @@
               <!--Excerpt-->
               {{-- <a href="" class="teal-text">
                 <h6 class="pb-1"><i class="fas fa-heart"></i><strong> Lifestyle </strong></h6>
-              </a> --}}
+              </a> --
               <h4 class="mb-4"><strong>Fiestas Patronales Nuevo Cuscatlán</strong></h4>
               <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
                 placeat facere possimus, omnis voluptas assumenda est, omnis dolor.</p>
@@ -77,7 +79,7 @@
           </div>
           <!--Grid row-->
   
-          <hr class="mb-5">
+          <hr class="mb-5"> --}}
 
     </section>
     <section class="container">

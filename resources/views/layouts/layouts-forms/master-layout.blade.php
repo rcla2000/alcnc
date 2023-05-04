@@ -11,6 +11,7 @@
     <link rel="icon" href="{{ asset('img/logo68.png') }}" type="image/png" style="width: 50%;">
 
     <title>Alcaldía Nuevo Cuscatlán- @yield('title')</title>
+    @yield('token')
     @include('layouts.layouts-forms.style')
 </head>
 <body>

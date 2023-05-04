@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormsController;
+use App\Http\Controllers\DashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,17 +20,19 @@ use App\Http\Controllers\FormsController;
 Route::get('/contacto', [FormsController::class,'denuncia'])->name('denuncia');
 Route::post('/denuncia',[FormsController::class,'regDenuncia'])->name('regDenuncia');
 Route::post('/tramites/envio-solicitud',[FormsController::class,'regTramite'])->name('regSolicitud');
-
 Route::get('/tramites/{idarea?}/{idsol?}',[FormsController::class,'tramites'])->middleware(['auth'])->name('tramites');
+Route::get('/registro-cita',[FormsController::class,'regCita'])->middleware(['auth'])->name('regCita');
+Route::post('/filtrarCitas',[FormsController::class,'filtrarCitas'])->name('filtrarCitas');
 
 
 Route::get('/', [HomeController::class,'home'])->name('home');
 
 
 Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashController::class,'dashboard'])->name('dashboard');
+    Route::get('/gestiones', [DashController::class,'gestiones'])->name('gestiones');
+    Route::post('/detalle-gestion', [DashController::class,'detaGestion'])->name('detaGestion');
+    Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');
 });
 
 

@@ -16,11 +16,11 @@
 
 </head>
 <body>
-    <header >
+    <header  >
     @include('layouts.master.navbar')
-    @include('layouts.master.carrousel')
+    {{-- @include('layouts.master.carrousel') --}}
 </header>
-
+  
     @yield('container')
     @include('layouts.master.footer')
     @include('layouts.master.script')
