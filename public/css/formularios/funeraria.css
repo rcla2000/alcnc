@@ -1,0 +1,16 @@
+body{
+    background-color: #343a40 !important;
+}
+.card-header{
+
+    background: rgb(48,114,149);
+    background: linear-gradient(315deg, rgba(48,114,149,1) 10%, rgba(41,90,190,1) 92%); 
+    color: white;
+}
+.boton {
+float: right;
+}
+
+textarea{
+    resize: none
+}

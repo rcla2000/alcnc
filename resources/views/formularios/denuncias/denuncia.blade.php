@@ -5,11 +5,18 @@
 
 @endsection
 @section('content')
-        <div class="row justify-content-center mt-5">
+<div class="row">
+    <div class="col-md-3 mb-1 mt-3">
+        <a href="{{ route('home') }}" class="btn btn-sm btn-info"><i class="fas fa-home"></i> Volver a Inicio</a>
+
+    </div>
+</div>
+        <div class="row justify-content-center mt-1">
+
             <div class="col-md-6">
                 <!-- Material form contact -->
                 <div class="card">
-                <div class="card-header bg-gray-ni">
+                <div class="card-header">
                     <div class="row">
                         <div class="col-md-2">
                             <img src="{{ asset('img/logo.svg') }}" class="logoSvg logo-footer z-depth-1-half mb-2" alt="" >
@@ -74,7 +81,7 @@
                          
 
                         <!-- Send button -->
-                        <button class="btn btn-success btn-block  my-4" type="submit">Enviar mensaje</button>
+                        <button class="btn btn-primary btn-block  my-4" type="submit">Enviar mensaje</button>
 
                       </form>
                       <!-- Form -->

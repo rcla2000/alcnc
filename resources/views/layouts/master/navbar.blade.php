@@ -1,5 +1,5 @@
 
-    <nav class="navbar navbar-expand-lg navbar-dark  mdb-color darken-2     fixed-top scrolling-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark    fixed-top scrolling-navbar">
         <div class="container">
           <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('img/logo.svg') }}" class="logoSvg"  alt="La-Nueva-Ciudad" >

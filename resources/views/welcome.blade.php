@@ -1,13 +1,16 @@
 @extends('layouts.master.master-layout')
 
 @section('container')
+    <section class="container-fluid pt-2 mb-2 mt-0 z-depth-3 title-section2">
+        <div class="row  wow fadeInUp justify-content-center  text-center" style="margin-top:130px">
+            <div class="col-md-6  text-white mb-4">
+                <h2 class=""><i class="fas fa-clipboard-list"></i> Servicios Frecuentes</h2>   
+            </div>
+        </div>
+    </section>
     <section class="container section1">
         {{-- SERVICIOS EN LINEA --}}
-            <div class="row  wow fadeInUp justify-content-start" style="margin-top:130px">
-                <div class="col-md-6 text-center mb-4">
-                    <h2 class="title-section">Servicios Municipales en línea</h2>   
-                </div>
-            </div>
+           
 
             <div class="row  wow fadeInUp">
                 @foreach ($servicios as $item)
@@ -38,55 +41,18 @@
                 
             </div>
     </section>
-    {{--PROXIMOS EVENTOS --}}
-    <section class="container-fluid cyan-bg mb-5 mt-5">
-        <br>
-        <br>
-        {{-- <div class="row mt-5 wow fadeInUp justify-content-end">
-            <div class="col-md-6 text-center mb-4 mt-3">
-                <h2 class="title-section-dark">Eventos Municipales próximos</h2>   
+    <section class="container-fluid pt-4 mb-3 mt-3 z-depth-3 title-section2">
+        <div class="row  wow fadeInUp justify-content-center  text-center" >
+            <div class="col-md-6  text-white mb-4">
+                <h2 class=""><i class="far fa-envelope"></i> Contáctanos</h2>   
             </div>
         </div>
-         <!--Grid row-->
-         <div class="row text-white">
-
-            <!--Grid column-->
-            <div class="col-lg-4 mb-4">
-              <!--Featured image-->
-              <div class="view overlay z-depth-1">
-                <img src="{{ asset('img/fiestas.png') }}" class="img-fluid rounded-left" alt="Fistas patronales" width="400"  >
-                <a>
-                  <div class="mask rgba-white-slight"></div>
-                </a>
-              </div>
-            </div>
-            <!--Grid column-->
-  
-            <!--Grid column-->
-            <div class="col-lg-7 mb-4">
-              <!--Excerpt-->
-              {{-- <a href="" class="teal-text">
-                <h6 class="pb-1"><i class="fas fa-heart"></i><strong> Lifestyle </strong></h6>
-              </a> --
-              <h4 class="mb-4"><strong>Fiestas Patronales Nuevo Cuscatlán</strong></h4>
-              <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                placeat facere possimus, omnis voluptas assumenda est, omnis dolor.</p>
-              <p>by <a><strong>Jessica Clark</strong></a>, 26/08/2016</p>
-              <a class="btn btn-primary">Leer más</a>
-            </div>
-            <!--Grid column-->
-  
-          </div>
-          <!--Grid row-->
-  
-          <hr class="mb-5"> --}}
-
     </section>
     <section class="container">
-        <div class="row">
+        <div class="row" >
             <div class="col-md-6 text-center mb-2">
                 
-                <div class="z-depth-3 p-3">
+                <div class="z-depth-3 p-3 bg-light rounded">
                     <h2 class="title-section ">Contáctanos</h2>   
                     <form action="" method="POST">
                     
@@ -101,8 +67,8 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="z-depth-3 p-3 ">
+            <div class="col-md-6 ">
+                <div class="z-depth-3 p-3 bg-light rounded ">
                     <div class="mapa">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1221.2346017244167!2d-89.26595737311105!3d13.646909720896758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f632e12abcc8147%3A0xa316fc34131ef94!2sJPWM%2BQQ8%2C%20Nuevo%20Cuscatlan!5e0!3m2!1ses-419!2ssv!4v1679542970225!5m2!1ses-419!2ssv"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         

@@ -40,8 +40,9 @@ function filtrar(espe) {
                     '<i class="fas fa-calendar input-prefix" tabindex=0></i>'
                     );
                         $('#fechacita').datepicker({
-                            min:tomorrow,
+                            
                             disable: fechas,
+                            min:tomorrow,
                             max: finMes,
                             monthsFull: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Juio', 'Julio', 'Agosto', 'Septiembre', 'Octubre',  'Noviembre', 'Diciembre'],
                             weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],

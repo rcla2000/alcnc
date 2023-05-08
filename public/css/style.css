@@ -48,13 +48,19 @@ border-bottom: double;
   /* color: white; */
   padding-bottom: 5px;
   border-bottom: double;
-  border-color: #2E3951;
+  border-color: #212839;
 
 }
-.cyan-bg{
+nav{
+  background-color: #11151d !important;
+}
+.cyan-bg,body{
   background-color: #2E3951;
 }
+.title-section2{
+  background-color: #303845;
 
+}
 
 .card{
   width: 330px;

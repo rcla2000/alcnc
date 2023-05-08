@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\TDenuncia;
 use App\Models\CatTipoSolicitude;
 use App\Models\TSolicitude;
+use App\Models\TSolicitudesMobiliario;
+use App\Models\TSolicitudesFuneraria;
 use App\Models\VwSolicitude;
 use App\Models\CServicio;
 use App\Models\CEspecialidadesClinica;
 use App\Models\TCitasClinica;
 use App\Models\VwClinicaCita;
+
 use JavaScript;
 
 use DateTime;
@@ -43,16 +46,14 @@ class FormsController extends Controller
             $idArea =$req->idarea;
             $tiposoli = VwSolicitude::where('id_area',$idArea)->get();
             $servicio = CServicio::where('id_servicio',$idServicio)->where('id_area',$idArea)->first();
-
-            
-
+            $vista = $servicio->vista;
             if($idServicio == 5){
                 $especialidades = CEspecialidadesClinica::where('estado', 'A')->get();
                
-                return view('formularios.'.$servicio->vista,compact('tiposoli','idarea','especialidades'));
+                return view('formularios.'.$vista,compact('tiposoli','idarea','especialidades'));
             }
             else{
-                return view('formularios.'.$servicio->vista,compact('tiposoli','idarea'));
+                return view('formularios.'.$vista,compact('tiposoli','idarea'));
             }
         }
         ///lleva a la vista para mostrar los servicios por area
@@ -68,7 +69,7 @@ class FormsController extends Controller
         
        
     }
-
+    /////////////////////////REGISTRO FAMILIAR//////////////////
     function regTramite(Request $req){
 
         $fechaDoc = date('d-m-Y', strtotime( $req->fechaDoc));
@@ -99,7 +100,8 @@ class FormsController extends Controller
         
         return view('formularios.registro-completo', compact('title'));
     }
-
+    ////////////////////////////////CLINICA//////////////////////////////
+    ////registro citas de clinica
     function regCita(Request $req){
         $fecha = date("Y/m/d", strtotime($req->fecha_submit));
         $citas = new TCitasClinica();
@@ -119,7 +121,36 @@ class FormsController extends Controller
     function filtrarCitas(Request $req){
         $especialidad= $req->espec;
         $disFechas = VwClinicaCita::where('citas',15)->where('especialidad', $req->espec)->get();
-        
         return  response()->json($disFechas);
     }
+
+
+    ///////////////////////////////MOBILIARIO////////////////////////////////////
+    function regMobiliario(Request $req){
+        $fecha = date('y-m-d', strtotime($req->fecha_submit));
+        $solicitud = new TSolicitudesMobiliario();
+        $solicitud->usuario = auth()->user()->dui;
+        $solicitud->lugar_solicitado=  $req->lugar;
+        $solicitud->fecha_evento = $fecha;
+        $solicitud->sillas = $req->cantSillas;
+        $solicitud->mesas = $req->cantMesas;
+        $solicitud->canopis = $req->cantCanopis;
+        $solicitud->estado = 1;
+        $solicitud->save();
+
+        return back();
+    }
+
+    function regFuneraria(Request $req){
+        $solicitud = new TSolicitudesFuneraria();
+        $solicitud->usuario = auth()->user()->dui;
+        $solicitud->solicitud = $req->solicitud;
+        $solicitud->estado =  1; 
+        $solicitud->save();
+        return back();
+    }
+
 }
+
+
+

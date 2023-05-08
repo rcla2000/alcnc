@@ -4,21 +4,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('styles')
-    <style>
-
-        body{
-            background-color: #343a40 !important;
-        }
-        .card-header{
-       
-            background: rgb(48,114,149);
-            background: linear-gradient(315deg, rgba(48,114,149,1) 10%, rgba(41,90,190,1) 92%); 
-            color: white;
-        }
-        .boton {
-  float: right;
-}
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/formularios/clinica.css') }}">
 @endsection
 @section('content')
     <div class="row">
@@ -35,7 +21,8 @@
                    
                     <p><b>Nombre:</b>  {{ auth()->user()->name  }}  </p>  
                    <p><b>Dui:</b>{{ auth()->user()->dui  }}</p>
-                    <form action="{{ route('regCita') }}">
+                    <form action="{{ route('regCita') }}" method="POST">
+                        @csrf
                         <label for="">Seleccione una especialidad:</label>
                         <select class="browser-default custom-select mb-2" id="espe" name="espe">
                             <option selected>Seleccione especialidad</option>
