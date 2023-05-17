@@ -30,12 +30,6 @@
                         <!-- Card -->
                     </div>
                 @endforeach
-            
-                
-            
-
-        
-                
             </div>
     </section>
     {{--PROXIMOS EVENTOS --}}
@@ -67,9 +61,8 @@
                 <h6 class="pb-1"><i class="fas fa-heart"></i><strong> Lifestyle </strong></h6>
               </a> --}}
               <h4 class="mb-4"><strong>Fiestas Patronales Nuevo Cuscatlán</strong></h4>
-              <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                placeat facere possimus, omnis voluptas assumenda est, omnis dolor.</p>
-              <p>by <a><strong>Jessica Clark</strong></a>, 26/08/2016</p>
+              <p>Vive con nosotros nuestras hermosas fiestas patronales, disfruta de un ambiente familiar.</p>
+              <p>17/03/2023</p>
               <a class="btn btn-primary">Leer más</a>
             </div>
             <!--Grid column-->
