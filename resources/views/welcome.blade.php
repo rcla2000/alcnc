@@ -23,9 +23,9 @@
                             <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                                 <div>
                                     <h3 class="white-text"><i class="{{ $item->icono }}"></i></h3>
-                                    <h3 class="card-title pt-2"><strong>{{ $item->des_servicio }}</strong></h3>
+                                    <h5 class="card-title pt-2"><strong>{{ $item->des_servicio }}</strong></h5>
                         
-                                    <a class="btn btn-blue" href="{{ route($item->ruta, ['idarea'=>$item->id_area,'idsol'=>$item->id_servicio]) }}"><i class="fas fa-clone left"></i>Ir a servicio</a>
+                                    <a class="btn  btn-blue" href="{{ route($item->ruta, ['idarea'=>$item->id_area,'idsol'=>$item->id_servicio]) }}"><i class="fas fa-clone left"></i>Ir a servicio</a>
                                 </div>
                             </div>
 
