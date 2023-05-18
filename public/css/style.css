@@ -120,6 +120,11 @@ nav {
   width: 40px;
   height: 40px;
   padding: 0.7rem;
+  transition: all 300ms ease-in;
+}
+
+.icono-red-social:hover {
+  filter: brightness(80%);
 }
 
 .fb-color {
@@ -160,14 +165,16 @@ nav {
   height: 445px;
 }
 
-
-
 .slidemovil {
   display: none !important
 }
 
 .mt-menu {
   margin-top: 114px !important;
+}
+
+.mt-menu-2 {
+  margin-top: 10rem !important;
 }
 
 .contenedor-servicios {
@@ -178,6 +185,39 @@ nav {
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.fondo {
+  width: 100%;
+  background-color: var(--hover-color);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fondo::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.65);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.zindex {
+  position: relative;
+  z-index: 2;
+}
+
+.card-header {
+  background: rgb(48, 114, 149);
+  background: linear-gradient(315deg, rgba(48, 114, 149, 1) 10%, rgba(41, 90, 190, 1) 92%);
+  color: white;
 }
 
 

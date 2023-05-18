@@ -1,7 +1,7 @@
 @extends('layouts.master.master-layout')
 
 @section('container')
-    <section class="container-fluid mt-menu mb-3 mb-md-4 animate__animated animate__fadeInDown">
+    <section class="container-fluid mt-menu animate__animated animate__fadeInDown">
         <div class="row wow justify-content-center title-section2">
             <h2 class="text-center text-white">
                 <i class="fas fa-clipboard-list mr-2"></i>
@@ -53,7 +53,7 @@
             <div class="col-12 col-md-6 text-center mb-2">
                 <!-- Material form contact -->
                 <div class="card">
-                    <h5 class="card-header info-color white-text text-center py-4">
+                    <h5 class="card-header white-text text-center py-4">
                         <i class="fa-solid fa-envelope white-text mr-2"></i>
                         <strong>Envíanos un mensaje</strong>
                     </h5>
@@ -88,7 +88,7 @@
                                 <label for="mensaje">Mensaje</label>
                             </div>
                             <!-- Send button -->
-                            <button class="btn btn-info btn-block z-depth-0 my-4 waves-effect"
+                            <button class="btn btn-primary btn-block"
                                 type="submit">Enviar</button>
                         </form>
                         <!-- Form -->

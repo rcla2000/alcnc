@@ -15,9 +15,10 @@
     @include('layouts.layouts-forms.style')
 </head>
 <body>
-    <div class="container">
-        @yield('content')
-    </div>
+    <header>
+        @include('layouts.master.navbar')
+    </header>
+    @yield('content')
     @include('layouts.layouts-forms.script')
 </body>
 </html>
