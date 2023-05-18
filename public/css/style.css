@@ -1,145 +1,194 @@
 @font-face {
   font-family: 'museo_sans_300regular';
   src: url('museo-sans-300-webfont.woff2') format('woff2'),
-       url('museo-sans-300-webfont.woff') format('woff');
+    url('museo-sans-300-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 
 }
 
+:root {
+  --hover-color: #2E3951;
+  --azul: #1976d2;
+  --nc-color:  #00AEEF;
+}
+
 
 html,
-body{
+body {
   height: 100vh;
 }
-nav ul li{
-    font-family: 'museo_sans_300regular';}
 
-.slideAlc{
+nav ul li {
+  font-family: 'museo_sans_300regular';
+}
 
-  padding-top:100px;
+.slideAlc {
+
+  padding-top: 100px;
   height: 560px;
 }
-.title-section{
-  font-family: 'Lato', sans-serif;  
+
+.title-section {
+  font-family: 'Lato', sans-serif;
   font-weight: 600;
-padding-bottom: 5px;
-border-bottom: double;
+  padding-bottom: 5px;
+  border-bottom: double;
   border-color: #221C42;
- 
-
-
-
 }
-.title-section-dark{
-  font-family: 'Lato', sans-serif;  
+
+.title-section-dark {
+  font-family: 'Lato', sans-serif;
   font-weight: 600;
   color: white;
   padding-bottom: 5px;
   border-bottom: double;
   border-color: white;
-
 }
 
 
-.title-section-cyan{
-  font-family: 'Lato', sans-serif;  
+.title-section-cyan {
+  font-family: 'Lato', sans-serif;
   font-weight: 600;
   /* color: white; */
   padding-bottom: 5px;
   border-bottom: double;
   border-color: #212839;
-
 }
-nav{
+
+nav {
   background-color: #11151d !important;
 }
-.cyan-bg,body{
+
+.cyan-bg, body {
   background-color: #2E3951;
 }
-.title-section2{
-  background-color: #303845;
 
+.title-section2 {
+  background-color: #303845;
+  padding: 3rem 2rem;
 }
 
-.card{
+.card-servicio {
   width: 330px;
   height: 210px;
   align-items: center;
-  transition: transform 0.7s;
+  transition: transform 175ms ease-out;
 }
-.card:hover{
-  transform:  scale(1.1);
+
+.card-servicio:hover {
+  transform: scale(1.1);
 }
 
 
-.card div{
+.card-servicio div {
   width: 100%;
   height: 100%;
 }
-.logoSvg{
+
+.logoSvg {
   width: 80px;
   animation: loader 1.5s;
-  transition: transform 2s;
+  transition: transform 1s ease-in-out;
 }
-.logoSvg:hover{
+
+.logoSvg:hover {
   transform: rotate(360deg);
 }
-.logo-footer{
+
+.logo-footer {
   background-color: white;
   border-radius: 50%;
+}
 
+.btn-blue:hover {
+  background-color: var(--hover-color) !important;
+}
 
+.btn-info:hover {
+  background-color: var(--azul) !important;
+}
+
+.nc-color {
+  background-color: var(--nc-color) !important;
+}
+
+.icono-red-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0.7rem;
+}
+
+.fb-color {
+  background-color: #3b5998 !important; 
+}
+
+.tw-color {
+  background-color: #226699 !important;
+}
+
+.ig-color {
+  background-color: #ac2bac !important;
 }
 
 
 @keyframes loader {
   0% {
     rotate: 0deg;
-    
+
   }
-  50%{
+
+  50% {
     width: 90px;
   }
+
   100% {
     border-radius: 50%;
     rotate: 180deg;
   }
 }
-.mapa{
-  overflow:hidden;
 
-    padding-bottom:56.25%;
-
-    position:relative;
-
-    height:0;
+.contenedor-mapa {
+  width: 100%;
 }
-.mapa iframe{
 
-    left:0;
-
-    top:0;
-
-    height:100%;
-
-    width:100%;
-
-    position:absolute;
-
+.mapa {
+  width: 100%;
+  height: 445px;
 }
 
 
-.slidemovil{
 
-  display:none !important
+.slidemovil {
+  display: none !important
 }
+
+.mt-menu {
+  margin-top: 114px !important;
+}
+
+.contenedor-servicios {
+  padding: 4rem 2rem;
+  background-color: var(--hover-color);
+  background-image: url('../img/clinica-nc.jpg');
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
 @media screen and (max-width: 900px) {
 
-  #carousel-example-2{display: none;}
+  #carousel-example-2 {
+    display: none;
+  }
 
-  .section1{
+  .section1 {
     margin-top: 120px;
   }
- 
+
 }
