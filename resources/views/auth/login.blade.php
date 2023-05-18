@@ -19,7 +19,7 @@
         <!-- Material form login -->
         <div class="contenedor-login">
             <div class="card">
-                <div class="card-header white-text text-center py-4 d-flex justify-content-between align-items-center">
+                <div class="card-header white-text text-center py-1 d-flex justify-content-between align-items-center">
                     <strong class="ml-3 titulo-login">Iniciar sesión</strong>
                     <img src="{{ asset('img/logo.svg') }}" class="logoSvg" alt="La-Nueva-Ciudad">
                 </div>
