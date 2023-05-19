@@ -12,9 +12,7 @@ use App\Models\CServicio;
 use App\Models\CEspecialidadesClinica;
 use App\Models\TCitasClinica;
 use App\Models\VwClinicaCita;
-
-use JavaScript;
-
+use RealRashid\SweetAlert\Facades\Alert;
 use DateTime;
 
 class FormsController extends Controller
@@ -36,6 +34,7 @@ class FormsController extends Controller
         $registro->mensaje = $request->mensaje;
         $registro->fecha_solicitar = $request->fecha;
         $registro->save();
+        Alert::success('Información', 'Su denuncia ha sido registrada de forma exitosa.');
         return view('formularios.denuncias.denuncia-completa', compact('servicios'));
     }
 
@@ -67,6 +66,7 @@ class FormsController extends Controller
     /////////////////////////REGISTRO FAMILIAR//////////////////
     function regTramite(Request $req)
     {
+        $servicios = CServicio::all();
         $fechaDoc = date('d-m-Y', strtotime($req->fechaDoc));
         $dt = new DateTime($fechaDoc);
         $aut = $req->autentica;
@@ -90,8 +90,7 @@ class FormsController extends Controller
         $solicitud->usuario_actualizacion = auth()->user()->name;
         $solicitud->save();
         $title = $req->title;
-        $servicios = CServicio::all();
-
+        Alert::success('Información', 'Su solicitud de documentos ha sido enviada de forma exitosa.');
         return view('formularios.registro-completo', compact('title', 'servicios'));
     }
     ////////////////////////////////CLINICA//////////////////////////////
@@ -108,8 +107,8 @@ class FormsController extends Controller
         $citas->save();
 
         $mensaje = 'Estimado usuario su cita para el próximo ' . date('d/m/Y', strtotime($fecha)) . ' ha sido agendada éxitosamente';
-
-        return  back()->with('message', $mensaje);
+        Alert::success('Información', $mensaje);
+        return back();
     }
 
     ////funcion para filtrar citas por especialidad lado controlador recibe como parametro la especialidad
@@ -134,7 +133,7 @@ class FormsController extends Controller
         $solicitud->canopis = $req->cantCanopis;
         $solicitud->estado = 1;
         $solicitud->save();
-
+        Alert::success('Información', 'Su solicitud de inmobiliario ha sido enviada de forma exitosa.');
         return back();
     }
 
@@ -145,6 +144,7 @@ class FormsController extends Controller
         $solicitud->solicitud = $req->solicitud;
         $solicitud->estado =  1;
         $solicitud->save();
+        Alert::success('Información', 'Su solicitud ha sido enviada de forma exitosa.');
         return back();
     }
 }

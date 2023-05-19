@@ -36,13 +36,6 @@
                                     <i class="fas fa-calendar input-prefix" tabindex=0></i>
                                 </div>
                                 <div class="mi-error m-0" id="error-fecha"></div>
-                                <br>
-                                @if (session('message'))
-                                    <div class="alert alert-success" role="alert" id='alerta'>
-                                        {{ session('message') }} <a href="" class="boton">x</a>
-                                    </div>
-                                @endif
-                                <br>
                                 <button type="submit" class="btn btn-block btn-primary">Registrar cita</button>
                             </form>
                         </div>
