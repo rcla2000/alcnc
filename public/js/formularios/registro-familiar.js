@@ -17,7 +17,7 @@ const limpiarError = (elemento, elementoMensaje) => {
 
 inputCantidad.addEventListener("keypress", soloNumeros);
 
-btnEnviar.addEventListener("click", (e) => {
+formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     let errores = 0;
 
@@ -41,7 +41,31 @@ btnEnviar.addEventListener("click", (e) => {
     }
 
     if (errores == 0) {
-        formulario.submit();
+        $.confirm({
+            title: 'Confirmar información',
+            content: '¿Esta seguro/a que desea enviar la solicitud?',
+            buttons: {
+                si: {
+                    text: 'SÍ',
+                    btnClass: 'btn-success',
+                    keys: ['enter', 'shift'],
+                    action: function(){
+                        formulario.submit();
+                    }
+                },
+                no: {
+                    text: 'NO',
+                    btnClass: 'btn-danger',
+                    keys: ['enter', 'shift'],
+                    action: function(){
+                        $.alert({
+                            title: 'Información',
+                            content: 'No se envió su información',
+                        });
+                    }
+                }
+            }
+        });
     }
 });
 
