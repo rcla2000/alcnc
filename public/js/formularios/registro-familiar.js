@@ -5,16 +5,6 @@ const btnEnviar = document.querySelector("#btn-enviar-solicitud");
 const errorFechaNacimiento = document.querySelector("#error-fecha-nacimiento");
 const formulario = document.querySelector("#registroForm");
 
-const agregarError = (elemento, elementoMensaje, mensaje) => {
-    elemento.classList.add("is-invalid");
-    elementoMensaje.textContent = mensaje;
-};
-
-const limpiarError = (elemento, elementoMensaje) => {
-    elemento.classList.remove("is-invalid");
-    elementoMensaje.textContent = "";
-};
-
 inputCantidad.addEventListener("keypress", soloNumeros);
 
 formulario.addEventListener("submit", (e) => {

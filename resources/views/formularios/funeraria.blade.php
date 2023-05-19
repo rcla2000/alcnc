@@ -14,7 +14,7 @@
                     <div class="card">
                         <h5 class="card-header h5 text-center">Solicitudes para servicios Funerarios</h5>
                         <div class="card-body">
-                            <form action="{{ route('regFuneraria') }}" method="post">
+                            <form action="{{ route('regFuneraria') }}" method="post" id="frm-funerario">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-12">
@@ -23,11 +23,12 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-outline">
-                                            <textarea class="form-control" id="solicitud" name="solicitud" rows="4"></textarea>
                                             <label class="form-label" for="textAreaExample">Escriba su solicitud</label>
+                                            <textarea class="form-control" id="solicitud" name="solicitud" rows="4"></textarea>
+                                            <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 mt-2">
                                         <button class="btn btn-primary btn-block" type="submit">Enviar Solicitud</button>
                                     </div>
                                 </div>
@@ -39,4 +40,9 @@
         </div>
     </div>
     @include('footer')
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('js/validaciones.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/formularios/funerario.js') }}"></script>
 @endsection

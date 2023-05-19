@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TDenuncia;
-use App\Models\CatTipoSolicitude;
 use App\Models\TSolicitude;
 use App\Models\TSolicitudesMobiliario;
 use App\Models\TSolicitudesFuneraria;
@@ -21,12 +20,15 @@ use DateTime;
 class FormsController extends Controller
 {
     function denuncia()
-    {
-        return view('formularios.denuncias.denuncia');
+    {   
+        $servicio = CServicio::where('id_servicio', 4)->first();
+        $servicios = CServicio::all();
+        return view('formularios.denuncias.denuncia', compact('servicio', 'servicios'));
     }
 
     function regDenuncia(Request $request)
     {
+        $servicios = CServicio::all();
         $registro = new TDenuncia();
         $registro->nombre = $request->name;
         $registro->telefono = $request->phone;
@@ -34,7 +36,7 @@ class FormsController extends Controller
         $registro->mensaje = $request->mensaje;
         $registro->fecha_solicitar = $request->fecha;
         $registro->save();
-        return view('formularios.denuncias.denuncia-completa');
+        return view('formularios.denuncias.denuncia-completa', compact('servicios'));
     }
 
     function tramites(Request $req, $idarea = null)

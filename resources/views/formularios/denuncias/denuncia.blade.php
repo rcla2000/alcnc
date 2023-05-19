@@ -29,25 +29,27 @@
                         <!--Card content-->
                         <div class="card-body px-lg-5 pt-0 mt-3">
                             <!-- Form -->
-                            <form class="text-center" style="color: #757575;" method="POST"
-                                action="{{ route('regDenuncia') }}">
+                            <form style="color: #757575;" method="POST"
+                                action="{{ route('regDenuncia') }}" id="frm-denuncia">
                                 @csrf
                                 <!-- nombre -->
                                 <!-- Material outline input -->
                                 <div class="md-form md-outline">
-                                    <input type="text" id="name" name="name" class="form-control" required>
                                     <label for="name">Nombre</label>
+                                    <input type="text" id="name" name="name" class="form-control">
+                                    <div class="invalid-feedback"></div>
                                 </div>
                                 <!-- telefono -->
                                 <div class="md-form md-outline">
-                                    <input type="text" id="phone" name="phone" class="form-control mb-4" required>
                                     <label for="name">Teléfono</label>
+                                    <input type="text" id="phone" name="phone" class="form-control">
+                                    <div class="invalid-feedback"></div>
                                 </div>
                                 <!-- Subject -->
 
-                                <select class="browser-default custom-select mb-4" name="tipoAsunto" id="tipoAsunto"
-                                    required>
-                                    <option value="" disabled selected>Tipo de asunto</option>
+                                <div class="form-group">
+                                    <label for="tipoAsunto">Tipo de asunto</label>
+                                    <select class="browser-default custom-select" name="tipoAsunto" id="tipoAsunto">
                                     <option value="1">Solicitud e información de alcaldía</option>
                                     <option value="2">Solicitud de canchas</option>
                                     <option value="3">Solicitud al CAM</option>
@@ -55,36 +57,30 @@
                                     <option value="5">Problemas en calles y aceras</option>
                                     <option value="6">Problemas de agua y acueductos</option>
                                     <option value="7">otros</option>
-
                                 </select>
+                                </div>
 
                                 <div class="md-form md-outline " style="display: none" id="fechadiv">
                                     <input type="date" name="fecha" id="fecha" class="form-control mb-4"
                                         min=@php
 $hoy=date("Y-m-d"); echo $hoy; @endphp disabled>
                                     <label for="fecha">Fecha para solicitar cancha</label>
-
                                 </div>
 
                                 <!--Message-->
-                                <div class="form-group">
-                                    <textarea class="form-control rounded-0" id="mensaje" name="mensaje" rows="3" placeholder="Mensaje o asunto"
-                                        required></textarea>
+                                <div class="">
+                                    <label for="mensaje">Mensaje o asunto</label>
+                                    <textarea class="form-control rounded-0" id="mensaje" name="mensaje" rows="3" placeholder="Mensaje o asunto"></textarea>
+                                    <div class="invalid-feedback"></div>
                                 </div>
 
-
-
                                 <!-- Send button -->
-                                <button class="btn btn-primary btn-block  my-4" type="submit">Enviar mensaje</button>
-
+                                <button class="btn btn-primary btn-block my-4" type="submit" id="btn-enviar">Enviar mensaje</button>
                             </form>
                             <!-- Form -->
-
                         </div>
-
                     </div>
                     <!-- Material form contact -->
-
                 </div>
             </div>
         </div>
@@ -93,22 +89,6 @@ $hoy=date("Y-m-d"); echo $hoy; @endphp disabled>
 
 
 @section('scripts')
-    <script>
-        // Material Select Initialization
-        $(document).ready(function() {
-            $('.mdb-select').materialSelect();
-        });
-        var asunto = $('#tipoAsunto');
-        asunto.change(function() {
-
-            if (asunto.val() === '2') {
-                $('#fecha').prop('disabled', false)
-                $('#fechadiv').show();
-            } else {
-                $('#fecha').prop('disabled', true)
-                $('#fechadiv').hide();
-
-            }
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('js/validaciones.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/formularios/denuncia.js') }}"></script>
 @endsection

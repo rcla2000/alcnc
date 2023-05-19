@@ -1,4 +1,55 @@
 ///funcion para filtrar fechas disponibles por especialidad
+const form = document.querySelector('#frm-cita');
+const especialidad = document.querySelector('#espe');
+const errorFecha = document.querySelector('#error-fecha');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let errores = 0;
+
+    if (estaVacio(especialidad.value)) {
+        agregarError(especialidad, especialidad.nextElementSibling, 'Debe seleccionar una especialidad');
+        errores += 1;
+    } else {
+        limpiarError(especialidad, especialidad.nextElementSibling);
+    }
+
+    if (estaVacio(document.querySelector('#fecha').value)) {
+        errorFecha.textContent = 'Seleccione una fecha disponible para la cita';
+        errores += 1;
+    } else {
+        errorFecha.textContent = '';
+    }
+
+    if (errores == 0) {
+        $.confirm({
+            title: "Confirmar información",
+            content: "¿Esta seguro/a que desea realizar su cita?",
+            buttons: {
+                si: {
+                    text: "SÍ",
+                    btnClass: "btn-success",
+                    keys: ["enter", "shift"],
+                    action: function () {
+                        form.submit();
+                    },
+                },
+                no: {
+                    text: "NO",
+                    btnClass: "btn-danger",
+                    keys: ["enter", "shift"],
+                    action: function () {
+                        $.alert({
+                            title: "Información",
+                            content: "Cita cancelada",
+                        });
+                    },
+                },
+            },
+        });
+    }
+});
+
 function filtrar(espe) {
     var fechas =[];
     var hoy =new Date();
@@ -12,7 +63,6 @@ function filtrar(espe) {
     ////realizo consulta para filtrar las fechas disponibles segun especialidad
     ////la consulta me devuelve un json
     $.post( '/filtrarCitas',{espec:espe } ,function( data ) {
-                
                 data.forEach(e => {
                     var fecha = new Date(e.fecha_cita);
                     fecha.setMinutes(fecha.getMinutes()+fecha.getTimezoneOffset())
@@ -40,7 +90,6 @@ function filtrar(espe) {
                     '<i class="fas fa-calendar input-prefix" tabindex=0></i>'
                     );
                         $('#fechacita').datepicker({
-                            
                             disable: fechas,
                             min:tomorrow,
                             max: finMes,
@@ -50,10 +99,9 @@ function filtrar(espe) {
                             formatSubmit: 'yyyy/mm/dd'
                         });
                     }, "2000");
-
-               
         });
 }
+
 ///cuando cambio la especialidad filtro las fechas disponibles con la funcion 'filtrar'
 $('#espe').change(function() {
     var especialidad = $('#espe option:selected').text();

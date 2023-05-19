@@ -16,8 +16,9 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="{{ route('regMobiliario') }}" method="POST">
+                                    <form action="{{ route('regMobiliario') }}" method="POST" id="frm-solicitar">
                                         @csrf
+                                        <input type="hidden" id="tipo-solicitud">
                                         <p><b>Nombre:</b> {{ auth()->user()->name }} </p>
                                         <p><b>Dui:</b> {{ auth()->user()->dui }}</p>
                                         <div class="row justify-content-center">
@@ -54,16 +55,17 @@
                                                         name="fecha" class="form-control">
                                                     <i class="fas fa-calendar input-prefix" tabindex=0></i>
                                                 </div>
-
+                                                <div class="mi-error m-0" id="error-fecha"></div>
                                             </div>
                                             <div class="col-md-6 campo-lugar ">
                                                 <div class="text-center">
                                                     <label for="lugar">Lugar a solicitar</label>
                                                     <select name="lugar" id="lugar"
                                                         class="browser-default custom-select">
-                                                        <option value="">Elija una opción</option>
+                                                        <option value="" selected>Elija una opción</option>
                                                         <option value="1">Plaza Municipal</option>
                                                     </select>
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
 
@@ -74,7 +76,6 @@
 
                                             <div class="row justify-content-center">
                                                 <div class="col-md-3">
-
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox"
                                                             onclick="habilitarCampos('sillas','cantSillas')"
@@ -126,7 +127,6 @@
                                                     <button type="submit" class="btn btn-success"><i
                                                             class="fas fa-check"></i>
                                                         Solicitar</button>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -145,5 +145,6 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/validaciones.js') }}"></script>
     <script src="{{ asset('js/formularios/mobiliario.js') }}"></script>
 @endsection
