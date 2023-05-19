@@ -65,7 +65,6 @@ class FormsController extends Controller
     /////////////////////////REGISTRO FAMILIAR//////////////////
     function regTramite(Request $req)
     {
-
         $fechaDoc = date('d-m-Y', strtotime($req->fechaDoc));
         $dt = new DateTime($fechaDoc);
         $aut = $req->autentica;
@@ -89,10 +88,9 @@ class FormsController extends Controller
         $solicitud->usuario_actualizacion = auth()->user()->name;
         $solicitud->save();
         $title = $req->title;
+        $servicios = CServicio::all();
 
-
-
-        return view('formularios.registro-completo', compact('title'));
+        return view('formularios.registro-completo', compact('title', 'servicios'));
     }
     ////////////////////////////////CLINICA//////////////////////////////
     ////registro citas de clinica

@@ -17,7 +17,7 @@
 @section('content')
     <div class="fondo" style="background-image: url({{ $servicio->imgbg }})">
         <div class="container zindex">
-            <div class="row vh-100 justify-content-center align-items-center">
+            <div class="row justify-content-center align-items-center mt-menu-2 mb-5">
                 <div class="col-md-7 ">
                     <!-- Material form contact -->
                     <div class="card ">
@@ -74,20 +74,21 @@
 
                                             <div class="col-md-7">
                                                 <div class="md-form">
-                                                    <input type="text" required id="nombreDocumento"
-                                                        name="nombreDocumento" class="form-control">
                                                     <label for="nombreDocumento">* Nombre en la partida o documento</label>
+                                                    <input type="text" id="nombreDocumento"
+                                                        name="nombreDocumento" class="form-control">
+                                                    <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="md-form">
                                                     <div id="date-picker-example"
                                                         class="md-form input-with-post-icon datepicker">
-                                                        <input placeholder="" required type="text" id="fechaDoc"
+                                                        <input placeholder="dd/mm/yyyy" type="text" id="fechaDoc"
                                                             name="fechaDoc" class="form-control">
-
                                                         <i class="fas fa-calendar input-prefix" tabindex=0></i>
                                                     </div>
+                                                    <div class="mi-error" id="error-fecha-nacimiento"></div>
                                                 </div>
                                             </div>
 
@@ -110,12 +111,12 @@
                                         <label for="comentario">Comentario adicional</label>
                                     </div>
                                     <span class="text-danger">Si la partida o documento contiene <strong class="text-info">
-                                            Rubricas o marginaciones </strong>, se agregara un cobro de $1.00 por cada
-                                        rubrica o marginación al momento del pago.</span>
+                                            Rúbricas o marginaciones </strong>, se agregará un cobro de $1.00 por cada
+                                        rúbrica o marginación al momento del pago.</span>
                                     <a class="btn btn-warning btn-rounded z-depth-0 my-4 waves-effect"
                                         onclick="siguienteAtras('#paso1','#paso2')" id="siguiente"><i
                                             class="fas fa-arrow-left"></i> Paso anterior </a> <!-- Send button -->
-                                    <button class="btn btn-primary btn-block" type="submit">Enviar Solicitud</button>
+                                    <button class="btn btn-primary btn-block" type="submit" id="btn-enviar-solicitud">Enviar solicitud</button>
                                 </section>
                             </form>
                             <!-- Form -->
@@ -133,68 +134,6 @@
 @endsection
 
 @section('scripts')
-    <script>
-        // Material Select Initialization
-        $(document).ready(function() {
-            var fecha = new Date();
-            $('.mdb-select').materialSelect();
-            $('.datepicker').datepicker({
-                format: 'dd/mm/yyyy',
-                formatSubmit: 'dd/mm/yyyy',
-                hiddenPrefix: 'prefix__',
-                hiddenSuffix: '__suffix',
-                min: new Date(1926, 1, 1),
-                max: new Date(fecha.getTime() - (24 * 60 * 60 * 1000))
-            });
-        });
-
-        function siguienteAtras(siguiente, atras) {
-            if (siguiente == '#paso2') {
-                var tramite = $('#tipoTramite');
-                var cantidad = $('#cantidad');
-                if (tramite.val() === null || cantidad.val() === "") {
-                    $.alert({
-                        title: 'Alerta',
-                        content: 'Ingrese el tipo de tramite y la cantidad correcta',
-                        buttons: {
-                            Aceptar: {
-                                btnClass: 'btn-danger'
-                            }
-                        }
-                    });
-                } else {
-
-                    valor = $('#tipoTramite').val();
-                    switch (valor) {
-                        case '1':
-                            $('#fechaDoc').attr('placeholder', '* Fecha de nacimiento');
-
-                            break;
-                        case '2':
-                            $('#fechaDoc').attr('placeholder', '* Fecha de matrimonio');
-                            break;
-                        case '3':
-                            $('#fechaDoc').attr('placeholder', '* Fecha de defunción');
-                            break;
-                        case '4':
-                            $('#fechaDoc').attr('placeholder', '* Boleta de nacimiento');
-                            break;
-
-
-                    }
-                    $(siguiente).show(400)
-                    $(atras).hide(400)
-
-                }
-
-            } else {
-                $(siguiente).show(400)
-                $(atras).hide(400)
-            }
-
-
-
-        }
-    </script>
-
+    <script type="text/javascript" src="{{ asset('js/validaciones.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/formularios/registro-familiar.js') }}"></script>
 @endsection

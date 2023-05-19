@@ -189,6 +189,8 @@ nav {
 
 .fondo {
   width: 100%;
+  height: auto;
+  min-height: 100vh;
   background-color: var(--hover-color);
   background-position: center;
   background-repeat: no-repeat;
@@ -256,7 +258,13 @@ nav {
 }
 
 .titulo-login {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
+}
+
+.mi-error {
+  font-size: 80%;
+  color: #dc3545;
+  margin-top: -1rem;
 }
 
 
