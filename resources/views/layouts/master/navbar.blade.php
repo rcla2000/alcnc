@@ -50,6 +50,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="{{ route('documentos') }}">
+                    <i class="fa-regular fa-folder-open"></i>
+                    Documentos
+                  </a>
+              </li>
+                <li class="nav-item">
                     @if (auth()->user())
                         <form action="{{ route('logout') }}" method="post" id="close" name="close">
                             @csrf

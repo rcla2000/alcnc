@@ -28,6 +28,7 @@ Route::post('/registro-funerario',[FormsController::class,'regFuneraria'])->midd
 
 
 Route::get('/', [HomeController::class,'home'])->name('home');
+Route::get('/documentos', [HomeController::class, 'documentos'])->name('documentos');
 
 
 Route::middleware(['auth'])->group(function(){
