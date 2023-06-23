@@ -31,13 +31,13 @@
                         <!-- Email -->
                         <div class="md-form">
                             <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                class="form-control @error('email') is-invalid @enderror" 
-                                value="{{ old('email') }}" autofocus>
-                            <label for="email">Correo electrónico: </label>
-                            @error('email')
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                class="form-control @error('username') is-invalid @enderror" 
+                                value="{{ old('username') }}" autofocus>
+                            <label for="username">Usuario: </label>
+                            @error('username')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

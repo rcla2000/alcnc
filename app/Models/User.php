@@ -19,6 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
+        'dui',
+        'rol',
+        'area',
+        'direccion',
         'email',
         'password',
     ];
@@ -41,4 +46,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function redireccion() {
+        $ruta = '';
+        switch($this->rol) {
+            case 1:
+                $ruta = 'home';
+                break;
+            default:
+                $ruta = 'dashboard';
+        }
+        return $ruta;
+    }
 }
