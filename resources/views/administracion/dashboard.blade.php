@@ -55,6 +55,4 @@
     <script src="{{ asset('js/graficos/barra.js') }}"></script>
     <script src="{{ asset('js/graficos/pastel.js') }}"></script>
     <script src="{{ asset('js/graficos/dona.js') }}"></script>
-
-
 @endsection
