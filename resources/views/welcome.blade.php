@@ -50,7 +50,7 @@
     </section>
     <section class="container">
         <div class="row">
-            <div class="col-12 col-md-6 text-center mb-2">
+            <div class="col-12 col-md-6 mb-2">
                 <!-- Material form contact -->
                 <div class="card">
                     <h5 class="card-header white-text text-center py-4">
@@ -60,19 +60,30 @@
                     <!--Card content-->
                     <div class="card-body px-lg-5 pt-0">
                         <!-- Form -->
-                        <form class="text-center" style="color: #757575;" action="#!">
+                        <form method="POST" action="{{ route('mensaje.guardar') }}" id="frm-mensaje">
+                            @csrf
                             <!-- Name -->
                             <div class="md-form mt-3">
-                                <input type="text" id="nombre" name="nombre" class="form-control">
                                 <label for="nombre">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{old('nombre')}}">
+                                <div class="invalid-feedback">
+                                    @error('nombre')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="md-form mt-3">
-                                <input type="text" id="telefono" name="telefono" class="form-control">
                                 <label for="telefono">Teléfono</label>
+                                <input type="text" id="telefono" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{old('telefono')}}">
+                                <div class="invalid-feedback">
+                                    @error('telefono')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
                             </div>
                             
-                            <div class="md-form mt-3">
+                            {{-- <div class="md-form mt-3">
                                 <!-- Subject -->
                                 <label for="area">Tipo de reporte</label>
                                 <select class="mdb-select" name="area" id="area">
@@ -80,12 +91,17 @@
                                     <option value="3">Reporte 2</option>
                                     <option value="4">Reporte 3</option>
                                 </select>
-                            </div>
+                            </div> --}}
 
                             <!--Message-->
                             <div class="md-form">
-                                <textarea id="mensaje" class="form-control md-textarea" rows="3" id="mensaje" name="mensaje"></textarea>
-                                <label for="mensaje">Mensaje</label>
+                                <label for="mensaje" class="mb-2">Mensaje</label>
+                                <textarea id="mensaje" class="form-control md-textarea @error('mensaje') is-invalid @enderror" rows="3" id="mensaje" name="mensaje">{{old('mensaje')}}</textarea>
+                                <div class="invalid-feedback">
+                                    @error('mensaje')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
                             </div>
                             <!-- Send button -->
                             <button class="btn btn-primary btn-block"
@@ -112,11 +128,83 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript" src="{{ asset('js/validaciones.js') }}"></script>
     <script>
         $('.carousel').carousel()
 
         $(document).ready(function() {
             new WOW().init();
+        });
+
+        const nombre = document.querySelector('#nombre');
+        const telefono = document.querySelector('#telefono');
+        const mensaje = document.querySelector('#mensaje');
+        const form = document.querySelector('#frm-mensaje');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let errores = 0;
+
+            if (estaVacio(nombre.value)) {
+                errores += 1;
+                agregarError(
+                    nombre,
+                    nombre.nextElementSibling,
+                    'Ingrese su nombre completo'
+                );
+            } else {
+                limpiarError(nombre, nombre.nextElementSibling);
+            }
+
+            if (estaVacio(telefono.value)) {
+                errores += 1;
+                agregarError(
+                    telefono,
+                    telefono.nextElementSibling,
+                    'Ingrese su número de teléfono'
+                );
+            } else {
+                limpiarError(telefono, telefono.nextElementSibling);
+            }
+
+            if (estaVacio(mensaje.value)) {
+                errores += 1;
+                agregarError(
+                    mensaje,
+                    mensaje.nextElementSibling,
+                    'Ingrese el mensaje a enviar'
+                );
+            } else {
+                limpiarError(mensaje, mensaje.nextElementSibling);
+            }
+
+            if (errores == 0) {
+                $.confirm({
+                    title: 'Confirmar información',
+                    content: '¿Esta seguro/a que desea enviar su mensaje?',
+                    buttons: {
+                        si: {
+                            text: 'SÍ',
+                            btnClass: 'btn-success',
+                            keys: ['enter', 'shift'],
+                            action: function(){
+                                form.submit();
+                            }
+                        },
+                        no: {
+                            text: 'NO',
+                            btnClass: 'btn-danger',
+                            keys: ['enter', 'shift'],
+                            action: function(){
+                                $.alert({
+                                    title: 'Información',
+                                    content: 'Operación cancelada',
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         });
     </script>
 @endsection

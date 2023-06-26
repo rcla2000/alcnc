@@ -28,7 +28,8 @@ Route::post('/registro-funerario',[FormsController::class,'regFuneraria'])->midd
 
 
 Route::get('/', [HomeController::class,'home'])->name('home');
-
+Route::get('/documentos', [HomeController::class, 'documentos'])->name('documentos');
+Route::post('/enviar-mensaje', [HomeController::class, 'guardarMensaje'])->name('mensaje.guardar');
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard', [DashController::class,'dashboard'])->name('dashboard');
