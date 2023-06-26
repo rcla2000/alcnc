@@ -42,4 +42,8 @@ class CatTipoSolicitude extends Model
 	{
 		return $this->belongsTo(CArea::class, 'id_area');
 	}
+
+	public function solicitudes() {
+		return $this->hasMany(TSolicitude::class, 'tipo_solicitud', 'id_t_solicitud');
+	}
 }

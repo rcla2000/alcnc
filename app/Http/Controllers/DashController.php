@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\VwDetaSolicitude;
 use App\Models\VwCargo;
 use App\Models\CArancele;
+use App\Models\PagoSolicitud;
 use App\Models\TSolicitude;
 use App\Models\TSolicitudesFuneraria;
 use App\Models\TSolicitudesMobiliario;
@@ -27,11 +28,33 @@ class DashController extends Controller
             $totalSolicitudes = $solicitudes + $solFuneraria + $solMobililiario;
             $totalSolPendientes = $solPendientes + $solFunPendientes + $solMobPendientes;
 
+            $pagosRecolectados = PagoSolicitud::select(DB::raw('sum(cantidad * precio) as total'))->first()->total;
+            $pagosPendientesSolFamiliar = TSolicitude::select(DB::raw('SUM(t_solicitudes.cantidad*c_aranceles.precio) as total'))
+                ->join(
+                    'cat_tipo_solicitudes', 
+                    't_solicitudes.tipo_solicitud',
+                    '=',
+                    'cat_tipo_solicitudes.id_t_solicitud'
+                )
+                ->join(
+                    'c_aranceles',
+                    'cat_tipo_solicitudes.id_arancel',
+                    '=',
+                    'c_aranceles.id_arancel'
+                )
+                ->where('t_solicitudes.estado_solicitud', '!=', 4)
+                ->first()
+                ->total;
+            
+            $pagosPendientes = $pagosPendientesSolFamiliar;
+
             return view(
                 'administracion.dashboard',
                 compact(
                     'totalSolicitudes',
-                    'totalSolPendientes'
+                    'totalSolPendientes',
+                    'pagosRecolectados',
+                    'pagosPendientes'
                 )
             );
         }
