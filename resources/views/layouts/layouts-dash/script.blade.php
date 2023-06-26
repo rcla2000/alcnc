@@ -10,5 +10,4 @@
 <!-- MDBootstrap Cards Extended Pro  -->
 <script src="{{ asset('js/dashboard.js')}}"></script>
 
-
 @yield('scripts')

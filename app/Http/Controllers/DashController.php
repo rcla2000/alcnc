@@ -7,21 +7,35 @@ use Illuminate\Support\Facades\DB;
 use App\Models\VwDetaSolicitude;
 use App\Models\VwCargo;
 use App\Models\CArancele;
-
+use App\Models\TSolicitude;
+use App\Models\TSolicitudesFuneraria;
+use App\Models\TSolicitudesMobiliario;
 
 class DashController extends Controller
 {
-
-   
-
     function dashboard(){
         if(auth()->user()->rol > 1)
         {
-            return view('administracion.dashboard');
+            $solicitudes = TSolicitude::all()->count();
+            $solFuneraria = TSolicitudesFuneraria::all()->count();
+            $solMobililiario = TSolicitudesMobiliario::all()->count();
+
+            $solPendientes = TSolicitude::where('estado_solicitud', '!=', 4)->get()->count();
+            $solFunPendientes = TSolicitudesFuneraria::where('estado', '!=', 4)->get()->count();
+            $solMobPendientes = TSolicitudesMobiliario::where('estado', '!=', 4)->get()->count();
+
+            $totalSolicitudes = $solicitudes + $solFuneraria + $solMobililiario;
+            $totalSolPendientes = $solPendientes + $solFunPendientes + $solMobPendientes;
+
+            return view(
+                'administracion.dashboard',
+                compact(
+                    'totalSolicitudes',
+                    'totalSolPendientes'
+                )
+            );
         }
         return redirect('/');
-
-
     }
 
     function gestiones(){
