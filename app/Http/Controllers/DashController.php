@@ -11,6 +11,7 @@ use App\Models\PagoSolicitud;
 use App\Models\TSolicitude;
 use App\Models\TSolicitudesFuneraria;
 use App\Models\TSolicitudesMobiliario;
+use JavaScript;
 
 class DashController extends Controller
 {
@@ -47,6 +48,33 @@ class DashController extends Controller
                 ->total;
             
             $pagosPendientes = $pagosPendientesSolFamiliar;
+
+            JavaScript::put([
+                'barrasSolicitudes' => [
+                    [
+                        'tipo' => 'Registro estado familiar',
+                        'valor' => $solicitudes
+                    ],
+                    [
+                        'tipo' => 'Servicios funerarios',
+                        'valor' => $solFuneraria
+                    ],
+                    [
+                        'tipo' => 'Mobiliario',
+                        'valor' => $solMobililiario
+                    ]
+                ],
+                'solicitudes' => [
+                    [
+                        'tipo' => 'Completadas',
+                        'valor' =>  $totalSolicitudes - $totalSolPendientes
+                    ],
+                    [
+                        'tipo' => 'No resueltas',
+                        'valor' => $totalSolPendientes
+                    ]
+                ]
+            ]);
 
             return view(
                 'administracion.dashboard',

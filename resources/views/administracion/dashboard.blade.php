@@ -38,9 +38,33 @@
             </div>
         </div>
     </div>
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header primary-color text-white">
+                    <h5 class="card-title">Tipos de solicitudes</h5>
+                </div>
+                <div class="card-body">
+                    <div id="barrasTipoSolicitud" class="grafico"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header primary-color text-white">
+                    <h5 class="card-title">Detalle de solicitudes</h5>
+                </div>
+                <div class="card-body">
+                    <div id="pastel" class="grafico"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
 @section('scripts')
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-    <script src="{{ asset('js/dashboard/graficos/pastel.js') }}"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="{{ asset('js/dashboard/graficos/solicitudes.js') }}"></script>
 @endsection
