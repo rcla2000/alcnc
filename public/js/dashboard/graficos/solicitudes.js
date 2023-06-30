@@ -72,7 +72,7 @@ series.get("colors").set("colors", [
 series.labels.template.set("text", "{category}: ({value}) {valuePercentTotal.formatNumber('0.00')}%[/]");
 
 series.labels.template.setAll({
-    radius: 10
+  inside: true
 });
 
 series.data.setAll(solicitudes);

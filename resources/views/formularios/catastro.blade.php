@@ -42,11 +42,6 @@
 
 @section('scripts')
     <script type="text/javascript">
-        // Material Select Initialization
-        $(document).ready(function() {
-            $('.mdb-select').materialSelect();
-        });
-
         const btn = document.querySelector('#btn-aceptar');
 
         btn.addEventListener('click', (e) => {

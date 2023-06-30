@@ -32,7 +32,7 @@ Route::get('/documentos', [HomeController::class, 'documentos'])->name('document
 Route::post('/enviar-mensaje', [HomeController::class, 'guardarMensaje'])->name('mensaje.guardar');
 
 Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard', [DashController::class,'dashboard'])->name('dashboard');
+    Route::get('/dashboard/{area?}', [DashController::class,'dashboard'])->name('dashboard');
     Route::get('/gestiones', [DashController::class,'gestiones'])->name('gestiones');
     Route::post('/detalle-gestion', [DashController::class,'detaGestion'])->name('detaGestion');
     Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');

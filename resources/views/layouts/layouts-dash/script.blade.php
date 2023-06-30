@@ -9,5 +9,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.js"></script>
 <!-- MDBootstrap Cards Extended Pro  -->
 <script src="{{ asset('js/dashboard.js')}}"></script>
+<script type="text/javascript">
+    // Material Select Initialization
+    $(document).ready(function() {
+        $('.mdb-select').materialSelect();
+    });
+</script>
 
 @yield('scripts')
