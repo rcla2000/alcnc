@@ -12,21 +12,21 @@
         </div>
         <ul class="nav nav-tabs nav-justified md-tabs indigo" id="myTabJust" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#home-just" role="tab"
-                    aria-controls="home-just" aria-selected="true">Catastro</a>
+                <a class="nav-link active" id="home-tab-just" data-toggle="tab" href="#catastro" role="tab"
+                    aria-controls="catastro" aria-selected="true">Catastro</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#profile-just" role="tab"
-                    aria-controls="profile-just" aria-selected="false">Planificación</a>
+                <a class="nav-link" id="profile-tab-just" data-toggle="tab" href="#planificacion" role="tab"
+                    aria-controls="planificacion" aria-selected="false">Planificación</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab"
-                    aria-controls="contact-just" aria-selected="false">Unidad ambiental</a>
+                <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#unidad-ambiental" role="tab"
+                    aria-controls="unidad-ambiental" aria-selected="false">Unidad ambiental</a>
             </li>
         </ul>
 
         <div class="tab-content card pt-5" id="myTabContentJust">
-            <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+            <div class="tab-pane fade show active" id="catastro" role="tabpanel" aria-labelledby="home-tab-just">
                 <a class="btn btn-block btn-primary mb-2" href="{{ asset('docs/catastro/LA ORDENANZA REGULADORA DE TASAS Y CONTRIBUCIONES ESPECIALES MUNICIPALES DE NUEVO CUSCATLÁN.PDF') }}" download="">
                   LA ORDENANZA REGULADORA DE TASAS Y CONTRIBUCIONES ESPECIALES MUNICIPALES DE NUEVO CUSCATLÁN
                 </a>
@@ -44,7 +44,7 @@
                     tasas y contribuciones especiales
                 </a>
             </div>
-            <div class="tab-pane fade" id="profile-just" role="tabpanel" aria-labelledby="profile-tab-just">
+            <div class="tab-pane fade" id="planificacion" role="tabpanel" aria-labelledby="profile-tab-just">
                 <a class="btn btn-block btn-info mb-2" href="{{ asset('docs/planificacion/DECRETA%20LA%20SIGUIENTE%20REFORMA%20A%20LA%20ORDENANZA%20DE%20COBRO%20POR%20SERVICIOS%20PARA%20EL%20DESARROLLO%20TERRITORIAL%20EN%20EL%20MUNICIPIO%20DE%20NUEVO%20CUSCATLAN,%20DEPARTAMENTO%20DE%20LA%20LIBERTAD.PDF') }}" download="">
                     Decreta la siguiente reforma a la ordenanza de cobro por servicios para el desarrollo territorial en
                     el municipio de Nuevo Cuscatlán, departamento de la libertad
@@ -56,7 +56,7 @@
                     Ordenanza de declaratoria de zona de desarrollo, zona sur, del municipio de nuevo cuscatlan
                 </a>
             </div>
-            <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
+            <div class="tab-pane fade" id="unidad-ambiental" role="tabpanel" aria-labelledby="contact-tab-just">
                 <a class="btn btn-block btn-success mb-2" href="{{ asset('docs/unidad-ambiental/ORDENANZA PARA LA PROTECCION ARBOREA Y EL DESARROLLO DE NUEVO CUSCATLAN EN ARMONIA CON EL MEDIO AMBIENTE.PDF') }}" download="">
                     Ordenanza para la protección arbórea y el desarrollo de Nuevo Cuscatlán en armonía con el medio
                     ambiente
