@@ -17,7 +17,8 @@
                 @foreach ($servicios as $item)
                     <div class="col-md-4 mb-3 text-center justify-content-center ">
                         <!-- Card -->
-                        <div class="card card-servicio card-image z-depth-4" style="background-image: url({{ $item->imgbg }});">
+                        <div class="card card-servicio card-image z-depth-4"
+                            style="background-image: url({{ $item->imgbg }});">
 
                             <!-- Content -->
                             <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
@@ -40,7 +41,7 @@
             </div>
         </div>
     </section>
-    <section class="container-fluid mb-3 mb-md-4">
+    <section class="container-fluid mb-3 mb-md-4" id="contactanos">
         <div class="row wow justify-content-center title-section2">
             <h2 class="text-center text-white">
                 <i class="far fa-envelope mr-2"></i>
@@ -65,7 +66,8 @@
                             <!-- Name -->
                             <div class="md-form mt-3">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" id="nombre" name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{old('nombre')}}">
+                                <input type="text" id="nombre" name="nombre"
+                                    class="form-control @error('nombre') is-invalid @enderror" value="{{ old('nombre') }}">
                                 <div class="invalid-feedback">
                                     @error('nombre')
                                         {{ $message }}
@@ -75,14 +77,16 @@
 
                             <div class="md-form mt-3">
                                 <label for="telefono">Teléfono</label>
-                                <input type="text" id="telefono" name="telefono" class="form-control @error('telefono') is-invalid @enderror" value="{{old('telefono')}}">
+                                <input type="text" id="telefono" name="telefono"
+                                    class="form-control @error('telefono') is-invalid @enderror"
+                                    value="{{ old('telefono') }}">
                                 <div class="invalid-feedback">
                                     @error('telefono')
                                         {{ $message }}
                                     @enderror
                                 </div>
                             </div>
-                            
+
                             {{-- <div class="md-form mt-3">
                                 <!-- Subject -->
                                 <label for="area">Tipo de reporte</label>
@@ -96,7 +100,8 @@
                             <!--Message-->
                             <div class="md-form">
                                 <label for="mensaje" class="mb-2">Mensaje</label>
-                                <textarea id="mensaje" class="form-control md-textarea @error('mensaje') is-invalid @enderror" rows="3" id="mensaje" name="mensaje">{{old('mensaje')}}</textarea>
+                                <textarea id="mensaje" class="form-control md-textarea @error('mensaje') is-invalid @enderror" rows="3"
+                                    id="mensaje" name="mensaje">{{ old('mensaje') }}</textarea>
                                 <div class="invalid-feedback">
                                     @error('mensaje')
                                         {{ $message }}
@@ -104,8 +109,7 @@
                                 </div>
                             </div>
                             <!-- Send button -->
-                            <button class="btn btn-primary btn-block"
-                                type="submit">Enviar</button>
+                            <button class="btn btn-primary btn-block" type="submit">Enviar</button>
                         </form>
                         <!-- Form -->
                     </div>
@@ -129,82 +133,5 @@
 
 @section('scripts')
     <script type="text/javascript" src="{{ asset('js/validaciones.js') }}"></script>
-    <script>
-        $('.carousel').carousel()
-
-        $(document).ready(function() {
-            new WOW().init();
-        });
-
-        const nombre = document.querySelector('#nombre');
-        const telefono = document.querySelector('#telefono');
-        const mensaje = document.querySelector('#mensaje');
-        const form = document.querySelector('#frm-mensaje');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            let errores = 0;
-
-            if (estaVacio(nombre.value)) {
-                errores += 1;
-                agregarError(
-                    nombre,
-                    nombre.nextElementSibling,
-                    'Ingrese su nombre completo'
-                );
-            } else {
-                limpiarError(nombre, nombre.nextElementSibling);
-            }
-
-            if (estaVacio(telefono.value)) {
-                errores += 1;
-                agregarError(
-                    telefono,
-                    telefono.nextElementSibling,
-                    'Ingrese su número de teléfono'
-                );
-            } else {
-                limpiarError(telefono, telefono.nextElementSibling);
-            }
-
-            if (estaVacio(mensaje.value)) {
-                errores += 1;
-                agregarError(
-                    mensaje,
-                    mensaje.nextElementSibling,
-                    'Ingrese el mensaje a enviar'
-                );
-            } else {
-                limpiarError(mensaje, mensaje.nextElementSibling);
-            }
-
-            if (errores == 0) {
-                $.confirm({
-                    title: 'Confirmar información',
-                    content: '¿Esta seguro/a que desea enviar su mensaje?',
-                    buttons: {
-                        si: {
-                            text: 'SÍ',
-                            btnClass: 'btn-success',
-                            keys: ['enter', 'shift'],
-                            action: function(){
-                                form.submit();
-                            }
-                        },
-                        no: {
-                            text: 'NO',
-                            btnClass: 'btn-danger',
-                            keys: ['enter', 'shift'],
-                            action: function(){
-                                $.alert({
-                                    title: 'Información',
-                                    content: 'Operación cancelada',
-                                });
-                            }
-                        }
-                    }
-                });
-            }
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('js/home.js') }}"></script>
 @endsection
