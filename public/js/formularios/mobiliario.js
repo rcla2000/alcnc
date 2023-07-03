@@ -14,16 +14,6 @@ cantidadMesas.addEventListener('keypress', soloNumeros);
 cantidadSillas.addEventListener('keypress', soloNumeros);
 cantidadCanopis.addEventListener('keypress', soloNumeros);
 
-const minimoUno = (e) => {
-    if (e.target.value == 0) {
-        e.target.value = 1;
-    }
-}
-
-cantidadMesas.addEventListener('input', minimoUno);
-cantidadSillas.addEventListener('input', minimoUno);
-cantidadCanopis.addEventListener('input', minimoUno);
-
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     let errores = 0;
@@ -53,6 +43,12 @@ form.addEventListener('submit', (e) => {
         $.alert({
             title: "Error",
             content: "Especifique al menos un tipo de mobiliario y su cantidad (sillas, mesas, canopis)",
+        });
+        errores += 1;
+    } else if (cantidadMesas.value == 0 && cantidadSillas.value == 0 && cantidadCanopis.value == 0) {
+        $.alert({
+            title: "Error",
+            content: "La cantidad de mobiliario a solicitar debe ser mayor a cero",
         });
         errores += 1;
     }

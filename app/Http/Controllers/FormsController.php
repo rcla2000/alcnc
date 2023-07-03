@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CArancele;
 use Illuminate\Http\Request;
 use App\Models\TDenuncia;
 use App\Models\TSolicitude;
@@ -88,7 +89,7 @@ class FormsController extends Controller
             if ($aut == null) {
                 $solicitud->autentica = 0;
             } else {
-                $solicitud->autentica = $aut;
+                $solicitud->autentica = 1;
             }
             $solicitud->desc_solicitud = $req->comentario;
             $solicitud->estado_solicitud = 1;
@@ -101,7 +102,15 @@ class FormsController extends Controller
             $pago->id_area = 1;
             $pago->id_direccion = 2;
             $pago->cantidad = $solicitud->cantidad;
-            $pago->precio = $solicitud->cat_tipo_solicitud->arancel->precio;
+
+            // Se verifica si se agrega el costo extra de (auténtica)
+            if ($solicitud->autentica == 1) {
+                $arancel = CArancele::where('id_arancel', 4)->first()->precio;
+                $pago->precio = $solicitud->cat_tipo_solicitud->arancel->precio + $arancel;
+            } else {
+                $pago->precio = $solicitud->cat_tipo_solicitud->arancel->precio;
+            }
+            
             $pago->save();
 
             DB::commit();

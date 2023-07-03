@@ -22,9 +22,9 @@
                                         <p><b>Dui:</b> {{ auth()->user()->dui }}</p>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="form-outline">
-                                            <label class="form-label" for="textAreaExample">Escriba su solicitud</label>
-                                            <textarea class="form-control" id="solicitud" name="solicitud" rows="4"></textarea>
+                                        <div class="form-group">
+                                            <label class="form-label" for="solicitud">Escriba su solicitud</label>
+                                            <textarea class="form-control" id="solicitud" name="solicitud" rows="7"></textarea>
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
