@@ -62,18 +62,19 @@
             <!-- Grid column -->
             <!-- Grid column -->
             <div class="col-md-3 mb-md-0 mb-3">
-                <h5 class=""><strong>Nuestras redes sociales</strong></h5>
+                <h5 class="text-center"><strong>Redes sociales</strong></h5>
                 <!-- Facebook -->
-                <div class="w-100 d-flex">
+                <div class="w-100 d-flex justify-content-center">
                     <a class="icono-red-social fb-color" href="https://www.facebook.com/LaNuevaCidad" role="button">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                     <!-- Twitter -->
-                    <a class="icono-red-social tw-color" href="https://twitter.com/alcaldia_nc" role="button"><i
-                            class="fab fa-twitter"></i>
+                    <a class="icono-red-social tw-color" href="https://twitter.com/alcaldia_nc" role="button">
+                        <i class="fab fa-twitter"></i>
                     </a>
                     <!-- Instagram -->
-                    <a class="icono-red-social ig-color" href="#!" role="button"><i class="fab fa-instagram"></i>
+                    <a class="icono-red-social ig-color" href="#!" role="button">
+                        <i class="fab fa-instagram"></i>
                     </a>
                 </div>
             </div>
@@ -86,7 +87,7 @@
 
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2023 Copyright.
-        <a href="/"> Alcaldía Municipal Nuevo Cuscatlán</a>
+        <a href="{{ route('home') }}"> Alcaldía Municipal Nuevo Cuscatlán</a>
     </div>
     <!-- Copyright -->
 </footer>

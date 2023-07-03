@@ -52,7 +52,7 @@
         <div class="row">
             <div class="col-12 col-md-6 mb-2">
                 <!-- Material form contact -->
-                <div class="card">
+                <div class="card altura-contacto">
                     <h5 class="card-header white-text text-center py-4">
                         <i class="fa-solid fa-envelope white-text mr-2"></i>
                         <strong>Envíanos un mensaje</strong>
@@ -113,7 +113,7 @@
                 <!-- Material form contact -->
             </div>
             <div class="col-12 col-md-6">
-                <div class="z-depth-3 p-3 bg-light rounded">
+                <div class="z-depth-3 p-3 bg-light rounded altura-contacto">
                     <div class="contenedor-mapa">
                         <iframe class="mapa"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1221.2346017244167!2d-89.26595737311105!3d13.646909720896758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f632e12abcc8147%3A0xa316fc34131ef94!2sJPWM%2BQQ8%2C%20Nuevo%20Cuscatlan!5e0!3m2!1ses-419!2ssv!4v1679542970225!5m2!1ses-419!2ssv"
