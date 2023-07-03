@@ -29,12 +29,14 @@ class CatTipoSolicitude extends Model
 
 	protected $casts = [
 		'id_area' => 'int',
-		'fecha_creacion' => 'date'
+		'fecha_creacion' => 'date',
+		'id_arancel' => 'int'
 	];
 
 	protected $fillable = [
 		'desc_solicitud',
 		'id_area',
+		'id_arancel',
 		'fecha_creacion'
 	];
 
@@ -45,5 +47,10 @@ class CatTipoSolicitude extends Model
 
 	public function solicitudes() {
 		return $this->hasMany(TSolicitude::class, 'tipo_solicitud', 'id_t_solicitud');
+	}
+
+	public function arancel()
+	{
+		return $this->belongsTo(CArancele::class, 'id_arancel', 'id_arancel');
 	}
 }

@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\DashController;
+use App\Models\PagoSolicitud;
+use App\Models\TSolicitude;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +39,6 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/detalle-gestion', [DashController::class,'detaGestion'])->name('detaGestion');
     Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');
 });
-
 
 require __DIR__.'/auth.php';
 

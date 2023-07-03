@@ -62,7 +62,6 @@ formulario.addEventListener("submit", (e) => {
 // Material Select Initialization
 $(document).ready(function () {
     var fecha = new Date();
-    $(".mdb-select").materialSelect();
     $(".datepicker").datepicker({
         format: "dd/mm/yyyy",
         formatSubmit: "dd/mm/yyyy",
@@ -84,7 +83,7 @@ function siguienteAtras(siguiente, atras) {
         ) {
             $.alert({
                 title: "Alerta",
-                content: "Ingrese el tipo de tramite y la cantidad correcta",
+                content: "Ingrese el tipo de trámite y la cantidad correcta",
                 buttons: {
                     Aceptar: {
                         btnClass: "btn-danger",

@@ -10,10 +10,13 @@ use App\Models\TSolicitudesFuneraria;
 use App\Models\VwSolicitude;
 use App\Models\CServicio;
 use App\Models\CEspecialidadesClinica;
+use App\Models\PagoSolicitud;
 use App\Models\TCitasClinica;
 use App\Models\VwClinicaCita;
 use RealRashid\SweetAlert\Facades\Alert;
 use DateTime;
+use DB;
+use Exception;
 
 class FormsController extends Controller
 {
@@ -67,31 +70,48 @@ class FormsController extends Controller
     function regTramite(Request $req)
     {
         $servicios = CServicio::all();
-        $fechaDoc = date('d-m-Y', strtotime($req->fechaDoc));
-        $dt = new DateTime($fechaDoc);
-        $aut = $req->autentica;
-
-        $solicitud = new TSolicitude();
-
-        $solicitud->area_alcaldia = $req->area;
-        $solicitud->dui_solicitante = $req->dui;
-        $solicitud->tipo_solicitud = $req->tipoTramite;
-        $solicitud->cantidad = $req->cantidad;
-        $solicitud->autentica = $req->autentica;
-        $solicitud->nombre_documento = $req->nombreDocumento;
-        $solicitud->fecha_documento = $dt->format('Y-d-m');
-        if ($aut == null) {
-            $solicitud->autentica = 0;
-        } else {
-            $solicitud->autentica = $aut;
-        }
-        $solicitud->desc_solicitud = $req->comentario;
-        $solicitud->estado_solicitud = 1;
-        $solicitud->usuario_actualizacion = auth()->user()->name;
-        $solicitud->save();
         $title = $req->title;
-        Alert::success('Información', 'Su solicitud de documentos ha sido enviada de forma exitosa.');
-        return view('formularios.registro-completo', compact('title', 'servicios'));
+
+        try {
+            DB::beginTransaction();
+            $fechaDoc = date('d-m-Y', strtotime($req->fechaDoc));
+            $dt = new DateTime($fechaDoc);
+            $aut = $req->autentica;
+    
+            $solicitud = new TSolicitude();
+            $solicitud->dui_solicitante = $req->dui;
+            $solicitud->tipo_solicitud = $req->tipoTramite;
+            $solicitud->cantidad = $req->cantidad;
+            $solicitud->autentica = $req->autentica;
+            $solicitud->nombre_documento = $req->nombreDocumento;
+            $solicitud->fecha_documento = $dt->format('Y-d-m');
+            if ($aut == null) {
+                $solicitud->autentica = 0;
+            } else {
+                $solicitud->autentica = $aut;
+            }
+            $solicitud->desc_solicitud = $req->comentario;
+            $solicitud->estado_solicitud = 1;
+            $solicitud->usuario_actualizacion = auth()->user()->name;
+            $solicitud->save();
+    
+            // Se almacena el pago de la solicitud
+            $pago = new PagoSolicitud();
+            $pago->id_solicitud = $solicitud->id_solicitud;
+            $pago->id_area = 1;
+            $pago->id_direccion = 2;
+            $pago->cantidad = $solicitud->cantidad;
+            $pago->precio = $solicitud->cat_tipo_solicitud->arancel->precio;
+            $pago->save();
+
+            DB::commit();
+            Alert::success('Información', 'Su solicitud de documentos ha sido enviada de forma exitosa.');
+            return view('formularios.registro-completo', compact('title', 'servicios'));
+        } catch (Exception $e) {
+            DB::rollBack();
+            Alert::error('Error', 'Ocurrió un error al registrar su solicitud de documento: ' . $e->getMessage());
+            return back();
+        } 
     }
     ////////////////////////////////CLINICA//////////////////////////////
     ////registro citas de clinica

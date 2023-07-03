@@ -40,6 +40,6 @@ class CArancele extends Model
 
 	public function cat_tipo_solicitudes()
 	{
-		return $this->hasMany(CatTipoSolicitude::class, 'id_arancel');
+		return $this->hasMany(CatTipoSolicitude::class, 'id_arancel', 'id_arancel');
 	}
 }

@@ -1,5 +1,3 @@
-{{-- <div class="mt-5" style="height: 300px; width:100%; background:#00AEEF">
-    <!-- Footer --> --}}
 <footer class="page-footer font-small pt-5 mt-5 nc-color">
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">

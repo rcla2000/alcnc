@@ -56,7 +56,7 @@
                                             <div class="md-form">
                                                 <input type="number" class="form-control" name="cantidad" id="cantidad"
                                                     min="1" max="10" required>
-                                                <label for="form1">* Cantidad</label>
+                                                <label for="cantidad">* Cantidad</label>
 
                                             </div>
                                         </div>
