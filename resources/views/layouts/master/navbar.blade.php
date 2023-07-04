@@ -62,16 +62,26 @@
                         </form>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> Mi Cuenta</a>
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                                Mi Cuenta
+                              </a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="#" class="dropdown-item"><i class="fas fa-th-list"></i> Mis solicitudes</a>
+                                <a href="#" class="dropdown-item">
+                                  <i class="fas fa-th-list mr-1"></i> 
+                                  Mis solicitudes
+                                </a>
                                 @if (auth()->user()->rol == 5)
-                                    <a href="{{ route('dashboard') }}" class="dropdown-item"><i class="fas fa-cubes"></i>
-                                        Administración</a>
+                                    <a href="{{ route('dashboard') }}" class="dropdown-item">
+                                      <i class="fas fa-cubes mr-1"></i>
+                                        Administración
+                                    </a>
                                 @endif
                                 <a href="#" class="dropdown-item"
-                                    onclick="event.preventDefault();document.getElementById('close').submit()"><i
-                                        class="fas fa-sign-out-alt"></i>Cerrar sesión</a>
+                                    onclick="event.preventDefault();document.getElementById('close').submit()">
+                                    <i class="fas fa-sign-out-alt mr-1"></i>
+                                    Cerrar sesión
+                                </a>
                             </div>
                         </li>
                     @else
