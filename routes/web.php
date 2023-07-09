@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContribuyenteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormsController;
@@ -38,6 +39,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/gestiones', [DashController::class,'gestiones'])->name('gestiones');
     Route::post('/detalle-gestion', [DashController::class,'detaGestion'])->name('detaGestion');
     Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');
+    
+    // Rutas para contribuyentes
+    Route::get('/contribuyente/solicitudes', [ContribuyenteController::class, 'solicitudes'])->name('contribuyente.solicitudes');
+    Route::get('/contribuyente/solicitudes/{id}', [ContribuyenteController::class, 'detalleSolicitud'])->name('contribuyente.solicitud');
 });
 
 require __DIR__.'/auth.php';

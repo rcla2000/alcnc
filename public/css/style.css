@@ -286,6 +286,30 @@ nav {
   height: 70px;
 }
 
+/* Páginas de contribuyentes */
+.dataTables_length label, .dataTables_filter label, .dataTables_info, .dataTables_paginate a{
+  color: #fff !important;
+}
+
+.page-link:hover {
+  color: #2196f3!important;
+}
+
+.info-solicitud span {
+  display: block;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+
+.info-solicitud span b {
+  color: var(--nc-color);
+}
+
+.icono-solicitud {
+  font-size: 1.7rem;
+  color: var(--nc-color);
+}
+
 @media screen and (max-width: 900px) {
 
   #carousel-example-2 {

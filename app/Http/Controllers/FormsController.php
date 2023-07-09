@@ -24,13 +24,11 @@ class FormsController extends Controller
     function denuncia()
     {   
         $servicio = CServicio::where('id_servicio', 4)->first();
-        $servicios = CServicio::all();
-        return view('formularios.denuncias.denuncia', compact('servicio', 'servicios'));
+        return view('formularios.denuncias.denuncia', compact('servicio'));
     }
 
     function regDenuncia(Request $request)
     {
-        $servicios = CServicio::all();
         $registro = new TDenuncia();
         $registro->nombre = $request->name;
         $registro->telefono = $request->phone;
@@ -39,12 +37,11 @@ class FormsController extends Controller
         $registro->fecha_solicitar = $request->fecha;
         $registro->save();
         Alert::success('Información', 'Su denuncia ha sido registrada de forma exitosa.');
-        return view('formularios.denuncias.denuncia-completa', compact('servicios'));
+        return view('formularios.denuncias.denuncia-completa');
     }
 
     function tramites(Request $req, $idarea = null)
     {
-        $servicios = CServicio::all();
         if (isset($req->idarea) && isset($req->idsol)) {
             $idServicio = $req->idsol;
             $idArea = $req->idarea;
@@ -54,9 +51,9 @@ class FormsController extends Controller
 
             if ($idServicio == 5) {
                 $especialidades = CEspecialidadesClinica::where('estado', 'A')->get();
-                return view('formularios.' . $vista, compact('tiposoli', 'idarea', 'especialidades', 'servicio', 'servicios'));
+                return view('formularios.' . $vista, compact('tiposoli', 'idarea', 'especialidades', 'servicio'));
             } else {
-                return view('formularios.' . $vista, compact('tiposoli', 'idarea', 'servicio', 'servicios'));
+                return view('formularios.' . $vista, compact('tiposoli', 'idarea', 'servicio'));
             }
         }
         ///lleva a la vista para mostrar los servicios por area
@@ -70,7 +67,6 @@ class FormsController extends Controller
     /////////////////////////REGISTRO FAMILIAR//////////////////
     function regTramite(Request $req)
     {
-        $servicios = CServicio::all();
         $title = $req->title;
 
         try {
@@ -115,7 +111,7 @@ class FormsController extends Controller
 
             DB::commit();
             Alert::success('Información', 'Su solicitud de documentos ha sido enviada de forma exitosa.');
-            return view('formularios.registro-completo', compact('title', 'servicios'));
+            return view('formularios.registro-completo', compact('title'));
         } catch (Exception $e) {
             DB::rollBack();
             Alert::error('Error', 'Ocurrió un error al registrar su solicitud de documento: ' . $e->getMessage());

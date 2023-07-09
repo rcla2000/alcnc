@@ -67,7 +67,7 @@
                                 Mi Cuenta
                               </a>
                             <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                                <a href="#" class="dropdown-item">
+                                <a href="{{ route('contribuyente.solicitudes') }}" class="dropdown-item">
                                   <i class="fas fa-th-list mr-1"></i> 
                                   Mis solicitudes
                                 </a>

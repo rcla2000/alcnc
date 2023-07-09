@@ -74,7 +74,7 @@ class TSolicitude extends Model
 
 	public function t_estados_solicitude()
 	{
-		return $this->belongsTo(TEstadosSolicitude::class, 'estado_solicitud');
+		return $this->belongsTo(TEstadosSolicitude::class, 'estado_solicitud', 'id_estado');
 	}
 
 	public function cat_tipo_solicitud()
