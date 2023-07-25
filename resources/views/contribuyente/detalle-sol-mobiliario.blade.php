@@ -18,29 +18,35 @@
                 <div class="info-solicitud">
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>DUI solicitante:</b> {{ $solicitud->dui_solicitante }}
+                        <b>DUI solicitante:</b> {{ $solicitud->usuario }}
                     </span>
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Tipo de solicitud:</b> {{ $solicitud->cat_tipo_solicitud->desc_solicitud }}
+                        <b>Lugar solicitado:</b>  {{ $solicitud->lugar->nombre ?? 'No especificado' }}
                     </span>
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Cantidad de documentos solicitados:</b> {{ $solicitud->cantidad }}
+                        <b>Fecha de evento:</b>
+                        {{ date_format(date_create($solicitud->fecha_evento), 'd-m-Y') }}
                     </span>
-                    <span>
-                        <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Nombre de documento:</b> {{ $solicitud->nombre_documento }}
-                    </span>
-                    <span>
-                        <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Fecha de documento:</b>
-                        {{ date_format(date_create($solicitud->fecha_documento), 'd-m-Y') }}
-                    </span>
-                    <span>
-                        <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Posee auténtica:</b> {{ $solicitud->autentica == 1 ? 'Sí' : 'No' }}
-                    </span>
+                    @if ($solicitud->sillas !== null)
+                        <span>
+                            <i class="fa-regular fa-circle-dot mr-2"></i>
+                            <b>Sillas solicitadas:</b> {{ $solicitud->sillas }}
+                        </span>
+                    @endif
+                    @if ($solicitud->mesas !== null)
+                        <span>
+                            <i class="fa-regular fa-circle-dot mr-2"></i>
+                            <b>Mesas solicitantes:</b> {{ $solicitud->mesas }}
+                        </span>
+                    @endif
+                    @if ($solicitud->canopis !== null)
+                        <span>
+                            <i class="fa-regular fa-circle-dot mr-2"></i>
+                            <b>Canopis solicitados:</b> {{ $solicitud->canopis }}
+                        </span>
+                    @endif
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
                         <b>Fecha en que se realizó la solicitud:</b>
@@ -48,19 +54,9 @@
                     </span>
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Costo:</b>
-                        @if ($pago !== null)
-                            ${{ number_format($pago->cantidad * $pago->precio, 2) }}
-                        @else  
-                            Pendiente de pago
-                        @endif
-                        
-                    </span>
-                    <span>
-                        <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Estado:</b> 
-                        <span class="estado-solicitud estado-solicitud-{{ $solicitud->t_estados_solicitude->id_estado }}">
-                            {{ $solicitud->t_estados_solicitude->desc_estado }}
+                        <b>Estado:</b>
+                        <span class="estado-solicitud estado-solicitud-{{ $solicitud->estado_solicitud->id_estado }}">
+                            {{ $solicitud->estado_solicitud->desc_estado }}
                         </span>
                     </span>
                     <span>
@@ -68,20 +64,10 @@
                         <b>Fecha de actualización:</b>
                         {{ date_format(date_create($solicitud->fecha_actualización), 'd-m-Y') }}
                     </span>
-                    <span>
-                        <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Fecha de resolución:</b>
-                        {{ $solicitud->fecha_resolucion == null ? 'No resuelta' : date_format(date_create($solicitud->fecha_resolucion), 'd-m-Y') }}
-                    </span>
-                    <span>
-                        <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Observaciones:</b>
-                        {{ $solicitud->observacion == null ? 'Sin observaciones' : $solicitud->observacion }}
-                    </span>
                 </div>
                 <div class="row mt-4">
                     <div class="col-12">
-                        <a href="{{ route('contribuyente.solEstadoFamiliar') }}" class="btn btn-block btn-info">Volver</a>
+                        <a href="{{ route('contribuyente.solMobiliario') }}" class="btn btn-block btn-info">Volver</a>
                     </div>
                 </div>
             </div>

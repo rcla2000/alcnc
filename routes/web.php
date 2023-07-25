@@ -65,6 +65,10 @@ Route::middleware(['auth'])->group(function(){
         '/contribuyente/solicitudes/servicios-funerarios/{id}', 
         [ContribuyenteController::class, 'detalleSolicitudFuneraria']
     )->name('contribuyente.detalleSolFuneraria');
+    Route::get(
+        '/contribuyente/solicitudes/mobiliario/{id}', 
+        [ContribuyenteController::class, 'detalleSolicitudMobiliario']
+    )->name('contribuyente.detalleSolMobiliario');
 });
 
 require __DIR__.'/auth.php';

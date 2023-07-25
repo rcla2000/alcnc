@@ -28,7 +28,7 @@
         <div class="tab-content card pt-5" id="myTabContentJust">
             <div class="tab-pane fade show active" id="catastro" role="tabpanel" aria-labelledby="home-tab-just">
                 <a class="btn btn-block btn-primary mb-2" href="{{ asset('docs/catastro/LA ORDENANZA REGULADORA DE TASAS Y CONTRIBUCIONES ESPECIALES MUNICIPALES DE NUEVO CUSCATLÁN.PDF') }}" download="">
-                  LA ORDENANZA REGULADORA DE TASAS Y CONTRIBUCIONES ESPECIALES MUNICIPALES DE NUEVO CUSCATLÁN
+                  ORDENANZA REGULADORA DE TASAS Y CONTRIBUCIONES ESPECIALES MUNICIPALES DE NUEVO CUSCATLÁN
                 </a>
                 <a class="btn btn-block btn-primary mb-2" href="{{ asset('docs/catastro/LEY ESPECIAL TRANSITORIA QUE OTORGA FACILIDADES PARA EL CUMPLIMIENTO.pdf') }}" download="">
                     Ley especial transitoria que otorga facilidades para el cumplimiento
@@ -46,7 +46,7 @@
             </div>
             <div class="tab-pane fade" id="planificacion" role="tabpanel" aria-labelledby="profile-tab-just">
                 <a class="btn btn-block btn-info mb-2" href="{{ asset('docs/planificacion/DECRETA%20LA%20SIGUIENTE%20REFORMA%20A%20LA%20ORDENANZA%20DE%20COBRO%20POR%20SERVICIOS%20PARA%20EL%20DESARROLLO%20TERRITORIAL%20EN%20EL%20MUNICIPIO%20DE%20NUEVO%20CUSCATLAN,%20DEPARTAMENTO%20DE%20LA%20LIBERTAD.PDF') }}" download="">
-                    Decreta la siguiente reforma a la ordenanza de cobro por servicios para el desarrollo territorial en
+                    Reforma a la ordenanza de cobro por servicios para el desarrollo territorial en
                     el municipio de Nuevo Cuscatlán, departamento de la libertad
                 </a>
                 <a class="btn btn-block btn-info mb-2" href="{{ asset('docs/planificacion/LEY%20Y%20REGLAMENTO%20DE%20URBANISMO%20Y%20CONSTRUCCI%C3%93N.pdf') }}" download="">

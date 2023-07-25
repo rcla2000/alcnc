@@ -63,7 +63,9 @@
                                                     <select name="lugar" id="lugar"
                                                         class="browser-default custom-select">
                                                         <option value="" selected>Elija una opción</option>
-                                                        <option value="1">Plaza Municipal</option>
+                                                        @foreach ($lugares as $lugar)
+                                                            <option value="{{ $lugar->id_lugar }}">{{ $lugar->nombre }}</option> 
+                                                        @endforeach
                                                     </select>
                                                     <div class="invalid-feedback"></div>
                                                 </div>

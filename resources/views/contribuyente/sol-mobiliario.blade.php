@@ -38,7 +38,7 @@
                                 <td>{{ $s->fecha_solicitud->format('d-m-Y') }}</td>
                                 <td>{{ $s->fecha_actualizacion->format('d-m-Y') }}</td>
                                 <td>
-                                    <a href="{{-- route('contribuyente.detalleSolFuneraria', $s->id_solicitud) --}}"
+                                    <a href="{{ route('contribuyente.detalleSolMobiliario', $s->id_solicitud) }}"
                                         class="btn btn-sm btn-info">
                                         Detalles
                                     </a>

@@ -11,6 +11,7 @@ use App\Models\TSolicitudesFuneraria;
 use App\Models\VwSolicitude;
 use App\Models\CServicio;
 use App\Models\CEspecialidadesClinica;
+use App\Models\LugarMobiliario;
 use App\Models\PagoSolicitud;
 use App\Models\TCitasClinica;
 use App\Models\VwClinicaCita;
@@ -47,13 +48,14 @@ class FormsController extends Controller
             $idArea = $req->idarea;
             $tiposoli = VwSolicitude::where('id_area', $idArea)->get();
             $servicio = CServicio::where('id_servicio', $idServicio)->where('id_area', $idArea)->first();
+            $lugares = LugarMobiliario::all();
             $vista = $servicio->vista;
 
             if ($idServicio == 5) {
                 $especialidades = CEspecialidadesClinica::where('estado', 'A')->get();
                 return view('formularios.' . $vista, compact('tiposoli', 'idarea', 'especialidades', 'servicio'));
             } else {
-                return view('formularios.' . $vista, compact('tiposoli', 'idarea', 'servicio'));
+                return view('formularios.' . $vista, compact('tiposoli', 'idarea', 'servicio', 'lugares'));
             }
         }
         ///lleva a la vista para mostrar los servicios por area

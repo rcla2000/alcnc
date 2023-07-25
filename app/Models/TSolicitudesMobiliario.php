@@ -58,4 +58,8 @@ class TSolicitudesMobiliario extends Model
 	public function estado_solicitud() {
 		return $this->belongsTo(TEstadosSolicitude::class, 'estado', 'id_estado');
 	}
+
+	public function lugar() {
+		return $this->belongsTo(LugarMobiliario::class, 'lugar_solicitado', 'id_lugar');
+	}
 }
