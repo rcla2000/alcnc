@@ -39,4 +39,14 @@ class TEstadosSolicitude extends Model
 	{
 		return $this->hasMany(TSolicitude::class, 'estado_solicitud', 'id_estado');
 	}
+
+	public function sol_funerarias()
+	{
+		return $this->hasMany(TSolicitudesFuneraria::class, 'estado', 'id_estado');
+	}
+
+	public function sol_mobiliario()
+	{
+		return $this->hasMany(TSolicitudesMobiliario::class, 'estado', 'id_estado');
+	}
 }

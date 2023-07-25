@@ -41,8 +41,30 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');
     
     // Rutas para contribuyentes
-    Route::get('/contribuyente/solicitudes', [ContribuyenteController::class, 'solicitudes'])->name('contribuyente.solicitudes');
-    Route::get('/contribuyente/solicitudes/{id}', [ContribuyenteController::class, 'detalleSolicitud'])->name('contribuyente.solicitud');
+    Route::get(
+        '/contribuyente/solicitudes', 
+        [ContribuyenteController::class, 'solicitudes']
+    )->name('contribuyente.solicitudes');
+    Route::get(
+        '/contribuyentes/solicitudes/estado-familiar', 
+        [ContribuyenteController::class, 'solicitudesEstadoFamiliar']
+    )->name('contribuyente.solEstadoFamiliar');
+    Route::get(
+        '/contribuyentes/solicitudes/servicios-funerarios', 
+        [ContribuyenteController::class, 'solicitudesFunerarias']
+    )->name('contribuyente.solFuneraria');
+    Route::get(
+        '/contribuyentes/solicitudes/mobiliario', 
+        [ContribuyenteController::class, 'solicitudMobiliario']
+    )->name('contribuyente.solMobiliario');
+    Route::get(
+        '/contribuyente/solicitudes/estado-familiar/{id}', 
+        [ContribuyenteController::class, 'detalleSolicitudEstadoFamiliar']
+    )->name('contribuyente.detalleSolFamiliar');
+    Route::get(
+        '/contribuyente/solicitudes/servicios-funerarios/{id}', 
+        [ContribuyenteController::class, 'detalleSolicitudFuneraria']
+    )->name('contribuyente.detalleSolFuneraria');
 });
 
 require __DIR__.'/auth.php';

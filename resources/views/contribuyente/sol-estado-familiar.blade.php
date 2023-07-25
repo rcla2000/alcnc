@@ -3,8 +3,18 @@
 
 @section('content')
     <section class="container mt-menu">
+        <br>
         <div class="row">
-            <h1 class="text-white mt-4 mb-4">Mis solicitudes</h1>
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-baseline">
+                            <i class="fa-solid fa-people-roof icono-solicitud mr-3"></i>
+                            <h3>Mis solicitudes de registro del estado familiar</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="table-responsive">
@@ -30,7 +40,8 @@
                                 <td>{{ $s->fecha_documento->format('d-m-Y') }}</td>
                                 <td>{{ $s->fecha_actualizacion->format('d-m-Y') }}</td>
                                 <td>
-                                    <a href="{{ route('contribuyente.solicitud', $s->id_solicitud) }}" class="btn btn-sm btn-info">
+                                    <a href="{{ route('contribuyente.detalleSolFamiliar', $s->id_solicitud) }}"
+                                        class="btn btn-sm btn-info">
                                         Detalles
                                     </a>
                                 </td>
@@ -40,6 +51,11 @@
                 </table>
             </div>
         </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <a href="{{ route('contribuyente.solicitudes') }}" class="btn btn-block btn-info">Volver</a>
+            </div>
+        </div>
     </section>
 
     @include('layouts.master.footer')
@@ -47,28 +63,5 @@
 @endsection
 
 @section('scripts')
-    <script>
-        $('#tabla-solicitudes').DataTable({
-            language: {
-                'decimal': '',
-                'emptyTable': 'No hay información',
-                'info': 'Mostrando _START_ a _END_ de _TOTAL_ registros',
-                'infoEmpty': 'Mostrando 0 to 0 of 0 Entradas',
-                'infoFiltered': '(Filtrado de _MAX_ total entradas)',
-                'infoPostFix': '',
-                'thousands': ',',
-                'lengthMenu': 'Mostrar _MENU_ registros',
-                'loadingRecords': 'Cargando...',
-                'processing': 'Procesando...',
-                'search': 'Buscar:',
-                'zeroRecords': 'Sin resultados encontrados',
-                'paginate': {
-                    'first': 'Primero',
-                    'last': 'Último',
-                    'next': 'Siguiente',
-                    'previous': 'Anterior'
-                }
-            }
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset('js/contribuyentes/datatables.js') }}"></script>
 @endsection

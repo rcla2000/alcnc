@@ -6,8 +6,8 @@
         <br>
         <div class="card mb-4">
             <div class="card-body">
-                <div class="d-flex align-items-baseline">
-                    <i class="fa-solid fa-file-invoice icono-solicitud mr-2"></i>
+                <div class="d-flex justify-content-center align-items-baseline">
+                    <i class="fa-solid fa-file-invoice icono-solicitud mr-3"></i>
                     <h3>Información de la solicitud</h3>
                 </div>
             </div>
@@ -48,7 +48,20 @@
                     </span>
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
-                        <b>Estado:</b> {{ $solicitud->t_estados_solicitude->desc_estado }}
+                        <b>Costo:</b>
+                        @if ($pago !== null)
+                            ${{ number_format($pago->cantidad * $pago->precio, 2) }}
+                        @else  
+                            Pendiente de pago
+                        @endif
+                        
+                    </span>
+                    <span>
+                        <i class="fa-regular fa-circle-dot mr-2"></i>
+                        <b>Estado:</b> 
+                        <span class="estado-solicitud estado-solicitud-{{ $solicitud->t_estados_solicitude->id_estado }}">
+                            {{ $solicitud->t_estados_solicitude->desc_estado }}
+                        </span>
                     </span>
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
@@ -66,6 +79,11 @@
                         {{ $solicitud->observacion == null ? 'Sin observaciones' : $solicitud->observacion }}
                     </span>
                 </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <a href="{{ route('contribuyente.solEstadoFamiliar') }}" class="btn btn-block btn-info">Volver</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -73,4 +91,3 @@
     @include('layouts.master.footer')
 
 @endsection
-

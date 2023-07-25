@@ -42,4 +42,8 @@ class TSolicitudesFuneraria extends Model
 		'fecha_solicitud',
 		'fecha_actualizacion'
 	];
+
+	public function estado_solicitud() {
+		return $this->belongsTo(TEstadosSolicitude::class, 'estado', 'id_estado');
+	}
 }
