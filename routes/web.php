@@ -19,22 +19,20 @@ use App\Models\TSolicitude;
 |
 */
 
-//RUTAS PARA EL FORMCONTROLLER SERAN PARA TODO EVENTO QUE SE NECESITE FORMULARIO
-Route::get('/contacto', [FormsController::class,'denuncia'])->name('denuncia');
-Route::post('/denuncia',[FormsController::class,'regDenuncia'])->name('regDenuncia');
-Route::post('/tramites/envio-solicitud',[FormsController::class,'regTramite'])->name('regSolicitud');
-Route::get('/tramites/{idarea?}/{idsol?}',[FormsController::class,'tramites'])->middleware(['auth'])->name('tramites');
-Route::post('/registro-cita',[FormsController::class,'regCita'])->middleware(['auth'])->name('regCita');
-Route::post('/filtrarCitas',[FormsController::class,'filtrarCitas'])->name('filtrarCitas');
-Route::post('/registro-mobiliario',[FormsController::class,'regMobiliario'])->middleware(['auth'])->name('regMobiliario');
-Route::post('/registro-funerario',[FormsController::class,'regFuneraria'])->middleware(['auth'])->name('regFuneraria');
+Route::middleware(['auth'])->group(function() {
+    Route::get('/', [HomeController::class,'home'])->name('home');
+    Route::get('/documentos', [HomeController::class, 'documentos'])->name('documentos');
+    Route::post('/enviar-mensaje', [HomeController::class, 'guardarMensaje'])->name('mensaje.guardar');
 
-
-Route::get('/', [HomeController::class,'home'])->name('home');
-Route::get('/documentos', [HomeController::class, 'documentos'])->name('documentos');
-Route::post('/enviar-mensaje', [HomeController::class, 'guardarMensaje'])->name('mensaje.guardar');
-
-Route::middleware(['auth'])->group(function(){
+    //RUTAS PARA EL FORMCONTROLLER SERAN PARA TODO EVENTO QUE SE NECESITE FORMULARIO
+    Route::get('/contacto', [FormsController::class,'denuncia'])->name('denuncia');
+    Route::post('/denuncia',[FormsController::class,'regDenuncia'])->name('regDenuncia');
+    Route::post('/tramites/envio-solicitud',[FormsController::class,'regTramite'])->name('regSolicitud');
+    Route::get('/tramites/{idarea?}/{idsol?}',[FormsController::class,'tramites'])->middleware(['auth'])->name('tramites');
+    Route::post('/registro-cita',[FormsController::class,'regCita'])->middleware(['auth'])->name('regCita');
+    Route::post('/filtrarCitas',[FormsController::class,'filtrarCitas'])->name('filtrarCitas');
+    Route::post('/registro-mobiliario',[FormsController::class,'regMobiliario'])->middleware(['auth'])->name('regMobiliario');
+    Route::post('/registro-funerario',[FormsController::class,'regFuneraria'])->middleware(['auth'])->name('regFuneraria');
     Route::get('/dashboard/{area?}', [DashController::class,'dashboard'])->name('dashboard');
     Route::get('/gestiones', [DashController::class,'gestiones'])->name('gestiones');
     Route::post('/detalle-gestion', [DashController::class,'detaGestion'])->name('detaGestion');
