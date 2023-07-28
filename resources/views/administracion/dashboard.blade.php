@@ -4,26 +4,29 @@
 @endsection
 
 @section('content')
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex align-items-start">
-                <div class="form-group mt-3">
-                    <label for="tipo-solicitud" class="mdb-main-label">Seleccione un tipo de solicitud</label>
-                    <select class="mdb-select" searchable="Search here.." id="tipo-solicitud">
-                        <option value="0">Todos</option>
-                        @foreach ($filtros as $filtro)
-                            <option value="{{ $filtro->id_area }}" @if($area == $filtro->id_area) selected @endif>
-                                {{ $filtro->descripcion }}
-                            </option>
-                        @endforeach
-                    </select>
+    {{-- Solamente el administrador puede usar este filtro --}}
+    @if (Auth::user()->rol == 5)
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex align-items-start">
+                    <div class="form-group mt-3">
+                        <label for="tipo-solicitud" class="mdb-main-label">Seleccione un tipo de solicitud</label>
+                        <select class="mdb-select" searchable="Search here.." id="tipo-solicitud">
+                            <option value="0">Todos</option>
+                            @foreach ($filtros as $filtro)
+                                <option value="{{ $filtro->id_area }}" @if ($area == $filtro->id_area) selected @endif>
+                                    {{ $filtro->descripcion }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success ml-3" id="btn-filtrar">
+                        Filtrar
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-success ml-3" id="btn-filtrar">
-                    Filtrar
-                </button>
             </div>
         </div>
-    </div>
+    @endif
     <div class="row">
         <div class="col-md-3">
             <div class="card text-white bg-primary mb-2">

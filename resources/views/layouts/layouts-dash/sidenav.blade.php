@@ -6,7 +6,6 @@
     <!-- Sidebar navigation -->
     <div id="slide-out" class="side-nav sn-bg-3 fixed">
         <ul class="custom-scrollbar">
-
             <li>
                 <ul class="collapsible collapsible-accordion">
                     <li>
@@ -14,8 +13,26 @@
                             href="{{ route('dashboard') }}"><i class="fas fa-chart-pie"></i>Resumen General</a>
                     </li>
                     <li>
-                        <a class=" waves-effect {{ request()->is('gestiones') ? 'active' : '' }}"
-                            href="{{ route('gestiones') }}"><i class="fas fa-cubes"></i>Administrar Gestiones</a>
+                        <a class="collapsible-header waves-effect arrow-r">
+                        <i class="fas fa-file-pdf"></i>
+                            Administrar Gestiones
+                            <i class="fas fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a 
+                                        href="{{ route('gestiones') }}" 
+                                        class="waves-effect {{ request()->is('gestiones') ? 'active' : '' }}"
+                                    >Registro del estado Familiar</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="waves-effect">Mobiliario</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="waves-effect">Servicios funerarios</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <a class=" waves-effect"><i class="fas fa-tasks"></i>Generar Solicitudes</a>
@@ -82,7 +99,10 @@
 
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user"></i> @if(Auth::check()) {{ Auth::user()->name }}  @endif
+                    <i class="fa fa-user"></i>
+                    @if (Auth::check())
+                        {{ Auth::user()->name }}
+                    @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Ver información</a>
