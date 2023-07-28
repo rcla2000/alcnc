@@ -10,10 +10,12 @@
                 <div class="form-group mt-3">
                     <label for="tipo-solicitud" class="mdb-main-label">Seleccione un tipo de solicitud</label>
                     <select class="mdb-select" searchable="Search here.." id="tipo-solicitud">
-                        <option value="13">Catastro</option>
-                        <option value="1">Estado familiar</option>
-                        <option value="29">Mobiliario</option>
-                        <option value="28">Servicio funerario</option>
+                        <option value="0">Todos</option>
+                        @foreach ($filtros as $filtro)
+                            <option value="{{ $filtro->id_area }}" @if($area == $filtro->id_area) selected @endif>
+                                {{ $filtro->descripcion }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <button type="submit" class="btn btn-success ml-3" id="btn-filtrar">

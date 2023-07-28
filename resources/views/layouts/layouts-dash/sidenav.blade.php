@@ -82,7 +82,7 @@
 
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user"></i> Mi perfil
+                    <i class="fa fa-user"></i> @if(Auth::check()) {{ Auth::user()->name }}  @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="#">Ver información</a>

@@ -12,6 +12,7 @@ use App\Models\SolicitudesCatastro;
 use App\Models\TSolicitude;
 use App\Models\TSolicitudesFuneraria;
 use App\Models\TSolicitudesMobiliario;
+use App\Models\Area;
 use JavaScript;
 
 class DashController extends Controller
@@ -19,6 +20,15 @@ class DashController extends Controller
     function dashboard($area = 0) {
         // Arreglo que contiene los datos de las consultas de las solicitudes
         $datos = [];
+        $filtros = Area::whereIn(
+            'descripcion', 
+            [
+                'Catastro', 
+                'Registro del Estado Familiar', 
+                'Mobiliario', 
+                'Servicios Funerarios'
+            ]
+        )->get();
 
         switch (auth()->user()->area) {
             case 0:
@@ -88,7 +98,8 @@ class DashController extends Controller
                 'totalSolPendientes',
                 'pagosRecolectados',
                 'pagosPendientes',
-                'area'
+                'area',
+                'filtros'
             )
         );
     }
@@ -107,7 +118,7 @@ class DashController extends Controller
         $totalSolicitudes = $solicitudes + $solFuneraria + $solMobililiario + $solCatastro;
         $totalSolPendientes = $solPendientes + $solFunPendientes + $solMobPendientes + $solCatPendientes;
 
-        $pagosRecolectados = PagoSolicitud::select(DB::raw('sum(cantidad * precio) as total'))->first()->total;
+        $pagosRecolectados = PagoSolicitud::select(DB::raw('sum(cantidad * precio) as total'))->first()->total ?? 0;
         $pagosPendientes = TSolicitude::select(DB::raw('SUM(t_solicitudes.cantidad*c_aranceles.precio) as total'))
             ->join(
                 'cat_tipo_solicitudes', 
@@ -123,7 +134,7 @@ class DashController extends Controller
             )
             ->where('t_solicitudes.estado_solicitud', '!=', 4)
             ->first()
-            ->total;
+            ->total ?? 0;
 
         $datosBarras = [
             [
@@ -201,7 +212,7 @@ class DashController extends Controller
         $pagosRecolectados = PagoSolicitud::select(DB::raw('sum(cantidad * precio) as total'))
             ->where('id_area', 13)
             ->first()
-            ->total;
+            ->total ?? 0;
         $pagosPendientes = 0;
         $datosBarras =  [
             [
@@ -225,7 +236,7 @@ class DashController extends Controller
         $pagosRecolectados = PagoSolicitud::select(DB::raw('sum(cantidad * precio) as total'))
             ->where('id_area', 1)
             ->first()
-            ->total;
+            ->total ?? 0;
         $pagosPendientes = TSolicitude::select(DB::raw('SUM(t_solicitudes.cantidad*c_aranceles.precio) as total'))
             ->join(
                 'cat_tipo_solicitudes', 
@@ -241,7 +252,7 @@ class DashController extends Controller
             )
             ->where('t_solicitudes.estado_solicitud', '!=', 4)
             ->first()
-            ->total;
+            ->total ?? 0;
 
         $datosBarras = [
             [

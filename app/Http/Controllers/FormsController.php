@@ -67,28 +67,38 @@ class FormsController extends Controller
         }
     }
     /////////////////////////REGISTRO FAMILIAR//////////////////
+
+    function convertirFormatoFecha($fecha) {
+        $partesFecha = explode('/', $fecha);
+        $dia = $partesFecha[0];
+        $mes = $partesFecha[1];
+        $anio = $partesFecha[2];
+
+        return "$anio-$mes-$dia";
+    }
+
     function regTramite(Request $req)
     {
         $title = $req->title;
 
         try {
             DB::beginTransaction();
-            $fechaDoc = date('d-m-Y', strtotime($req->fechaDoc));
-            $dt = new DateTime($fechaDoc);
+           
             $aut = $req->autentica;
-    
             $solicitud = new TSolicitude();
             $solicitud->dui_solicitante = $req->dui;
             $solicitud->tipo_solicitud = $req->tipoTramite;
             $solicitud->cantidad = $req->cantidad;
             $solicitud->autentica = $req->autentica;
             $solicitud->nombre_documento = $req->nombreDocumento;
-            $solicitud->fecha_documento = $dt->format('Y-d-m');
+            $solicitud->fecha_documento =  $fechaDoc = $this->convertirFormatoFecha($req->fechaDoc);
+
             if ($aut == null) {
                 $solicitud->autentica = 0;
             } else {
                 $solicitud->autentica = 1;
             }
+            
             $solicitud->desc_solicitud = $req->comentario;
             $solicitud->estado_solicitud = 1;
             $solicitud->usuario_actualizacion = auth()->user()->name;
