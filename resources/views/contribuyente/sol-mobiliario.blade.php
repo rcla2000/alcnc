@@ -33,10 +33,10 @@
                         @foreach ($solicitudes as $s)
                             <tr>
                                 <td>{{ $s->lugar_solicitado }}</td>
-                                <td>{{ $s->fecha_evento->format('d-m-Y') }}</td>
+                                <td>{{ date_format(date_create($s->fecha_evento), 'd-m-Y') }}</td>
                                 <td>{{ $s->estado_solicitud->desc_estado }}</td>
-                                <td>{{ $s->fecha_solicitud->format('d-m-Y') }}</td>
-                                <td>{{ $s->fecha_actualizacion->format('d-m-Y') }}</td>
+                                <td>{{ date_format(date_create($s->fecha_solicitud), 'd-m-Y') }}</td>
+                                <td>{{ date_format(date_create($s->fecha_actualizacion), 'd-m-Y') }}</td>
                                 <td>
                                     <a href="{{ route('contribuyente.detalleSolMobiliario', $s->id_solicitud) }}"
                                         class="btn btn-sm btn-info">

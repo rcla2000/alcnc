@@ -37,8 +37,8 @@
                                 <td>{{ $s->cantidad }}</td>
                                 <td>{{ $s->t_estados_solicitude->desc_estado }}</td>
                                 <td>{{ $s->nombre_documento }}</td>
-                                <td>{{ $s->fecha_documento->format('d-m-Y') }}</td>
-                                <td>{{ $s->fecha_actualizacion->format('d-m-Y') }}</td>
+                                <td>{{ date_format(date_create($s->fecha_documento), 'd-m-Y') }}</td>
+                                <td>{{ date_format(date_create($s->fecha_actualizacion), 'd-m-Y') }}</td>
                                 <td>
                                     <a href="{{ route('contribuyente.detalleSolFamiliar', $s->id_solicitud) }}"
                                         class="btn btn-sm btn-info">
