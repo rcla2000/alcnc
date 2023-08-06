@@ -21,12 +21,12 @@
                             <ul>
                                 <li>
                                     <a 
-                                        href="{{ route('gestiones') }}" 
-                                        class="waves-effect {{ request()->is('gestiones') ? 'active' : '' }}"
+                                        href="{{ route('gestiones.estadoFamiliar') }}" 
+                                        class="waves-effect {{ request()->is('gestiones/estado-familiar') ? 'active' : '' }}"
                                     >Registro del estado Familiar</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="waves-effect">Mobiliario</a>
+                                    <a href="{{ route('gestiones.mobiliario') }}" class="waves-effect  {{ request()->is('gestiones/mobiliario') ? 'active' : '' }}">Mobiliario</a>
                                 </li>
                                 <li>
                                     <a href="#" class="waves-effect">Servicios funerarios</a>

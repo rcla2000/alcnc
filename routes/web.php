@@ -33,8 +33,13 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/filtrarCitas',[FormsController::class,'filtrarCitas'])->name('filtrarCitas');
     Route::post('/registro-mobiliario',[FormsController::class,'regMobiliario'])->middleware(['auth'])->name('regMobiliario');
     Route::post('/registro-funerario',[FormsController::class,'regFuneraria'])->middleware(['auth'])->name('regFuneraria');
+
+    // Rutas para área de administración
     Route::get('/dashboard/{area?}', [DashController::class,'dashboard'])->name('dashboard');
-    Route::get('/gestiones', [DashController::class,'gestiones'])->name('gestiones');
+    Route::get('/gestiones/estado-familiar', [DashController::class, 'gestiones'])->name('gestiones.estadoFamiliar');
+    Route::get('/gestiones/mobiliario', [DashController::class, 'gestionMobiliario'])->name('gestiones.mobiliario');
+    Route::get('/gestiones/mobiliario/lista-solicitudes', [DashController::class, 'listaSolicitudesMobiliario'])->name('gestiones.mobiliario.solicitudes');
+    //Route::get('/gestiones/estado-familiar', [DashController::class, 'gestiones'])->name('gestiones');
     Route::post('/detalle-gestion', [DashController::class,'detaGestion'])->name('detaGestion');
     Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');
     

@@ -16,7 +16,9 @@
         "laravel/tinker": "^2.5",
         "realrashid/sweet-alert": "^7.0",
         "reliese/laravel": "^1.2",
-        "srmklive/paypal": "~3.0"
+        "srmklive/paypal": "~3.0",
+        "tightenco/ziggy": "^1.6",
+        "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

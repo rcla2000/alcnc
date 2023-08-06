@@ -14,6 +14,7 @@ use App\Models\TSolicitudesFuneraria;
 use App\Models\TSolicitudesMobiliario;
 use App\Models\Area;
 use JavaScript;
+use DataTables;
 
 class DashController extends Controller
 {
@@ -277,10 +278,58 @@ class DashController extends Controller
             $area = auth()->user()->area;
             $direccion = auth()->user()->direccion;
             $lista = DB::select('CALL pa_list_solicitudes(?,?,?)', [$rol, $area, $direccion]);
-            return view('administracion.gestiones', compact('lista'));
+            return view('administracion.gestiones.estado-familiar', compact('lista'));
         }
 
         return redirect('/');
+    }
+
+    function gestionMobiliario() {
+        return view('administracion.gestiones.mobiliario');
+    }
+
+    function listaSolicitudesMobiliario(Request $request) {
+        if ($request->ajax()) {
+            $data = TSolicitudesMobiliario::orderby('fecha_solicitud')->get();
+            return Datatables::of($data)
+                ->editColumn('lugar_solicitado', function(TSolicitudesMobiliario $solicitud) {
+                    return $solicitud->lugar->nombre ?? 'No indicado';
+                })
+                ->editColumn('fecha_solicitud', function(TSolicitudesMobiliario $solicitud) {
+                    return date_format(date_create($solicitud->fecha_solicitud), 'd-m-Y');
+                })
+                ->editColumn('fecha_evento', function(TSolicitudesMobiliario $solicitud) {
+                    return date_format(date_create($solicitud->fecha_evento), 'd-m-Y');
+                })
+                ->editColumn('estado', function(TSolicitudesMobiliario $solicitud) {
+                    $span = '';
+                    switch ($solicitud->estado) {
+                        case 1:
+                            $span = '<span class="badge badge-warning black-text">';
+                        break;
+                        case 2:
+                            $span = '<span class="badge badge-info">';
+                        break;
+                        case 4:
+                            $span = '<span class="badge badge-success">';
+                        break;
+                        default:
+                            $span = '<span class="badge badge-danger ">';
+                    }
+                    $span .= $solicitud->estado_solicitud->desc_estado . '</span>';
+                    return $span;
+                })
+                ->addColumn(
+                    'acciones',
+                    '<a class="btn-floating btn-sm btn-default" data-toggle="tooltip"
+                        data-placement="top"
+                        title="Ver detalles de solicitud">
+                        <i class="fas fa-eye"></i>
+                    </a>'
+                )
+                ->rawColumns(['estado','acciones'])   
+                ->make(true);
+        }
     }
 
     function detaGestion(Request $request)
