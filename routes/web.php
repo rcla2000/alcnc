@@ -39,10 +39,15 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/gestiones/estado-familiar', [DashController::class, 'gestiones'])->name('gestiones.estadoFamiliar');
     Route::get('/gestiones/mobiliario', [DashController::class, 'gestionMobiliario'])->name('gestiones.mobiliario');
     Route::get('/gestiones/mobiliario/lista-solicitudes', [DashController::class, 'listaSolicitudesMobiliario'])->name('gestiones.mobiliario.solicitudes');
+    Route::get('/gestiones/mobiliario/solicitud/{id}', [DashController::class, 'gestionDetalleSolicitud'])->name('gestiones.mobiliario.solicitud');
+    Route::post('/gestiones/mobiliario/solicitud/estado/{id}', [DashController::class, 'actualizarEstadoSolicitud'])->name('gestiones.mobiliario.solicitud.estado');
+    Route::view('/gestiones/servicios-funerarios', 'administracion.gestiones.funeraria.solicitudes')->name('gestiones.funerario');
+    Route::get('/gestiones/servicios-funerarios/lista-solicitudes', [DashController::class, 'listaServiciosFunerarios'])->name('gestiones.funeraria.solicitudes');
     //Route::get('/gestiones/estado-familiar', [DashController::class, 'gestiones'])->name('gestiones');
     Route::post('/detalle-gestion', [DashController::class,'detaGestion'])->name('detaGestion');
     Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');
-    
+    Route::get('/gestiones/servicios-funerarios/solicitud/{id}', [DashController::class, 'gestionDetalleSolicitudFuneraria'])->name('gestiones.funeraria.solicitud');
+    Route::post('/gestiones/servicios-funerarios/solicitud/estado/{id}', [DashController::class, 'actualizarEstadoSolicitudFuneraria'])->name('gestiones.funeraria.solicitud.estado');
     // Rutas para contribuyentes
     Route::get(
         '/contribuyente/solicitudes', 

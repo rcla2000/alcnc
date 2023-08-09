@@ -13,8 +13,10 @@ use App\Models\TSolicitude;
 use App\Models\TSolicitudesFuneraria;
 use App\Models\TSolicitudesMobiliario;
 use App\Models\Area;
+use App\Models\TEstadosSolicitude;
 use JavaScript;
 use DataTables;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class DashController extends Controller
 {
@@ -285,7 +287,91 @@ class DashController extends Controller
     }
 
     function gestionMobiliario() {
-        return view('administracion.gestiones.mobiliario');
+        return view('administracion.gestiones.mobiliario.solicitudes');
+    }
+
+    function gestionDetalleSolicitud($id) {
+        $solicitud = TSolicitudesMobiliario::findOrFail($id);
+        $estados = TEstadosSolicitude::all();
+        return view(
+            'administracion.gestiones.mobiliario.detalle-solicitud', 
+            compact('solicitud', 'estados')
+        );
+    }
+
+    function actualizarEstadoSolicitud($id, Request $request) {
+        $request->validate([
+            'comentarios' => 'required|string|min:3'
+        ]);
+
+        $solicitud = TSolicitudesMobiliario::findOrFail($id);
+        $solicitud->estado = $request->estado;
+        $solicitud->comentarios = $request->comentarios;
+        $solicitud->save();
+        Alert::success('Información', 'Información de solicitud actualizada exitosamente');
+        return back();
+    }
+
+    function listaServiciosFunerarios(Request $request) {
+        if ($request->ajax()) {
+            $data = TSolicitudesFuneraria::orderby('fecha_solicitud', 'desc')->get();
+            return Datatables::of($data)
+                ->editColumn('fecha_solicitud', function(TSolicitudesFuneraria $solicitud) {
+                    return date_format(date_create($solicitud->fecha_solicitud), 'd-m-Y');
+                })
+                ->editColumn('estado', function(TSolicitudesFuneraria $solicitud) {
+                    $span = '';
+                    switch ($solicitud->estado) {
+                        case 1:
+                            $span = '<span class="badge badge-warning black-text">';
+                        break;
+                        case 2:
+                            $span = '<span class="badge badge-info">';
+                        break;
+                        case 4:
+                            $span = '<span class="badge badge-success">';
+                        break;
+                        default:
+                            $span = '<span class="badge badge-danger ">';
+                    }
+                    $span .= $solicitud->estado_solicitud->desc_estado . '</span>';
+                    return $span;
+                })
+                ->addColumn(
+                    'acciones', function (TSolicitudesFuneraria $solicitud) {
+                        return '<a class="btn-floating btn-sm btn-default" data-toggle="tooltip"
+                                data-placement="top"
+                                title="Ver detalles de solicitud"
+                                href="' . route('gestiones.funeraria.solicitud', $solicitud->id_solicitud) . '">
+                                <i class="fas fa-eye"></i>
+                            </a>';
+                    }
+                )
+                ->rawColumns(['estado','acciones'])   
+                ->make(true);
+        }
+    }
+
+    function gestionDetalleSolicitudFuneraria($id) {
+        $solicitud = TSolicitudesFuneraria::findOrFail($id);
+        $estados = TEstadosSolicitude::all();
+        return view(
+            'administracion.gestiones.funeraria.detalle-solicitud', 
+            compact('solicitud', 'estados')
+        );
+    }
+
+    function actualizarEstadoSolicitudFuneraria($id, Request $request) {
+        $request->validate([
+            'comentarios' => 'required|string|min:3'
+        ]);
+
+        $solicitud = TSolicitudesFuneraria::findOrFail($id);
+        $solicitud->estado = $request->estado;
+        $solicitud->comentarios = $request->comentarios;
+        $solicitud->save();
+        Alert::success('Información', 'Información de solicitud actualizada exitosamente');
+        return back();
     }
 
     function listaSolicitudesMobiliario(Request $request) {
@@ -320,12 +406,14 @@ class DashController extends Controller
                     return $span;
                 })
                 ->addColumn(
-                    'acciones',
-                    '<a class="btn-floating btn-sm btn-default" data-toggle="tooltip"
-                        data-placement="top"
-                        title="Ver detalles de solicitud">
-                        <i class="fas fa-eye"></i>
-                    </a>'
+                    'acciones', function (TSolicitudesMobiliario $solicitud) {
+                        return '<a class="btn-floating btn-sm btn-default" data-toggle="tooltip"
+                                data-placement="top"
+                                title="Ver detalles de solicitud"
+                                href="' . route('gestiones.mobiliario.solicitud', $solicitud->id_solicitud) . '">
+                                <i class="fas fa-eye"></i>
+                            </a>';
+                    }
                 )
                 ->rawColumns(['estado','acciones'])   
                 ->make(true);

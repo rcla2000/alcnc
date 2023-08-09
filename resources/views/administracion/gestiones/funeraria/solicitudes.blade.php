@@ -1,5 +1,5 @@
 @extends('layouts.layouts-dash.master-layout')
-@section('title', 'Solicitudes mobiliario')
+@section('title', 'Solicitudes de servicios funerarios')
 @section('styles')
     <style>
         table.dataTable thead .sorting:after,
@@ -17,12 +17,8 @@
     </style>
 @endsection
 
-@section('token')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-@endsection
-
 @section('content')
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-md-12">
             <!-- Table with panel -->
             <div class="card card-cascade narrower">
@@ -45,27 +41,21 @@
                     <div class="table-wrapper">
                         <div class="table-responsive">
                             <!--Table-->
-                            <table id="tabla-mobiliario" class="table table-sm table-hover mb-0">
+                            <table id="tabla-funeraria" class="table table-sm table-hover mb-0">
                                 <!--Table head-->
                                 <thead class="text-center">
                                     <tr>
-                                        <th class="th-lg">
+                                        <th class="th-sm">
+                                            Acciones
+                                         </th>
+                                        <th class="th-sm">
                                            DUI solicitante
                                         </th>
-                                        <th class="th-lg">
-                                           Lugar solicitado
-                                        </th>
-                                        <th class="th-lg">
+                                        <th class="th-sm">
                                            Fecha de solictud
                                         </th>
-                                        <th class="th-lg">
-                                           Fecha de evento
-                                        </th>
-                                        <th class="th-lg">
+                                        <th class="th-sm">
                                            Estado
-                                        </th>
-                                        <th class="th-lg">
-                                           Acciones
                                         </th>
                                     </tr>
                                 </thead>
@@ -87,33 +77,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('js/dashboard/gestiones/mobiliario.js') }}"></script>
-@endsection
-
-
-@section('modal')
-    <!-- Central Modal Small -->
-    <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-
-        <!-- Change class .modal-sm to change the size of the modal -->
-        <div class="modal-dialog modal-lg" role="document">
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title w-100" id="myModalLabel">Detalles de solicitud</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="detalleSolicitud">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-indigo btn-sm" data-dismiss="modal">Cerrar</button>
-                    {{-- <button type="button" class="btn btn-primary btn-sm">Save changes</button> --}}
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Central Modal Small -->
+    <script type="text/javascript" src="{{ asset('js/dashboard/gestiones/funeraria.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dashboard/gestiones/extras-dt.js') }}"></script>
 @endsection

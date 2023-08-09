@@ -40,7 +40,8 @@ class TSolicitudesFuneraria extends Model
 		'estado',
 		'usuario_actualizacion',
 		'fecha_solicitud',
-		'fecha_actualizacion'
+		'fecha_actualizacion',
+		'comentarios'
 	];
 
 	public function estado_solicitud() {

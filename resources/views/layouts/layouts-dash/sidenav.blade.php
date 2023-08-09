@@ -29,7 +29,8 @@
                                     <a href="{{ route('gestiones.mobiliario') }}" class="waves-effect  {{ request()->is('gestiones/mobiliario') ? 'active' : '' }}">Mobiliario</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="waves-effect">Servicios funerarios</a>
+                                    <a href="{{ route('gestiones.funerario') }}" 
+                                    class="waves-effect {{ request()->is('gestiones/servicios-funerarios') ? 'active' : '' }}">Servicios funerarios</a>
                                 </li>
                             </ul>
                         </div>

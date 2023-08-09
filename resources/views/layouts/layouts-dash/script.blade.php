@@ -18,4 +18,5 @@
         $('.mdb-select').materialSelect();
     });
 </script>
+@include('sweetalert::alert')
 @yield('scripts')
