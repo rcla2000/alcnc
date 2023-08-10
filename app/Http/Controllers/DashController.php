@@ -280,7 +280,7 @@ class DashController extends Controller
             $area = auth()->user()->area;
             $direccion = auth()->user()->direccion;
             $lista = DB::select('CALL pa_list_solicitudes(?,?,?)', [$rol, $area, $direccion]);
-            return view('administracion.gestiones.estado-familiar', compact('lista'));
+            return view('administracion.gestiones.estado-familiar.solicitudes', compact('lista'));
         }
 
         return redirect('/');

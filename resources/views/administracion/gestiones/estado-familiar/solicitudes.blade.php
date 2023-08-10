@@ -48,36 +48,20 @@
                             <!--Table head-->
                             <thead class="text-center">
                                 <tr>
-                                    <th class="">
-                                        <a>No.
-                                        </a>
+                                    <th class="th-sm text-center">
+                                        Acciones
                                     </th>
-                                    <th class="th-lg">
-                                        <a href="">Nombre
-
-                                        </a>
+                                    <th class="th-sm">
+                                        Nombre
                                     </th>
-                                    <th class="th-lg">
-                                        <a href="">Solicitud
-                                        </a>
+                                    <th class="th-sm">
+                                        Solicitud
                                     </th>
-                                    <th class="th-lg">
-                                        <a href="">Fecha de solictud
-                                        </a>
+                                    <th class="th-sm">
+                                        Fecha de solictud
                                     </th>
-                                    <th class="">
-                                        <a href="">Estado
-                                        </a>
-                                    </th>
-
-                                    <th class="th-lg">
-                                        <a href="">Area
-                                        </a>
-                                    </th>
-                                    <th class="th-lg">
-                                        <a href="">Acciones
-
-                                        </a>
+                                    <th class="th-sm text-center">
+                                        Estado
                                     </th>
                                 </tr>
                             </thead>
@@ -87,7 +71,16 @@
                             <tbody>
                                 @foreach ($lista as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
+                                        <td class="text-center">
+                                            <a class="btn-floating btn-sm btn-default" data-toggle="tooltip"
+                                                onclick="detaSoli({{ $item->id }})" data-placement="top"
+                                                title="Ver detalles de solicitud"><i class="fas fa-eye"></i></a>
+
+                                            <a class="btn-floating btn-sm btn-light-green"
+                                                href="{{ route('mandamiento', $item->id) }}" data-toggle="tooltip"
+                                                data-placement="top" title="Procesar solicitud"><i class="fas fa-pen"></i>
+                                            </a>
+                                        </td>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->solicitud }}</td>
                                         <td>{{ date('d/m/Y', strtotime($item->fecha)) }}</td>
@@ -105,17 +98,6 @@
                                               @default
                                               <span class="badge badge-danger ">
                                             @endswitch {{ $item->estado }}</span>
-                                        </td>
-                                        <td>{{ $item->area }}</td>
-                                        <td class="text-center">
-                                            <a class="btn-floating btn-sm btn-default" data-toggle="tooltip"
-                                                onclick="detaSoli({{ $item->id }})" data-placement="top"
-                                                title="Ver detalles de solicitud"><i class="fas fa-eye"></i></a>
-
-                                            <a class="btn-floating btn-sm btn-light-green"
-                                                href="{{ route('mandamiento', $item->id) }}" data-toggle="tooltip"
-                                                data-placement="top" title="Procesar solicitud"><i class="fas fa-pen"></i>
-                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -168,7 +150,6 @@
     <!-- Central Modal Small -->
     <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
-
         <!-- Change class .modal-sm to change the size of the modal -->
         <div class="modal-dialog modal-lg" role="document">
 
