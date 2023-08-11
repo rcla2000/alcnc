@@ -12,6 +12,7 @@
         }
     </style>
 @endsection
+
 @section('title', 'Registro Familiar')
 
 @section('content')
@@ -40,6 +41,10 @@
                                         <div class="col-md-12 text-left">
                                             <span class="text-danger">(*) Campos obligatorios</span>
                                         </div>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#modal-pago">
+                                            Launch demo modal
+                                        </button>
                                         <div class="col-md-8">
                                             <!-- Subject -->
                                             <select class="mdb-select md-form" id="tipoTramite" name="tipoTramite"
@@ -62,21 +67,21 @@
                                         </div>
                                         <div class="col-md-12">
                                             <a class="btn btn-primary btn-block" onclick="siguienteAtras('#paso2','#paso1')"
-                                                id="siguiente">Siguiente paso <i class="fas fa-arrow-right"></i></a>
-
+                                                id="siguiente">
+                                                Siguiente paso
+                                                <i class="fas fa-arrow-right ml-2"></i>
+                                            </a>
                                         </div>
-
                                     </div>
                                 </section>
                                 <section id="paso2">
                                     <div class="camposPartida">
                                         <div class="row">
-
                                             <div class="col-md-7">
                                                 <div class="md-form">
                                                     <label for="nombreDocumento">* Nombre en la partida o documento</label>
-                                                    <input type="text" id="nombreDocumento"
-                                                        name="nombreDocumento" class="form-control">
+                                                    <input type="text" id="nombreDocumento" name="nombreDocumento"
+                                                        class="form-control">
                                                     <div class="invalid-feedback"></div>
                                                 </div>
                                             </div>
@@ -110,13 +115,21 @@
                                         <textarea id="comentario" name="comentario" class="md-textarea form-control" rows="3"></textarea>
                                         <label for="comentario">Comentario adicional</label>
                                     </div>
-                                    <span class="text-danger">Si la partida o documento contiene <strong class="text-info">
+                                    <span class="text-danger">
+                                        Si la partida o documento contiene <strong class="text-info">
                                             Rúbricas o marginaciones </strong>, se agregará un cobro de $1.00 por cada
-                                        rúbrica o marginación al momento del pago.</span>
-                                    <a class="btn btn-warning btn-rounded z-depth-0 my-4 waves-effect"
-                                        onclick="siguienteAtras('#paso1','#paso2')" id="siguiente"><i
-                                            class="fas fa-arrow-left"></i> Paso anterior </a> <!-- Send button -->
-                                    <button class="btn btn-primary btn-block" type="submit" id="btn-enviar-solicitud">Enviar solicitud</button>
+                                        rúbrica o marginación al momento del pago.
+                                    </span>
+                                    <a class="btn btn-primary btn-block mt-2" onclick="siguienteAtras('#paso1','#paso2')"
+                                        id="siguiente">
+                                        <i class="fas fa-arrow-left mr-2"></i>
+                                        Paso anterior
+                                    </a> <!-- Send button -->
+                                    {{-- <button class="btn btn-success btn-block mt-2" type="submit" id="btn-enviar-solicitud">
+                                        <i class="fa-solid fa-check mr-2"></i>
+                                        Enviar solicitud
+                                    </button> --}}
+                                    <!-- Button trigger modal -->
                                 </section>
                             </form>
                             <!-- Form -->
@@ -131,6 +144,104 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modal-pago" tabindex="-1" role="dialog" aria-labelledby="modal-label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header info-color white-text text-center py-4">
+                    <h5 class="modal-title" id="modal-label">
+                        <b>
+                            Formulario de pago
+                        </b>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-regular fa-credit-card input-prefix"></i>
+                                <label for="tarjeta">Número de tarjeta</label>
+                                <input type="text" id="tarjeta" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="md-form">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span>Vencimiento de la tarjeta</span>
+                        </div>
+                        <div class="col-6">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-solid fa-calendar-days input-prefix"></i>
+                                <label for="mes">Mes</label>
+                                <input type="text" id="mes" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-solid fa-calendar-days input-prefix"></i>
+                                <label for="anio">Año</label>
+                                <input type="text" id="anio" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-solid fa-user input-prefix"></i>
+                                <label for="nombres">Nombres</label>
+                                <input type="text" id="nombres" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-solid fa-user input-prefix"></i>
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" id="apellidos" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-regular fa-envelope input-prefix"></i>
+                                <label for="email">Correo electrónico:</label>
+                                <input type="email" id="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-solid fa-mobile input-prefix"></i>
+                                <label for="telefono">Teléfono:</label>
+                                <input type="tel" id="telefono" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="md-form">
+                                <label for="direccion">Dirección</label>
+                                <textarea id="direccion" class="md-textarea form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Aceptar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
