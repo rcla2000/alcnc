@@ -46,3 +46,14 @@ const limpiarError = (elemento, elementoMensaje) => {
     elemento.classList.remove("is-invalid");
     elementoMensaje.textContent = "";
 };
+
+const campoRequerido = (elemento, elementoMensaje , mensaje) => {
+    let errores = 0;
+    if (estaVacio(elemento.value)) {
+        agregarError(elemento, elementoMensaje, mensaje);
+        errores += 1;
+    } else {
+        limpiarError(elemento, elementoMensaje);
+    }
+    return errores;
+}

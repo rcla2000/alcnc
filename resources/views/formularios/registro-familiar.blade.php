@@ -41,10 +41,6 @@
                                         <div class="col-md-12 text-left">
                                             <span class="text-danger">(*) Campos obligatorios</span>
                                         </div>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#modal-pago">
-                                            Launch demo modal
-                                        </button>
                                         <div class="col-md-8">
                                             <!-- Subject -->
                                             <select class="mdb-select md-form" id="tipoTramite" name="tipoTramite"
@@ -62,7 +58,6 @@
                                                 <input type="number" class="form-control" name="cantidad" id="cantidad"
                                                     min="1" max="10" required>
                                                 <label for="cantidad">* Cantidad</label>
-
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -97,14 +92,14 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="col-md-6 " style="align-self: center">
                                                 <!-- Default checked -->
                                                 <div class="custom-control custom-checkbox custom-control-inline">
                                                     <input type="checkbox" class="custom-control-input" id="autentica"
                                                         name="autentica" value="1">
-                                                    <label class="custom-control-label" for="autentica">Agregar
-                                                        Autentica($2.00)</label>
+                                                    <label class="custom-control-label" for="autentica">
+                                                        Agregar Auténtica($2.00)
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,10 +120,13 @@
                                         <i class="fas fa-arrow-left mr-2"></i>
                                         Paso anterior
                                     </a> <!-- Send button -->
-                                    {{-- <button class="btn btn-success btn-block mt-2" type="submit" id="btn-enviar-solicitud">
+                                    <button 
+                                        class="btn btn-success btn-block mt-2" 
+                                        type="button" id="btn-enviar-solicitud">
                                         <i class="fa-solid fa-check mr-2"></i>
                                         Enviar solicitud
-                                    </button> --}}
+                                    </button>
+                                </button>
                                     <!-- Button trigger modal -->
                                 </section>
                             </form>
@@ -176,22 +174,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
-                            <span>Vencimiento de la tarjeta</span>
+                        <div class="col-12 m-0">
+                            <span><b>Vencimiento de la tarjeta</b></span>
                         </div>
                         <div class="col-6">
                             <div class="md-form input-with-post-icon">
                                 <i class="fa-solid fa-calendar-days input-prefix"></i>
                                 <label for="mes">Mes</label>
-                                <input type="text" id="mes" class="form-control">
+                                <input type="text" id="mes" class="form-control" placeholder="00">
                             </div>
+                            <div class="mi-error"></div>
                         </div>
                         <div class="col-6">
                             <div class="md-form input-with-post-icon">
                                 <i class="fa-solid fa-calendar-days input-prefix"></i>
                                 <label for="anio">Año</label>
-                                <input type="text" id="anio" class="form-control">
+                                <input type="text" id="anio" class="form-control" placeholder="0000">
                             </div>
+                            <div class="mi-error"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -201,6 +201,7 @@
                                 <label for="nombres">Nombres</label>
                                 <input type="text" id="nombres" class="form-control">
                             </div>
+                            <div class="mi-error"></div>
                         </div>
                         <div class="col-6">
                             <div class="md-form input-with-post-icon">
@@ -208,6 +209,7 @@
                                 <label for="apellidos">Apellidos</label>
                                 <input type="text" id="apellidos" class="form-control">
                             </div>
+                            <div class="mi-error"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -217,6 +219,7 @@
                                 <label for="email">Correo electrónico:</label>
                                 <input type="email" id="email" class="form-control">
                             </div>
+                            <div class="mi-error"></div>
                         </div>
                         <div class="col-6">
                             <div class="md-form input-with-post-icon">
@@ -224,6 +227,7 @@
                                 <label for="telefono">Teléfono:</label>
                                 <input type="tel" id="telefono" class="form-control">
                             </div>
+                            <div class="mi-error"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -231,12 +235,18 @@
                             <div class="md-form">
                                 <label for="direccion">Dirección</label>
                                 <textarea id="direccion" class="md-textarea form-control" rows="3"></textarea>
+                                <div class="invalid-feedback"></div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="total" id="totalCancelar"></span>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success">Aceptar</button>
+                    <button type="button" class="btn btn-success" id="btn-pago">Aceptar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>

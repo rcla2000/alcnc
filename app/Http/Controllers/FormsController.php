@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CArancele;
+use App\Models\CatTipoSolicitude;
 use Illuminate\Http\Request;
 use App\Models\TDenuncia;
 use App\Models\TSolicitude;
@@ -129,6 +130,15 @@ class FormsController extends Controller
             Alert::error('Error', 'Ocurrió un error al registrar su solicitud de documento: ' . $e->getMessage());
             return back();
         } 
+    }
+
+    function precioDocumento($idSolicitud) {
+        $documento = CatTipoSolicitude::find($idSolicitud);
+        if ($documento !== null) {
+            $precio = $documento->arancel->precio;
+            return response()->json(['precio' => $precio]);
+        }
+        return response()->json(['message' => 'Tipo de solicitud no encontrada'], 404);
     }
     ////////////////////////////////CLINICA//////////////////////////////
     ////registro citas de clinica

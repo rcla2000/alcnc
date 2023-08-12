@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/gestiones/servicios-funerarios/solicitud/{id}', [DashController::class, 'gestionDetalleSolicitudFuneraria'])->name('gestiones.funeraria.solicitud');
     Route::post('/gestiones/servicios-funerarios/solicitud/estado/{id}', [DashController::class, 'actualizarEstadoSolicitudFuneraria'])->name('gestiones.funeraria.solicitud.estado');
     // Rutas para contribuyentes
+    Route::get('/documento/precio/{idSolicitud}', [FormsController::class, 'precioDocumento'])->name('documento.precio');
     Route::get(
         '/contribuyente/solicitudes', 
         [ContribuyenteController::class, 'solicitudes']
