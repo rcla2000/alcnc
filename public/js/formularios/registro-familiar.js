@@ -22,7 +22,6 @@ const formatoAnio = {
 inputCantidad.addEventListener("keypress", soloNumeros);
 nombres.addEventListener('keypress', soloLetras);
 apellidos.addEventListener('keypress', soloLetras);
-IMask(mes, formatoMes);
 IMask(anio, formatoAnio);
 
 // Material Select Initialization
@@ -142,19 +141,60 @@ const tarjetaVencida = (mes, anio) => {
     return true;
 }
 
+
+const obtenerTokenWompi = async () => {
+    try {
+        const response = await fetch(route('wompi.token'), {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.getElementsByTagName('meta')['csrf-token'].content 
+            },
+            method: 'POST',
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            return data;
+        }
+        return false;
+    } catch(error) {
+        console.error(error);
+        return false;
+    }
+}
+
+const obtenerRegiones = async (token) => {
+    try {
+        const response = await fetch('https://api.wompi.sv/api/Regiones', {
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': token,
+            },
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            return data;
+        }
+        return false;
+    } catch(error) {
+        console.error(error);
+        return false;
+    }
+}
+
 // Validaciones de campos de formulario de pago
-const validarFormularioPago = () => {
+const validarFormularioPago = async () => {
     const email = document.querySelector('#email');
     const telefono = document.querySelector('#telefono');
     const direccion = document.querySelector('#direccion');
     const divsErrores = document.querySelectorAll('.mi-error');
     let errores = 0;
 
-    errores += campoRequerido(mes, divsErrores[1], 'Especifique mes de vencimiento');
-    errores += campoRequerido(anio, divsErrores[2], 'Especifique año de vencimiento');
     errores += campoRequerido(nombres, divsErrores[3], 'Ingrese sus nombres');
     errores += campoRequerido(apellidos, divsErrores[4], 'Ingrese sus apellidos');
     errores += campoRequerido(email, divsErrores[5], 'Ingrese su correo electrónico');
+    errores += campoEmail(email, divsErrores[5], 'Ingrese un correo electrónico válido');
     errores += campoRequerido(telefono, divsErrores[6], 'Ingrese su número de teléfono');
     errores += campoRequerido(direccion, direccion.nextElementSibling, 'Ingrese su dirección');
 
@@ -168,7 +208,10 @@ const validarFormularioPago = () => {
     }
 
     if (errores == 0) {
-        alert('todo bien');
+       const data = await obtenerTokenWompi();
+       if (data) {
+        console.log(await obtenerRegiones(data.token));
+       }
     } else {
         alert('Hay errores');
     }
@@ -178,17 +221,8 @@ btnEnviar.addEventListener("click", (e) => {
     e.preventDefault();
     let errores = 0;
 
-    if (estaVacio(inputNombre.value)) {
-        agregarError(
-            inputNombre,
-            inputNombre.nextElementSibling,
-            "Ingrese el nombre en la partida o documento."
-        );
-        errores += 1;
-    } else {
-        limpiarError(inputNombre, inputNombre.nextElementSibling);
-    }
-
+    errores += campoRequerido(inputNombre, inputNombre.nextElementSibling, "Ingrese el nombre en la partida o documento.");
+   
     if (!fechaCorrecta(fechaNacimiento.value)) {
         errorFechaNacimiento.textContent =
             "Especifique la fecha de nacimiento.";

@@ -17,9 +17,10 @@ use App\Models\PagoSolicitud;
 use App\Models\TCitasClinica;
 use App\Models\VwClinicaCita;
 use RealRashid\SweetAlert\Facades\Alert;
-use DateTime;
 use DB;
 use Exception;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class FormsController extends Controller
 {
@@ -140,6 +141,54 @@ class FormsController extends Controller
         }
         return response()->json(['message' => 'Tipo de solicitud no encontrada'], 404);
     }
+
+    function solicitarTokenWompi() {
+        $curl = curl_init();
+        $grant_type = 'client_credentials';
+        $client_id = 'a5539427-bf5e-45f9-960b-52458351ae4a';
+        $client_secret = 'f10c2964-543a-473e-8e9f-11f18864c393';
+        $audience = 'wompi_api';
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://id.wompi.sv/connect/token",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "grant_type=$grant_type&client_id=$client_id&client_secret=$client_secret&audience=$audience",
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return false;
+        } else {
+            // Se obtiene el token de Wompi
+            Session::put('wompi_token', 'Bearer '. json_decode($response)->access_token);
+            Session::put('token_valido', now()->addHours(1));
+            return true;
+        }
+    }
+
+    function devolverTokenWompi() {
+        if (Session::has('wompi_token') && Session::get('token_valido') > now()) {
+            return response()->json(['token' => Session::get('wompi_token')]);
+        } else {
+            if ($this->solicitarTokenWompi()) {
+                return response()->json(['token' => Session::get('wompi_token')]);
+            }
+            return response()->json(['error' => 'Ha ocurrido un error al obtener el token']);
+        }
+    }
+
     ////////////////////////////////CLINICA//////////////////////////////
     ////registro citas de clinica
     function regCita(Request $req)

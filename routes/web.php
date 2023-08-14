@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\DashController;
-use App\Models\PagoSolicitud;
-use App\Models\TSolicitude;
+use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +49,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/gestiones/servicios-funerarios/solicitud/estado/{id}', [DashController::class, 'actualizarEstadoSolicitudFuneraria'])->name('gestiones.funeraria.solicitud.estado');
     // Rutas para contribuyentes
     Route::get('/documento/precio/{idSolicitud}', [FormsController::class, 'precioDocumento'])->name('documento.precio');
+    Route::post('/obtener-token-wompi', [FormsController::class, 'devolverTokenWompi'])->name('wompi.token');
     Route::get(
         '/contribuyente/solicitudes', 
         [ContribuyenteController::class, 'solicitudes']

@@ -15,6 +15,11 @@ const telefonoSvCorrecto = (telefono) => {
     return regex.test(telefono);
 }
 
+const emailCorrecto = (email) => {
+    const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return regex.test(email);
+}
+
 const soloLetras = (e) => {
     const regex = /^[a-zA-Z\u00C0-\u017F\s]+$/;
     const key = String.fromCharCode(!e.charCode ? e.which : e.charCode);
@@ -50,6 +55,17 @@ const limpiarError = (elemento, elementoMensaje) => {
 const campoRequerido = (elemento, elementoMensaje , mensaje) => {
     let errores = 0;
     if (estaVacio(elemento.value)) {
+        agregarError(elemento, elementoMensaje, mensaje);
+        errores += 1;
+    } else {
+        limpiarError(elemento, elementoMensaje);
+    }
+    return errores;
+}
+
+const campoEmail = (elemento, elementoMensaje , mensaje) => {
+    let errores = 0;
+    if (!emailCorrecto(elemento.value)) {
         agregarError(elemento, elementoMensaje, mensaje);
         errores += 1;
     } else {

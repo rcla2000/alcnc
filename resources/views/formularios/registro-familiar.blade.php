@@ -15,6 +15,10 @@
 
 @section('title', 'Registro Familiar')
 
+@section('token')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+@endsection
+
 @section('content')
     <div class="fondo" style="background-image: url({{ $servicio->imgbg }})">
         <div class="container zindex">
@@ -120,13 +124,11 @@
                                         <i class="fas fa-arrow-left mr-2"></i>
                                         Paso anterior
                                     </a> <!-- Send button -->
-                                    <button 
-                                        class="btn btn-success btn-block mt-2" 
-                                        type="button" id="btn-enviar-solicitud">
+                                    <button class="btn btn-success btn-block mt-2" type="button" id="btn-enviar-solicitud">
                                         <i class="fa-solid fa-check mr-2"></i>
                                         Enviar solicitud
                                     </button>
-                                </button>
+                                    </button>
                                     <!-- Button trigger modal -->
                                 </section>
                             </form>
@@ -178,19 +180,21 @@
                             <span><b>Vencimiento de la tarjeta</b></span>
                         </div>
                         <div class="col-6">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-solid fa-calendar-days input-prefix"></i>
-                                <label for="mes">Mes</label>
-                                <input type="text" id="mes" class="form-control" placeholder="00">
-                            </div>
+                            <label class="mdb-main-label" for="mes">Mes</label>
+                            <select class="mdb-select md-form" id="mes">
+                                @for ($i = 1; $i <= 12; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
                             <div class="mi-error"></div>
                         </div>
                         <div class="col-6">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-solid fa-calendar-days input-prefix"></i>
-                                <label for="anio">Año</label>
-                                <input type="text" id="anio" class="form-control" placeholder="0000">
-                            </div>
+                            <label class="mdb-main-label" for="anio">Año</label>
+                            <select class="mdb-select md-form" id="anio">
+                                @for ($i = date('Y'); $i <= date('Y') + 20; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
                             <div class="mi-error"></div>
                         </div>
                     </div>
@@ -228,6 +232,12 @@
                                 <input type="tel" id="telefono" class="form-control">
                             </div>
                             <div class="mi-error"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="region">País y región</label>
+                            <select id="region"></select>
                         </div>
                     </div>
                     <div class="row">
