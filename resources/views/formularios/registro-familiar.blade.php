@@ -236,8 +236,26 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <label for="region">País y región</label>
-                            <select id="region"></select>
+                            <label class="mdb-main-label" for="region">Región</label>
+                            <select class="mdb-select md-form" id="region" searchable="Buscar aquí.." required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="md-form input-with-post-icon">
+                                <i class="fa-solid fa-location-dot input-prefix"></i>
+                                <label for="ciudad">Ciudad:</label>
+                                <input type="text" id="ciudad" class="form-control">
+                            </div>
+                            <div class="mi-error"></div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form">
+                                <label for="cp">Código postal:</label>
+                                <input type="text" id="cp" class="form-control">
+                                <div class="invalid-feedback"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

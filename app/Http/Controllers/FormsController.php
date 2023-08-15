@@ -142,7 +142,7 @@ class FormsController extends Controller
         return response()->json(['message' => 'Tipo de solicitud no encontrada'], 404);
     }
 
-    function solicitarTokenWompi() {
+    private function solicitarTokenWompi() {
         $curl = curl_init();
         $grant_type = 'client_credentials';
         $client_id = 'a5539427-bf5e-45f9-960b-52458351ae4a';
@@ -178,15 +178,84 @@ class FormsController extends Controller
         }
     }
 
-    function devolverTokenWompi() {
+    private function devolverTokenWompi() {
         if (Session::has('wompi_token') && Session::get('token_valido') > now()) {
-            return response()->json(['token' => Session::get('wompi_token')]);
+            return Session::get('wompi_token');
         } else {
             if ($this->solicitarTokenWompi()) {
-                return response()->json(['token' => Session::get('wompi_token')]);
+                return Session::get('wompi_token');
             }
-            return response()->json(['error' => 'Ha ocurrido un error al obtener el token']);
+            return null;
         }
+    }
+
+    function obtenerRegionesWompi() {
+        $token = $this->devolverTokenWompi();
+
+        if ($token !== null) {
+            $curl = curl_init();
+    
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.wompi.sv/api/Regiones",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                    "accept: */*",
+                    "authorization: $token"
+                ),
+            ));
+    
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+    
+            curl_close($curl);
+    
+            if ($err) {
+                return json_decode($err);
+            } else {
+               return json_decode($response);
+            }
+        }
+        return response()->json(['message' => 'Ha ocurrido un error'], 500);
+    }
+
+    function realizarPagoWompi(Request $request) {
+        $token = $this->devolverTokenWompi();
+
+        if ($token !== null) {
+            $curl = curl_init();
+    
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.wompi.sv/TransaccionCompra/3DS",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "grant_type=$grant_type&client_id=$client_id&client_secret=$client_secret&audience=$audience",
+                CURLOPT_HTTPHEADER => array(
+                    "accept: */*",
+                    "authorization: $token"
+                ),
+            ));
+    
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+    
+            curl_close($curl);
+    
+            if ($err) {
+                return json_decode($err);
+            } else {
+               return json_decode($response);
+            }
+        }
+        return response()->json(['message' => 'Ha ocurrido un error'], 500);
     }
 
     ////////////////////////////////CLINICA//////////////////////////////

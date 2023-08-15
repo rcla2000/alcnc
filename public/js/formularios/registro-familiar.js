@@ -11,18 +11,14 @@ const nombres = document.querySelector('#nombres');
 const apellidos = document.querySelector('#apellidos');
 const mes = document.querySelector('#mes');
 const anio = document.querySelector('#anio');
+const selectRegiones = document.querySelector('#region');
+const cp = document.querySelector('#cp');
 let precioDocumento = 0;
-const formatoMes = {
-    mask: '00'
-}
-const formatoAnio = {
-    mask: '0000'
-}
 
 inputCantidad.addEventListener("keypress", soloNumeros);
+cp.addEventListener('keypress', soloNumeros);
 nombres.addEventListener('keypress', soloLetras);
 apellidos.addEventListener('keypress', soloLetras);
-IMask(anio, formatoAnio);
 
 // Material Select Initialization
 $(document).ready(function () {
@@ -36,6 +32,40 @@ $(document).ready(function () {
         max: new Date(fecha.getTime() - 24 * 60 * 60 * 1000),
     });
 });
+
+const peticion = async (url, tipo, encabezados, cuerpo) => {
+    let opciones = {
+        headers: encabezados,
+        method: tipo
+    }
+
+    if (tipo == 'POST' && cuerpo !== null) {
+        opciones.body = cuerpo;
+    }
+
+    try {
+        const response = await fetch(url, opciones);
+        if (response.status === 200) {
+            const data = await response.json();
+            return data;
+        }
+        return false;
+    } catch(error) {
+        console.error(error);
+        return false;
+    }
+}
+
+const obtenerPrecioDocumento = async (idSolicitud) => {
+    const encabezados = {
+        'Content-Type': 'application/json'
+    }
+    const data = await peticion(route('documento.precio', [idSolicitud]), 'GET', encabezados, null);
+    if (data) {
+        return data.precio;
+    }
+    return false;
+}
 
 async function siguienteAtras(siguiente, atras) {
     if (siguiente == "#paso2") {
@@ -75,15 +105,15 @@ async function siguienteAtras(siguiente, atras) {
                     break;
             }
 
-            const data = await obtenerPrecioDocumento(valor);
+            const precio = await obtenerPrecioDocumento(valor);
 
-            if (data) {
-                precioDocumento = data.precio;
+            if (precio) {
+                precioDocumento = precio;
                 $(siguiente).show(400);
                 $(atras).hide(400);
             }
 
-            if (!data) {
+            if (!precio) {
                 $.alert({
                     title: "Error",
                     content: "Ha ocurrido un error inesperado",
@@ -98,25 +128,6 @@ async function siguienteAtras(siguiente, atras) {
     } else {
         $(siguiente).show(400);
         $(atras).hide(400);
-    }
-}
-
-const obtenerPrecioDocumento = async (idSolicitud) => {
-    try {
-        const response = await fetch(route('documento.precio', [idSolicitud]), {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (response.status === 200) {
-            const data = await response.json();
-            return data;
-        }
-        return false;
-    } catch(error) {
-        console.error(error);
-        return false;
     }
 }
 
@@ -142,45 +153,20 @@ const tarjetaVencida = (mes, anio) => {
 }
 
 
-const obtenerTokenWompi = async () => {
-    try {
-        const response = await fetch(route('wompi.token'), {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.getElementsByTagName('meta')['csrf-token'].content 
-            },
-            method: 'POST',
-        });
-
-        if (response.status === 200) {
-            const data = await response.json();
-            return data;
-        }
-        return false;
-    } catch(error) {
-        console.error(error);
-        return false;
+const obtenerRegiones = async () => {
+    const encabezados = {
+        'Content-Type': 'application/json',
     }
+    const regiones = await peticion(route('wompi.regiones'), 'GET', encabezados, null);
+    if (regiones) {
+        return regiones;
+    }
+    return false;
 }
 
-const obtenerRegiones = async (token) => {
-    try {
-        const response = await fetch('https://api.wompi.sv/api/Regiones', {
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': token,
-            },
-        });
-
-        if (response.status === 200) {
-            const data = await response.json();
-            return data;
-        }
-        return false;
-    } catch(error) {
-        console.error(error);
-        return false;
-    }
+const crearOption = (valor, texto) => {
+    const option = `<option value="${valor}">${texto}</option>`;
+    return option;
 }
 
 // Validaciones de campos de formulario de pago
@@ -188,6 +174,7 @@ const validarFormularioPago = async () => {
     const email = document.querySelector('#email');
     const telefono = document.querySelector('#telefono');
     const direccion = document.querySelector('#direccion');
+    const ciudad = document.querySelector('#ciudad');
     const divsErrores = document.querySelectorAll('.mi-error');
     let errores = 0;
 
@@ -196,6 +183,8 @@ const validarFormularioPago = async () => {
     errores += campoRequerido(email, divsErrores[5], 'Ingrese su correo electrónico');
     errores += campoEmail(email, divsErrores[5], 'Ingrese un correo electrónico válido');
     errores += campoRequerido(telefono, divsErrores[6], 'Ingrese su número de teléfono');
+    errores += campoRequerido(ciudad, divsErrores[7], 'Especifique una ciudad');
+    errores += campoRequerido(cp, cp.nextElementSibling, 'Ingrese el código postal');
     errores += campoRequerido(direccion, direccion.nextElementSibling, 'Ingrese su dirección');
 
     if (tarjetaVencida(mes.value, anio.value)) {
@@ -208,16 +197,11 @@ const validarFormularioPago = async () => {
     }
 
     if (errores == 0) {
-       const data = await obtenerTokenWompi();
-       if (data) {
-        console.log(await obtenerRegiones(data.token));
-       }
-    } else {
-        alert('Hay errores');
-    }
+      alert('todo bien');
+    } 
 }
 
-btnEnviar.addEventListener("click", (e) => {
+btnEnviar.addEventListener("click", async (e) => {
     e.preventDefault();
     let errores = 0;
 
@@ -234,6 +218,32 @@ btnEnviar.addEventListener("click", (e) => {
     if (errores == 0) {
         const total = totalPagar(precioDocumento, inputCantidad.value, chkAutentica.checked);
         totalCancelar.textContent = `Total a pagar $${total.toFixed(2)}`;
+
+        // Se mandan a llamar las regiones devueltas por el API Wompi
+        const regiones = await obtenerRegiones();
+        let options = '';
+        if (regiones) {
+            regiones.forEach(region => {
+                region.territorios.forEach(territorio => {
+                    const option = crearOption(`${region.id};${territorio.id}`, `${region.nombre} - ${territorio.nombre}`);
+                    options += option;
+                }) 
+            });
+           selectRegiones.innerHTML = options;
+        }
+ 
+        if (!regiones) {
+            $.alert({
+                title: "Error",
+                content: "Ha ocurrido un error al cargar el formulario de pago.",
+                buttons: {
+                    Aceptar: {
+                        btnClass: "btn-danger",
+                    },
+                },
+            });
+        }
+
         $('#modal-pago').modal('toggle');
         // $.confirm({
         //     title: 'Confirmar información',

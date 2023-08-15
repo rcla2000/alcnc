@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/gestiones/servicios-funerarios/solicitud/estado/{id}', [DashController::class, 'actualizarEstadoSolicitudFuneraria'])->name('gestiones.funeraria.solicitud.estado');
     // Rutas para contribuyentes
     Route::get('/documento/precio/{idSolicitud}', [FormsController::class, 'precioDocumento'])->name('documento.precio');
-    Route::post('/obtener-token-wompi', [FormsController::class, 'devolverTokenWompi'])->name('wompi.token');
+    Route::get('/wompi/regiones', [FormsController::class, 'obtenerRegionesWompi'])->name('wompi.regiones');
     Route::get(
         '/contribuyente/solicitudes', 
         [ContribuyenteController::class, 'solicitudes']
