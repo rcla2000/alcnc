@@ -223,8 +223,33 @@ class FormsController extends Controller
         return response()->json(['message' => 'Ha ocurrido un error'], 500);
     }
 
-    function realizarPagoWompi(Request $request) {
+    function pagoWompiSolicitudFamiliar(Request $request) {
         $token = $this->devolverTokenWompi();
+        $idsRegiones = explode(';', $request->region);
+        $idPais = $idsRegiones[0];
+        $idRegion = $idsRegiones[1];
+       
+        $datos = array(
+            "tarjetaCreditoDebido" => array(
+                "numeroTarjeta" => $request->tarjeta,
+                "cvv" => $request->cvv,
+                "mesVencimiento" => $request->mes,
+                "anioVencimiento" => $request->anio
+            ),
+            "monto" => 0.01,
+            "urlRedirect" => route('tramites', ['idarea' => 1, 'idsol' => 1]),
+            "nombre" => $request->nombres,
+            "apellido" => $request->apellidos,
+            "email" => $request->email,
+            "ciudad" => $request->ciudad,
+            "direccion" => $request->direccion,
+            "idPais" => $idPais,
+            "idRegion" => $idRegion,
+            "codigoPostal" => $request->cp,
+            "telefono" => $request->telefono
+        );
+
+        $json = json_encode($datos);
 
         if ($token !== null) {
             $curl = curl_init();
@@ -237,9 +262,10 @@ class FormsController extends Controller
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => "grant_type=$grant_type&client_id=$client_id&client_secret=$client_secret&audience=$audience",
+                CURLOPT_POSTFIELDS => $json,
                 CURLOPT_HTTPHEADER => array(
-                    "accept: */*",
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($json),
                     "authorization: $token"
                 ),
             ));
@@ -250,12 +276,17 @@ class FormsController extends Controller
             curl_close($curl);
     
             if ($err) {
-                return json_decode($err);
+                Alert::error('Error', 'No se pudo realizar el pago. Ha ocurrido un error.');
             } else {
-               return json_decode($response);
+                // Si la transacción del pago fue exitosa
+                Alert::success('Información', 'Su pago ha sido efectuado con éxito. Monto: $' . json_decode($response)->monto);
+                $this->regTramite($request);
             }
+
+            return back();
         }
-        return response()->json(['message' => 'Ha ocurrido un error'], 500);
+        Alert::error('Error', 'No se pudo realizar el pago. Ha ocurrido un error');
+        return back();
     }
 
     ////////////////////////////////CLINICA//////////////////////////////

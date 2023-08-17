@@ -50,6 +50,10 @@ Route::middleware(['auth'])->group(function() {
     // Rutas para contribuyentes
     Route::get('/documento/precio/{idSolicitud}', [FormsController::class, 'precioDocumento'])->name('documento.precio');
     Route::get('/wompi/regiones', [FormsController::class, 'obtenerRegionesWompi'])->name('wompi.regiones');
+    Route::post(
+        '/wompi/pagos/solicitudes/estado-familiar', 
+        [FormsController::class, 'pagoWompiSolicitudFamiliar']
+    )->name('wompi.pago.registro-familiar');
     Route::get(
         '/contribuyente/solicitudes', 
         [ContribuyenteController::class, 'solicitudes']

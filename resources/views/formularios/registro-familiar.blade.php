@@ -20,23 +20,23 @@
 @endsection
 
 @section('content')
-    <div class="fondo" style="background-image: url({{ $servicio->imgbg }})">
-        <div class="container zindex">
-            <div class="row justify-content-center align-items-center mt-menu-2 mb-5">
-                <div class="col-md-7 ">
-                    <!-- Material form contact -->
-                    <div class="card ">
-                        <h5 class="card-header info-color white-text text-center py-4">
-                            <strong>Solicitud de Partidas y Documentos</strong>
-                        </h5>
+    <form action="{{ route('wompi.pago.registro-familiar') }}" method="POST" id="frm-pago">
+        @csrf
+        <div class="fondo" style="background-image: url({{ $servicio->imgbg }})">
+            <div class="container zindex">
+                <div class="row justify-content-center align-items-center mt-menu-2 mb-5">
+                    <div class="col-md-7 ">
+                        <!-- Material form contact -->
+                        <div class="card ">
+                            <h5 class="card-header info-color white-text text-center py-4">
+                                <strong>Solicitud de Partidas y Documentos</strong>
+                            </h5>
 
-                        <!--Card content-->
-                        <div class="card-body px-lg-5 pt-0 pt-4">
-                            <p>Nombre del solicitante: <strong>{{ auth()->user()->name }}</strong></p>
-                            <p>DUI: <strong>{{ auth()->user()->dui }}</strong></p>
-                            <!-- Form -->
-                            <form class="text-center" action="{{ route('regSolicitud') }}" method="POST" id="registroForm">
-                                @csrf
+                            <!--Card content-->
+                            <div class="card-body px-lg-5 pt-0 pt-4">
+                                <p>Nombre del solicitante: <strong>{{ auth()->user()->name }}</strong></p>
+                                <p>DUI: <strong>{{ auth()->user()->dui }}</strong></p>
+                                <!-- Form -->
                                 <section id="paso1">
                                     <input type="hidden" name="dui" value="{{ auth()->user()->dui }}">
                                     <input type="hidden" name="area" value="{{ $idarea }}">
@@ -128,158 +128,20 @@
                                         <i class="fa-solid fa-check mr-2"></i>
                                         Enviar solicitud
                                     </button>
-                                    </button>
-                                    <!-- Button trigger modal -->
                                 </section>
-                            </form>
-                            <!-- Form -->
-
-                        </div>
-
-                    </div>
-                    <!-- Material form contact -->
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal-pago" tabindex="-1" role="dialog" aria-labelledby="modal-label"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header info-color white-text text-center py-4">
-                    <h5 class="modal-title" id="modal-label">
-                        <b>
-                            Formulario de pago
-                        </b>
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-9">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-regular fa-credit-card input-prefix"></i>
-                                <label for="tarjeta">Número de tarjeta</label>
-                                <input type="text" id="tarjeta" class="form-control">
+                                <!-- Form -->
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="md-form">
-                                <label for="cvv">CVV</label>
-                                <input type="text" id="cvv" class="form-control">
-                            </div>
-                        </div>
+                        <!-- Material form contact -->
                     </div>
-                    <div class="row">
-                        <div class="col-12 m-0">
-                            <span><b>Vencimiento de la tarjeta</b></span>
-                        </div>
-                        <div class="col-6">
-                            <label class="mdb-main-label" for="mes">Mes</label>
-                            <select class="mdb-select md-form" id="mes">
-                                @for ($i = 1; $i <= 12; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                            <div class="mi-error"></div>
-                        </div>
-                        <div class="col-6">
-                            <label class="mdb-main-label" for="anio">Año</label>
-                            <select class="mdb-select md-form" id="anio">
-                                @for ($i = date('Y'); $i <= date('Y') + 20; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                            <div class="mi-error"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-solid fa-user input-prefix"></i>
-                                <label for="nombres">Nombres</label>
-                                <input type="text" id="nombres" class="form-control">
-                            </div>
-                            <div class="mi-error"></div>
-                        </div>
-                        <div class="col-6">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-solid fa-user input-prefix"></i>
-                                <label for="apellidos">Apellidos</label>
-                                <input type="text" id="apellidos" class="form-control">
-                            </div>
-                            <div class="mi-error"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-regular fa-envelope input-prefix"></i>
-                                <label for="email">Correo electrónico:</label>
-                                <input type="email" id="email" class="form-control">
-                            </div>
-                            <div class="mi-error"></div>
-                        </div>
-                        <div class="col-6">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-solid fa-mobile input-prefix"></i>
-                                <label for="telefono">Teléfono:</label>
-                                <input type="tel" id="telefono" class="form-control">
-                            </div>
-                            <div class="mi-error"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label class="mdb-main-label" for="region">Región</label>
-                            <select class="mdb-select md-form" id="region" searchable="Buscar aquí.." required>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="md-form input-with-post-icon">
-                                <i class="fa-solid fa-location-dot input-prefix"></i>
-                                <label for="ciudad">Ciudad:</label>
-                                <input type="text" id="ciudad" class="form-control">
-                            </div>
-                            <div class="mi-error"></div>
-                        </div>
-                        <div class="col-4">
-                            <div class="md-form">
-                                <label for="cp">Código postal:</label>
-                                <input type="text" id="cp" class="form-control">
-                                <div class="invalid-feedback"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="md-form">
-                                <label for="direccion">Dirección</label>
-                                <textarea id="direccion" class="md-textarea form-control" rows="3"></textarea>
-                                <div class="invalid-feedback"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="total" id="totalCancelar"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="btn-pago">Aceptar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Modal pago -->
+        @include('partials.modal-pago')
+        <!-- Fin modal pago -->
+    </form>
 @endsection
 
 @section('scripts')

@@ -3,7 +3,6 @@ const inputNombre = document.querySelector("#nombreDocumento");
 const fechaNacimiento = document.querySelector("#fechaDoc");
 const btnEnviar = document.querySelector("#btn-enviar-solicitud");
 const errorFechaNacimiento = document.querySelector("#error-fecha-nacimiento");
-const formulario = document.querySelector("#registroForm");
 const chkAutentica = document.querySelector('#autentica');
 const totalCancelar = document.querySelector('#totalCancelar');
 const btnPagar = document.querySelector('#btn-pago');
@@ -13,6 +12,7 @@ const mes = document.querySelector('#mes');
 const anio = document.querySelector('#anio');
 const selectRegiones = document.querySelector('#region');
 const cp = document.querySelector('#cp');
+const formPago = document.querySelector('#frm-pago');
 let precioDocumento = 0;
 
 inputCantidad.addEventListener("keypress", soloNumeros);
@@ -170,7 +170,10 @@ const crearOption = (valor, texto) => {
 }
 
 // Validaciones de campos de formulario de pago
-const validarFormularioPago = async () => {
+const validarFormularioPago = async (e) => {
+    // Se evita el envío del formulario;
+    e.preventDefault();
+
     const email = document.querySelector('#email');
     const telefono = document.querySelector('#telefono');
     const direccion = document.querySelector('#direccion');
@@ -197,7 +200,31 @@ const validarFormularioPago = async () => {
     }
 
     if (errores == 0) {
-      alert('todo bien');
+        $.confirm({
+            title: 'Confirmar información',
+            content: '¿Está seguro/a que desea confirmar el pago de su solicitud?',
+            buttons: {
+                si: {
+                    text: 'SÍ',
+                    btnClass: 'btn-success',
+                    keys: ['enter', 'shift'],
+                    action: function(){
+                        formPago.submit();
+                    }
+                },
+                no: {
+                    text: 'NO',
+                    btnClass: 'btn-danger',
+                    keys: ['enter', 'shift'],
+                    action: function(){
+                        $.alert({
+                            title: 'Información',
+                            content: 'Acción cancelada',
+                        });
+                    }
+                }
+            }
+        });
     } 
 }
 
@@ -219,59 +246,36 @@ btnEnviar.addEventListener("click", async (e) => {
         const total = totalPagar(precioDocumento, inputCantidad.value, chkAutentica.checked);
         totalCancelar.textContent = `Total a pagar $${total.toFixed(2)}`;
 
-        // Se mandan a llamar las regiones devueltas por el API Wompi
-        const regiones = await obtenerRegiones();
-        let options = '';
-        if (regiones) {
-            regiones.forEach(region => {
-                region.territorios.forEach(territorio => {
-                    const option = crearOption(`${region.id};${territorio.id}`, `${region.nombre} - ${territorio.nombre}`);
-                    options += option;
-                }) 
-            });
-           selectRegiones.innerHTML = options;
-        }
- 
-        if (!regiones) {
-            $.alert({
-                title: "Error",
-                content: "Ha ocurrido un error al cargar el formulario de pago.",
-                buttons: {
-                    Aceptar: {
-                        btnClass: "btn-danger",
+        // Se mandan a llamar las regiones devueltas por el API Wompi solo si no se han cargado previamente
+        // if (!selectRegiones.hasChildNodes()) {
+            const regiones = await obtenerRegiones();
+            if (regiones) {
+                let options = '';
+                regiones.forEach(region => {
+                    region.territorios.forEach(territorio => {
+                        const option = crearOption(`${region.id};${territorio.id}`, `${region.nombre} - ${territorio.nombre}`);
+                        options += option;
+                    }) 
+                });
+                selectRegiones.innerHTML = options;
+            }
+
+            if (!regiones) {
+                $.alert({
+                    title: "Error",
+                    content: "Ha ocurrido un error al cargar el formulario de pago.",
+                    buttons: {
+                        Aceptar: {
+                            btnClass: "btn-danger",
+                        },
                     },
-                },
-            });
-        }
+                });
+            }
+        // }
 
         $('#modal-pago').modal('toggle');
-        // $.confirm({
-        //     title: 'Confirmar información',
-        //     content: '¿Esta seguro/a que desea enviar la solicitud?',
-        //     buttons: {
-        //         si: {
-        //             text: 'SÍ',
-        //             btnClass: 'btn-success',
-        //             keys: ['enter', 'shift'],
-        //             action: function(){
-        //                 formulario.submit();
-        //             }
-        //         },
-        //         no: {
-        //             text: 'NO',
-        //             btnClass: 'btn-danger',
-        //             keys: ['enter', 'shift'],
-        //             action: function(){
-        //                 $.alert({
-        //                     title: 'Información',
-        //                     content: 'No se envió su información',
-        //                 });
-        //             }
-        //         }
-        //     }
-        // });
     }
 });
 
-btnPagar.addEventListener('click', validarFormularioPago);
+formPago.addEventListener('submit', validarFormularioPago);
 
