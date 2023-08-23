@@ -27,13 +27,13 @@
                     Fecha: <strong> {{ date('d-m-Y h:i:s') }} </strong>
                 </div>
                 <div class="col-md-6">
-                    Tipo de Solicitud: <strong>{{ $solicitud->solicitud }}</strong>
+                    Tipo de Solicitud: <strong>{{ $solicitud->cat_tipo_solicitud->desc_solicitud }}</strong>
                 </div>
                 <div class="col-md-4">
-                    Nombre:<strong> {{ $solicitud->nombre }} </strong>
+                    Nombre:<strong> {{ $solicitud->nombre_documento }} </strong>
                 </div>
                 <div class="col-md-2">
-                    DUI:<strong> {{ $solicitud->dui }} </strong>
+                    DUI:<strong> {{ $solicitud->dui_solicitante }} </strong>
                 </div>
 
                 <div class="col-md-12">
@@ -57,28 +57,25 @@
                         </thead>
                         <tbody>
                             <tr id="fila-informacion">
-                                @foreach ($cargos as $item)
-                                    <td>{{ $item->impuesto }}</td>
-                                    <td>@money($item->precio * 100, 'USD')</td>
-                                    <td>{{ $item->cantidad }}</td>
-                                    <td data-toggle="tooltip"
-                                    data-placement="top" title="Sin impuesto">$0.00</td>
-                                    <td>@money($item->subtotal * 100, 'USD')</td>
-                                    <td class="text-center">
-                                        <a class="btn-floating btn-sm btn-success" data-toggle="tooltip"
-                                            data-placement="top" title="Agregar cantidad" id="btn-agregar">
-                                            <i class="fas fa-plus"></i>
-                                        </a> 
-                                        <a class="btn-floating btn-sm btn-danger" data-toggle="tooltip"
-                                            data-placement="top" title="Reducir cantidad" id="btn-reducir">
-                                            <i class="fas fa-minus"></i>
-                                        </a>
-                                        <a class="btn-floating btn-sm btn-warning" data-toggle="tooltip"
-                                            data-placement="top" title="Remover impuesto" id="btn-eliminar-impuesto">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                    </td>
-                                @endforeach
+                                <td>{{ $solicitud->cat_tipo_solicitud->desc_solicitud }}</td>
+                                <td>@money($solicitud->precio * 100, 'USD')</td>
+                                <td>{{ $solicitud->cantidad }}</td>
+                                <td data-toggle="tooltip" data-placement="top" title="Sin impuesto">$0.00</td>
+                                <td>@money($item->cantidad * 100, 'USD')</td>
+                                <td class="text-center">
+                                    <a class="btn-floating btn-sm btn-success" data-toggle="tooltip" data-placement="top"
+                                        title="Agregar cantidad" id="btn-agregar">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                    <a class="btn-floating btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
+                                        title="Reducir cantidad" id="btn-reducir">
+                                        <i class="fas fa-minus"></i>
+                                    </a>
+                                    <a class="btn-floating btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
+                                        title="Remover impuesto" id="btn-eliminar-impuesto">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -101,6 +98,5 @@
 
 @endsection
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('js/dashboard/gestiones/estado-familiar/mandamiento-pago.js') }}">
-    </script>
+    <script type="text/javascript" src="{{ asset('js/dashboard/gestiones/estado-familiar/mandamiento-pago.js') }}"></script>
 @endsection

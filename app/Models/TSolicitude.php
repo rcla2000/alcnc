@@ -46,13 +46,16 @@ class TSolicitude extends Model
 		'tipo_solicitud' => 'int',
 		'cantidad' => 'int',
 		'fecha_documento' => 'date',
-		'autentica' => 'int',
+		'autentica' => 'float',
 		'porc_fiesta' => 'float',
 		'fecha_solicitud' => 'date',
 		'fecha_resolucion' => 'date',
 		'observacion' => 'date',
 		'estado_solicitud' => 'int',
-		'fecha_actualizacion' => 'date'
+		'fecha_actualizacion' => 'date',
+		'id_area' => 'int',
+		'id_direccion' => 'int',
+		'precio' => 'float'
 	];
 
 	protected $fillable = [

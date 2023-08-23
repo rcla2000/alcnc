@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\VwDetaSolicitude;
-use App\Models\VwCargo;
-use App\Models\CArancele;
 use App\Models\PagoSolicitud;
 use App\Models\SolicitudesCatastro;
 use App\Models\TSolicitude;
@@ -121,8 +119,8 @@ class DashController extends Controller
         $totalSolicitudes = $solicitudes + $solFuneraria + $solMobililiario + $solCatastro;
         $totalSolPendientes = $solPendientes + $solFunPendientes + $solMobPendientes + $solCatPendientes;
 
-        $pagosRecolectados = PagoSolicitud::select(DB::raw('sum(cantidad * precio) as total'))->first()->total ?? 0;
-        $pagosPendientes = TSolicitude::select(DB::raw('SUM(t_solicitudes.cantidad*c_aranceles.precio) as total'))
+        $pagosRecolectados = TSolicitude::select(DB::raw('SUM((precio + autentica) * cantidad) as total'))->first()->total;
+        $pagosPendientes = TSolicitude::select(DB::raw('SUM((c_aranceles.precio+t_solicitudes.autentica)*t_solicitudes.cantidad) as total'))
             ->join(
                 'cat_tipo_solicitudes', 
                 't_solicitudes.tipo_solicitud',
@@ -135,7 +133,7 @@ class DashController extends Controller
                 '=',
                 'c_aranceles.id_arancel'
             )
-            ->where('t_solicitudes.estado_solicitud', '!=', 4)
+            ->where('t_solicitudes.estado_solicitud', 2)
             ->first()
             ->total ?? 0;
 
@@ -236,11 +234,8 @@ class DashController extends Controller
     function solicitudesEstadoFamiliar() {
         $totalSolicitudes = TSolicitude::all()->count();
         $totalSolPendientes = TSolicitude::where('estado_solicitud', '!=', 4)->get()->count();
-        $pagosRecolectados = PagoSolicitud::select(DB::raw('sum(cantidad * precio) as total'))
-            ->where('id_area', 1)
-            ->first()
-            ->total ?? 0;
-        $pagosPendientes = TSolicitude::select(DB::raw('SUM(t_solicitudes.cantidad*c_aranceles.precio) as total'))
+        $pagosRecolectados = TSolicitude::select(DB::raw('SUM((precio + autentica) * cantidad) as total'))->first()->total;
+        $pagosPendientes = TSolicitude::select(DB::raw('SUM((c_aranceles.precio+t_solicitudes.autentica)*t_solicitudes.cantidad) as total'))
             ->join(
                 'cat_tipo_solicitudes', 
                 't_solicitudes.tipo_solicitud',
@@ -253,7 +248,7 @@ class DashController extends Controller
                 '=',
                 'c_aranceles.id_arancel'
             )
-            ->where('t_solicitudes.estado_solicitud', '!=', 4)
+            ->where('t_solicitudes.estado_solicitud', 2)
             ->first()
             ->total ?? 0;
 
@@ -428,9 +423,7 @@ class DashController extends Controller
     
     function mandamiento($id)
     {
-        $solicitud  = VwDetaSolicitude::where('id', $id)->first();
-        $cargos = VwCargo::where('id', $id)->get();
-        $aranceles = CArancele::where('id_arancel', '<>', 3)->get();
-        return view('administracion.mandamiento-pago', compact('solicitud', 'cargos', 'aranceles'));
+        $solicitud = TSolicitude::findOrFail($id);
+        return view('administracion.mandamiento-pago', compact('solicitud'));
     }
 }

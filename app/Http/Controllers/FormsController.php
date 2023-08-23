@@ -95,33 +95,21 @@ class FormsController extends Controller
             $solicitud->nombre_documento = $req->nombreDocumento;
             $solicitud->fecha_documento =  $fechaDoc = $this->convertirFormatoFecha($req->fechaDoc);
 
+            // Se verifica si se agrega el costo extra de (auténtica)
             if ($aut == null) {
                 $solicitud->autentica = 0;
             } else {
-                $solicitud->autentica = 1;
+                $arancel = CArancele::where('id_arancel', 4)->first()->precio;
+                $solicitud->autentica = $arancel;
             }
             
             $solicitud->desc_solicitud = $req->comentario;
             $solicitud->estado_solicitud = 1;
+            $solicitud->id_area = 1;
+            $solicitud->id_direccion = 2;
             $solicitud->usuario_actualizacion = auth()->user()->name;
+            $solicitud->precio = $solicitud->cat_tipo_solicitud->arancel->precio;
             $solicitud->save();
-    
-            // Se almacena el pago de la solicitud
-            $pago = new PagoSolicitud();
-            $pago->id_solicitud = $solicitud->id_solicitud;
-            $pago->id_area = 1;
-            $pago->id_direccion = 2;
-            $pago->cantidad = $solicitud->cantidad;
-
-            // Se verifica si se agrega el costo extra de (auténtica)
-            if ($solicitud->autentica == 1) {
-                $arancel = CArancele::where('id_arancel', 4)->first()->precio;
-                $pago->precio = $solicitud->cat_tipo_solicitud->arancel->precio + $arancel;
-            } else {
-                $pago->precio = $solicitud->cat_tipo_solicitud->arancel->precio;
-            }
-            
-            $pago->save();
 
             DB::commit();
             Alert::success('Información', 'Su solicitud de documentos ha sido enviada de forma exitosa.');
