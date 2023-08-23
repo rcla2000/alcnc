@@ -44,7 +44,7 @@
                 <div class="px-4">
                     <div class="table-wrapper">
                         <!--Table-->
-                        <table id="dtBasicExample" class="table table-hover mb-0">
+                        <table id="tabla-solicitudes" class="table table-sm table-hover mb-0">
                             <!--Table head-->
                             <thead class="text-center">
                                 <tr>
@@ -52,10 +52,10 @@
                                         Acciones
                                     </th>
                                     <th class="th-sm">
-                                        Nombre
+                                        DUI
                                     </th>
                                     <th class="th-sm">
-                                        Solicitud
+                                        Nombre documento
                                     </th>
                                     <th class="th-sm">
                                         Fecha de solictud
@@ -69,38 +69,6 @@
 
                             <!--Table body-->
                             <tbody>
-                                @foreach ($lista as $item)
-                                    <tr>
-                                        <td class="text-center">
-                                            <a class="btn-floating btn-sm btn-default" data-toggle="tooltip"
-                                                onclick="detaSoli({{ $item->id }})" data-placement="top"
-                                                title="Ver detalles de solicitud"><i class="fas fa-eye"></i></a>
-
-                                            <a class="btn-floating btn-sm btn-light-green"
-                                                href="{{ route('mandamiento', $item->id) }}" data-toggle="tooltip"
-                                                data-placement="top" title="Procesar solicitud"><i class="fas fa-pen"></i>
-                                            </a>
-                                        </td>
-                                        <td>{{ $item->name }}</td>
-                                        <td>{{ $item->solicitud }}</td>
-                                        <td>{{ date('d/m/Y', strtotime($item->fecha)) }}</td>
-                                        <td class="text-center">
-                                            @switch($item->estado)
-                                              @case('Abierta')
-                                                <span class="badge badge-warning">
-                                              @break
-                                              @case('Pendiente de pago')
-                                                <span class="badge badge-info">
-                                              @break
-                                              @case('Completada')
-                                                <span class="badge badge-success ">
-                                              @break
-                                              @default
-                                              <span class="badge badge-danger ">
-                                            @endswitch {{ $item->estado }}</span>
-                                        </td>
-                                    </tr>
-                                @endforeach
                             </tbody>
                             <!--Table body-->
                         </table>
@@ -111,38 +79,11 @@
             <!-- Table with panel -->
         </div>
     </div>
-
 @endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#dtBasicExample').DataTable();
-            $('.dataTables_length').addClass('bs-select');
-        });
-        // Tooltips Initialization
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
 
-        function detaSoli(idSoli) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.post("/detalle-gestion", {
-                    id: idSoli
-                },
-                function(data, status) {
-                    $('#detalleSolicitud').empty();
-                    $('#detalleSolicitud').html(data);
-                    $('#centralModalSm').modal('toggle')
-                }).fail(function(e) {
-                console.log(e);
-                alert("error: " + e);
-            });
-        }
-    </script>
+@section('scripts')
+    <script type="text/javascript" src="{{ asset('js/dashboard/gestiones/estado-familiar/solicitudes.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dashboard/gestiones/extras-dt.js') }}"></script>
 @endsection
 
 
@@ -155,7 +96,7 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title w-100" id="myModalLabel">Detalles de solicitud</h4>
+                    <h4 class="modal-title w-100" id="myModalLabel"><b>Detalles de solicitud</b></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
