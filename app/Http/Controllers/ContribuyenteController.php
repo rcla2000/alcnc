@@ -38,10 +38,7 @@ class ContribuyenteController extends Controller
 
     public function detalleSolicitudEstadoFamiliar($id) {
         $solicitud = TSolicitude::findOrFail($id);
-        $pago = PagoSolicitud::where('id_area', 1)
-            ->where('id_direccion', 2)
-            ->where('id_solicitud', $id)
-            ->first();
+        $pago = ($solicitud->precio + $solicitud->autentica)*$solicitud->cantidad;
         return view('contribuyente.detalle-sol-familiar', compact('solicitud', 'pago'));
     }
 

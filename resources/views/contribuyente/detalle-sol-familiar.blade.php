@@ -49,8 +49,8 @@
                     <span>
                         <i class="fa-regular fa-circle-dot mr-2"></i>
                         <b>Costo:</b>
-                        @if ($pago !== null)
-                            ${{ number_format($pago->cantidad * $pago->precio, 2) }}
+                        @if ($pago != 0)
+                            ${{ number_format($pago, 2) }}
                         @else  
                             Pendiente de pago
                         @endif
