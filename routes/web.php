@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormsController;
 use App\Http\Controllers\DashController;
+use App\Http\Controllers\UsuariosController;
 use Illuminate\Support\Facades\Http;
 
 /*
@@ -47,6 +48,11 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/mandamiento-pago/{id}', [DashController::class,'mandamiento'])->name('mandamiento');
     Route::get('/gestiones/servicios-funerarios/solicitud/{id}', [DashController::class, 'gestionDetalleSolicitudFuneraria'])->name('gestiones.funeraria.solicitud');
     Route::post('/gestiones/servicios-funerarios/solicitud/estado/{id}', [DashController::class, 'actualizarEstadoSolicitudFuneraria'])->name('gestiones.funeraria.solicitud.estado');
+    
+    // Rutas para gestión de usuarios
+    Route::view('/gestiones/usuarios/', 'administracion.gestiones.usuarios.inicio')->name('gestiones.usuarios');
+    Route::get('/gestiones/usuarios/listar', [UsuariosController::class, 'listar'])->name('gestiones.usuarios.listar');
+    
     // Rutas para contribuyentes
     Route::get('/documento/precio/{idSolicitud}', [FormsController::class, 'precioDocumento'])->name('documento.precio');
     Route::get('/wompi/regiones', [FormsController::class, 'obtenerRegionesWompi'])->name('wompi.regiones');
