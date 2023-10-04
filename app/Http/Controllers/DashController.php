@@ -24,7 +24,6 @@ class DashController extends Controller
         $filtros = Area::whereIn(
             'descripcion', 
             [
-                'Catastro', 
                 'Registro del Estado Familiar', 
                 'Mobiliario', 
                 'Servicios Funerarios'
