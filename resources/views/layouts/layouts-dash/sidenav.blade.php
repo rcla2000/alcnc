@@ -35,7 +35,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class=" waves-effect"><i class="fas fa-tasks"></i>Generar Solicitudes</a>
                     </li>
                     <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-file-pdf"></i>
@@ -64,7 +64,7 @@
                     </li>
                     <li><a class=" waves-effect"><i class="far fa-envelope"></i>Tickets IT</a>
 
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             <!--/. Side navigation links -->
