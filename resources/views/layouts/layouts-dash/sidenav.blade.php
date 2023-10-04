@@ -23,7 +23,7 @@
                                     <a 
                                         href="{{ route('gestiones.estadoFamiliar') }}" 
                                         class="waves-effect {{ request()->is('gestiones/estado-familiar') ? 'active' : '' }}"
-                                    >Registro del estado Familiar</a>
+                                    >Registro del estado familiar</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('gestiones.mobiliario') }}" class="waves-effect  {{ request()->is('gestiones/mobiliario') ? 'active' : '' }}">Mobiliario</a>
